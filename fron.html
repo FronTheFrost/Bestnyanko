@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>냥코대전쟁 속성별 공략 가이드</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --box-bg: #282828;
+            --text-color: #ffffff;
+            --accent-color: #ffcc00;
+            --border-color: #3d3d3d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px 12px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-top: 10px;
+            margin-bottom: 25px;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        /* 1. 상단 10개 속성 아이콘 Grid */
+        .attribute-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto 20px auto;
+        }
+
+        .attr-btn {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+            transition: transform 0.08s ease, border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .attr-btn:hover {
+            border-color: #666;
+            background-color: #252525;
+        }
+
+        .attr-btn:active {
+            transform: scale(0.92);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .attr-btn.selected {
+            border-color: var(--accent-color);
+            background-color: #2a2a24;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.25);
+        }
+
+        .attr-icon {
+            width: 100%;
+            max-width: 85px;
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
+            pointer-events: none;
+        }
+
+        /* 2. 토글 박스 (속성별 Top 5) */
+        .content-box {
+            max-width: 650px;
+            margin: 0 auto 30px auto;
+            background-color: var(--box-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+            display: none;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+
+        .content-box.active {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .attr-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 8px 14px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .attr-header img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .attr-header .attr-title-text {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .section-title {
+            color: #ffffff;
+            border-bottom: 1px solid #444;
+            padding-bottom: 6px;
+            margin-top: 16px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .character-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        .character-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 6px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .char-img {
+            width: 100%;
+            max-width: 104px;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 4px;
+            background-color: #000;
+        }
+
+        .char-name {
+            font-size: 11px;
+            margin-top: 5px;
+            font-weight: 600;
+            word-break: keep-all;
+            color: #ddd;
+            line-height: 1.2;
+        }
+
+        /* 3. 고급 링크 버튼 디자인 */
+        .link-btn-container {
+            display: flex;
+            gap: 12px;
+            max-width: 500px;
+            margin: 35px auto 15px auto;
+        }
+
+        .link-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -0.3px;
+            transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .link-btn:active {
+            transform: translateY(2px) scale(0.98);
+        }
+
+        /* 고급 유튜브 버튼 (다크 레드 그라데이션) */
+        .youtube-btn {
+            background: linear-gradient(135deg, #e60000 0%, #990000 100%);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(230, 0, 0, 0.25);
+        }
+
+        .youtube-btn:hover {
+            box-shadow: 0 6px 20px rgba(230, 0, 0, 0.4);
+        }
+
+        /* 고급 카카오/오픈채팅 버튼 (리치 옐로우 그라데이션) */
+        .kakao-btn {
+            background: linear-gradient(135deg, #ffe812 0%, #f7c600 100%);
+            color: #222222;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(254, 229, 0, 0.2);
+        }
+
+        .kakao-btn:hover {
+            box-shadow: 0 6px 20px rgba(254, 229, 0, 0.35);
+        }
+
+        .btn-icon {
+            font-size: 15px;
+        }
+
+        /* 4. 하단 안내 문구 박스 */
+        .notice-box {
+            max-width: 500px;
+            margin: 0 auto 30px auto;
+            background-color: #161616;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 14px 16px;
+            text-align: center;
+        }
+
+        .notice-box p {
+            margin: 3px 0;
+            font-size: 12px;
+            color: #a0a0a0;
+            line-height: 1.5;
+        }
+
+        .notice-box p.highlight {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>냥코대전쟁 속성별 공략 가이드</h1>
+
+    <!-- 10개 속성 버튼 영역 -->
+    <div class="attribute-container">
+        <button class="attr-btn" onclick="toggleTab('red')">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/219.png" class="attr-icon">
+        </button>
+        <button class="attr-btn" onclick="toggleTab('floating')">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/220.png" class="attr-icon">
+        </button>
+        <button class="attr-btn" onclick="toggleTab('black')">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/221.png" class="attr-icon">
+        </button>
+        <button class="attr-btn" onclick="toggleTab('metal')">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/222.png" class="attr-icon">
+        </button>
+        <button class="attr-btn" onclick="toggleTab('angel')">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/223.png" class="attr-icon">
+        </button>
+        <button class="attr-btn" onclick="toggleTab('alien')">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/224.png" class="attr-icon">
+        </button>
+        <button class="attr-btn" onclick="toggleTab('zombie')">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/225.png" class="attr-icon">
+        </button>
+        <button class="attr-btn" onclick="toggleTab('relic')">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/226.png" class="attr-icon">
+        </button>
+        <button class="attr-btn" onclick="toggleTab('aku')">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/294.png" class="attr-icon">
+        </button>
+        <button class="attr-btn" onclick="toggleTab('white')">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/227.png" class="attr-icon">
+        </button>
+    </div>
+
+    <!-- 1. 🔴 빨간 적 -->
+    <div id="red" class="content-box">
+        <div class="attr-header">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/219.png">
+            <span class="attr-title-text">빨간 적</span>
+        </div>
+        <div class="section-title">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 1</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 5</div></div>
+        </div>
+        <div class="section-title">탱커 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="https://shadowgao42.github.io/nyankodb/img/u/61/2.png" class="char-img"><div class="char-name">고양이 연어알</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 5</div></div>
+        </div>
+    </div>
+
+    <!-- 2. ☁️ 떠있는 적 -->
+    <div id="floating" class="content-box">
+        <div class="attr-header">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/220.png">
+            <span class="attr-title-text">떠있는 적</span>
+        </div>
+        <div class="section-title">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 1</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 5</div></div>
+        </div>
+        <div class="section-title">탱커 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 1</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 5</div></div>
+        </div>
+    </div>
+
+    <!-- 3. ⚫ 검은 적 -->
+    <div id="black" class="content-box">
+        <div class="attr-header">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/221.png">
+            <span class="attr-title-text">검은 적</span>
+        </div>
+        <div class="section-title">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 1</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 5</div></div>
+        </div>
+        <div class="section-title">탱커 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 1</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 5</div></div>
+        </div>
+    </div>
+
+    <!-- 4. ⚙️ 메탈 적 -->
+    <div id="metal" class="content-box">
+        <div class="attr-header">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/222.png">
+            <span class="attr-title-text">메탈 적</span>
+        </div>
+        <div class="section-title">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 1</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 5</div></div>
+        </div>
+        <div class="section-title">탱커 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 1</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 5</div></div>
+        </div>
+    </div>
+
+    <!-- 5. 👼 천사 -->
+    <div id="angel" class="content-box">
+        <div class="attr-header">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/223.png">
+            <span class="attr-title-text">천사</span>
+        </div>
+        <div class="section-title">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 1</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 5</div></div>
+        </div>
+        <div class="section-title">탱커 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="https://shadowgao42.github.io/nyankodb/img/u/534/2.png" class="char-img"><div class="char-name">G데스 하데스</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 5</div></div>
+        </div>
+    </div>
+
+    <!-- 6. 👽 에이리언 -->
+    <div id="alien" class="content-box">
+        <div class="attr-header">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/224.png">
+            <span class="attr-title-text">에이리언</span>
+        </div>
+        <div class="section-title">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 1</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 5</div></div>
+        </div>
+        <div class="section-title">탱커 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="https://shadowgao42.github.io/nyankodb/img/u/534/2.png" class="char-img"><div class="char-name">G데스 하데스</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 5</div></div>
+        </div>
+    </div>
+
+    <!-- 7. 🧟 좀비 -->
+    <div id="zombie" class="content-box">
+        <div class="attr-header">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/225.png">
+            <span class="attr-title-text">좀비</span>
+        </div>
+        <div class="section-title">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 1</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 5</div></div>
+        </div>
+        <div class="section-title">탱커 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="https://shadowgao42.github.io/nyankodb/img/u/534/2.png" class="char-img"><div class="char-name">G데스 하데스</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 5</div></div>
+        </div>
+    </div>
+
+    <!-- 8. 📜 고대종 -->
+    <div id="relic" class="content-box">
+        <div class="attr-header">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/226.png">
+            <span class="attr-title-text">고대종</span>
+        </div>
+        <div class="section-title">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 1</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 5</div></div>
+        </div>
+        <div class="section-title">탱커 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 1</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 5</div></div>
+        </div>
+    </div>
+
+    <!-- 9. 😈 악마 -->
+    <div id="aku" class="content-box">
+        <div class="attr-header">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/294.png">
+            <span class="attr-title-text">악마</span>
+        </div>
+        <div class="section-title">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="https://shadowgao42.github.io/nyankodb/img/u/261/2.png" class="char-img"><div class="char-name">섬멸 송골매</div></div>
+            <div class="character-card"><img src="https://shadowgao42.github.io/nyankodb/img/u/749/1.png" class="char-img"><div class="char-name">사이토 하지메CC</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 5</div></div>
+        </div>
+        <div class="section-title">탱커 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 1</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 5</div></div>
+        </div>
+    </div>
+
+    <!-- 10. ⚪ 속성이 없는 적 -->
+    <div id="white" class="content-box">
+        <div class="attr-header">
+            <img src="https://shadowgao42.github.io/nyankodb/img/i/227.png">
+            <span class="attr-title-text">속성이 없는 적</span>
+        </div>
+        <div class="section-title">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 1</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">딜러 5</div></div>
+        </div>
+        <div class="section-title">탱커 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="https://shadowgao42.github.io/nyankodb/img/u/534/2.png" class="char-img"><div class="char-name">G데스 하데스</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 2</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 3</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 4</div></div>
+            <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 5</div></div>
+        </div>
+    </div>
+
+    <!-- 외부 링크 버튼 (유튜브 / 오픈채팅방) -->
+    <div class="link-btn-container">
+        <a href="여기에_유튜브_링크_주소" target="_blank" class="link-btn youtube-btn">
+            <span class="btn-icon">▶</span> 디디잇 유튜브 구독
+        </a>
+        <a href="여기에_오픈채팅_링크_주소" target="_blank" class="link-btn kakao-btn">
+            <span class="btn-icon">💬</span> 냥코 연구소 오픈채팅방
+        </a>
+    </div>
+
+    <!-- 안내 문구 박스 -->
+    <div class="notice-box">
+        <p class="highlight">* 고방형 탱커와 양산형 딜러는 순위에서 배제하였습니다.</p>
+        <p>피드백 적극 반영하고 있습니다! 오픈채팅방에 가입하여 의견을 나눠주세요!</p>
+    </div>
+
+    <script>
+        let currentTargetId = null;
+
+        function toggleTab(targetId) {
+            const boxes = document.querySelectorAll('.content-box');
+            const buttons = document.querySelectorAll('.attr-btn');
+            const targetBox = document.getElementById(targetId);
+
+            if (currentTargetId === targetId) {
+                targetBox.classList.remove('active');
+                buttons.forEach(btn => btn.classList.remove('selected'));
+                currentTargetId = null;
+                return;
+            }
+
+            boxes.forEach(box => box.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('selected'));
+
+            event.currentTarget.classList.add('selected');
+            targetBox.classList.add('active');
+            currentTargetId = targetId;
+        }
+    </script>
+
+</body>
+</html>
