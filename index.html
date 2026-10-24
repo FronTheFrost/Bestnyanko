@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="냥코대전쟁 캐릭터 가이드">
     <meta property="og:description" content="속성별 딜러/탱커 추천 및 냥콤보 가이드">
-    <!-- 800x420 크기로 만들어 깃허브에 올린 대표 이미지 파일명을 아래에 적어주세요 -->
     <meta property="og:image" content="https://raw.githubusercontent.com/FronTheFrost/Bestnyanko/main/image_800x420.png">
-   <title>냥코대전쟁 캐릭터 가이드</title>
+    <title>냥코대전쟁 캐릭터 가이드</title>
     <style>
         :root {
             --bg-color: #121212;
@@ -17,6 +16,10 @@
             --accent-color: #ffcc00;
             --border-color: #3d3d3d;
             --empty-slot-bg: #181818;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -137,11 +140,12 @@
         /* 2. 토글 박스 (속성별 Top 5) */
         .content-box {
             max-width: 650px;
+            width: 100%;
             margin: 0 auto 30px auto;
             background-color: var(--box-bg);
             border: 2px solid var(--border-color);
             border-radius: 16px;
-            padding: 16px;
+            padding: 16px 12px;
             display: none;
             box-shadow: 0 8px 16px rgba(0,0,0,0.4);
         }
@@ -196,32 +200,36 @@
             margin-top: 0;
         }
 
+        /* 속성별 캐릭터 카드 5열 그리드 수정 */
         .character-row {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
+            gap: 6px;
+            width: 100%;
         }
 
         /* 속공 캐릭터용 4열 그리드 */
         .character-row-4 {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
+            gap: 6px;
+            width: 100%;
         }
 
         .character-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 6px;
+            padding: 6px 2px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
+            min-width: 0; /* 모바일에서 텍스트 때문에 크기가 늘어나는 현상 방지 */
         }
 
-        /* 냥콤보 빈 슬롯 전용 카드 디자인 (물음표/엑박 없음) */
+        /* 냥콤보 빈 슬롯 전용 카드 디자인 */
         .character-card.empty-slot {
             background: var(--empty-slot-bg);
             border: 1px dashed #333;
@@ -247,6 +255,7 @@
             padding: 2px 5px;
             border-radius: 4px;
             border: 1px solid var(--border-color);
+            z-index: 1;
         }
 
         .char-img {
@@ -259,22 +268,25 @@
         }
 
         .char-name {
-            font-size: 11px;
+            font-size: 10px;
             margin-top: 5px;
             font-weight: 600;
-            word-break: keep-all;
+            word-break: break-all;
             color: #ddd;
             line-height: 1.2;
+            width: 100%;
+            overflow: hidden;
         }
 
         /* 냥콤보 박스 스타일 */
         .combo-rank-box {
             max-width: 650px;
+            width: 100%;
             margin: 0 auto 16px auto;
             background-color: var(--box-bg);
             border: 2px solid var(--border-color);
             border-radius: 16px;
-            padding: 14px 16px;
+            padding: 14px 12px;
             box-shadow: 0 6px 12px rgba(0,0,0,0.3);
         }
 
@@ -633,7 +645,7 @@
             </div>
             <div class="section-title">탱커 Top 5</div>
             <div class="character-row">
-                <div class="character-card"><img src="IMG_1514.png" class="char-img"><div class="char-name"> 슈퍼 카이μ</div></div>
+                <div class="character-card"><img src="IMG_1514.png" class="char-img"><div class="char-name">슈퍼 카이μ</div></div>
                 <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 2</div></div>
                 <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 3</div></div>
                 <div class="character-card"><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">탱커 4</div></div>
@@ -668,7 +680,7 @@
 
     <!-- [섹션 2] 속공 캐릭터 Top 10 -->
     <div id="rush-section" class="main-section">
-        <div style="max-width: 650px; margin: 0 auto 30px auto; background-color: var(--box-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 16px; box-shadow: 0 8px 16px rgba(0,0,0,0.4);">
+        <div style="max-width: 650px; margin: 0 auto 30px auto; background-color: var(--box-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 16px 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.4);">
             <div class="section-title" style="margin-top: 0;">⚡ 속공 캐릭터 랭킹 Top 10</div>
             <div class="character-row-4">
                 <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1500.png" class="char-img"><div class="char-name">각성의 고양이 무트</div></div>
@@ -688,7 +700,7 @@
     <!-- [섹션 3] 추천 냥콤보 Best 8 (5칸 슬롯 형태) -->
     <div id="combo-section" class="main-section">
 
-        <!-- 1위 냥콤보 (예시: 2칸 발동 냥콤보) -->
+        <!-- 1위 냥콤보 -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">우습게 보지 말라냥!</span>
@@ -696,18 +708,18 @@
             </div>
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1498.png" class="char-img"><div class="char-name">열혈경파 쿠니오군</div></div>
-               <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
                 <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
                 <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
                 <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
             </div>
         </div>
 
-        <!-- 2위 냥콤보 (예시: 1칸 혼자 발동 냥콤보) -->
+        <!-- 2위 냥콤보 -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">고양이 도련님&도련님 도련님</span>
-                <span class="combo-desc">일 고양이의 초기 레벨 UP 【소】& 초기 소지금 UP 【중】 </span>
+                <span class="combo-desc">일 고양이의 초기 레벨 UP 【소】& 초기 소지금 UP 【중】</span>
             </div>
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1499.png" class="char-img"><div class="char-name">고양이 도령의 파파의 파파</div></div>
@@ -718,7 +730,7 @@
             </div>
         </div>
 
-        <!-- 3위 냥콤보 (예시: 5칸 전체 발동 냥콤보) -->
+        <!-- 3위 냥콤보 -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">よくきたな！&いきてはかえさん！</span>
