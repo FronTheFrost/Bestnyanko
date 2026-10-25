@@ -772,7 +772,7 @@
     <div id="growth-section" class="main-section">
         <div style="max-width: 650px; margin: 0 auto 30px auto; background-color: var(--box-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 16px 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.4);">
             
-            <div class="section-title" style="margin-top: 0;">✨ 추천 4진화 Top 5</div>
+            <div class="section-title" style="margin-top: 0;">추천 4단 진화 Top 5</div>
             <div class="character-row" style="margin-bottom: 20px;">
                 <div class="character-card"><div class="rank-badge">1위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4진캐릭 1</div></div>
                 <div class="character-card"><div class="rank-badge">2위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4진캐릭 2</div></div>
@@ -781,7 +781,7 @@
                 <div class="character-card"><div class="rank-badge">5위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4진캐릭 5</div></div>
             </div>
 
-            <div class="section-title">🌟 추천 초본능 Top 5</div>
+            <div class="section-title">추천 초본능 Top 5</div>
             <div class="character-row">
                 <div class="character-card"><div class="rank-badge">1위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">초본능 1</div></div>
                 <div class="character-card"><div class="rank-badge">2위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">초본능 2</div></div>
@@ -799,17 +799,32 @@
         <!-- 범용 덱 1 -->
         <div class="combo-rank-box">
             <div class="combo-header">
-                <span class="combo-rank-title">덱 이름 1 (여기를 수정하세요)</span>
-                <span class="combo-desc">이 덱에 대한 설명을 여기에 적어주세요.</span>
+                <span class="combo-rank-title">쌍루노덱</span>
+                <span class="combo-desc">안정성을 최대한 높인 덱</span>
             </div>
             <!-- 윗줄 5개 -->
+            <!-- 윗줄 5개 (대체가능 / 불가 / 불가 / 가능 / 가능) -->
             <div class="character-row" style="margin-bottom: 6px;">
-                <!-- 대체캐가 있는 카드 예시 (누르면 왕복 교체됨) -->
-                <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="대체이미지주소.png" data-alt-name="대체캐릭터" data-orig-img="기본이미지주소.png" data-orig-name="기본캐릭터"><img src="기본이미지주소.png" class="char-img"><div class="char-name">기본캐릭터</div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+                <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1570.png" data-alt-name="메탈 고양이 빌더" data-orig-img="IMG_1534.png" data-orig-name="고양이 연어알">
+                    <img src="IMG_1534.png" class="char-img">
+                    <div class="char-name">고양이 연어알</div>
+                </div>
+                <div class="character-card">
+                    <img src="IMG_1568.pn" class="char-img">
+                    <div class="char-name">울트라 석공 냥돌이</div>
+                </div>
+                <div class="character-card">
+                    <img src="IMG_1584.png" class="char-img">
+                    <div class="char-name">헬파이어 도깨비 야옹마</div>
+                </div>
+                <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1523.png" data-alt-name="울트라 대나무 공주" data-orig-img="IMG_1522.png" data-orig-name="블레이드 마스터 스탈">
+                    <img src="IMG_1522.png" class="char-img">
+                    <div class="char-name">블레이드 마스터 스탈</div>
+                </div>
+                <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1499.png" data-alt-name="고양이 도령의 파파의 파파" data-orig-img="IMG_1498.png" data-orig-name="열혈경파 쿠니오군">
+                    <img src="IMG_1498.png" class="char-img">
+                    <div class="char-name">열혈경파 쿠니오군</div>
+                </div>
             </div>
             <!-- 아랫줄 5개 -->
             <div class="character-row">
