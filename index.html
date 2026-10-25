@@ -230,18 +230,23 @@
             align-items: center;
             position: relative;
             min-width: 0;
+            transition: transform 0.2s ease, background-color 0.15s, border-color 0.15s;
         }
 
-        /* 대체 가능한 카드 스타일 */
+        /* 대체 가능한 카드 스타일 (플립 효과 추가) */
         .character-card.swappable {
             cursor: pointer;
             border-color: #886600;
             background-color: #1a1915;
-            transition: all 0.15s;
         }
         .character-card.swappable:hover {
             border-color: var(--accent-color);
             background-color: #25231c;
+        }
+
+        /* 교체 시 팽글 도는 플립 효과 클래스 */
+        .character-card.flipping {
+            transform: rotateY(90deg) scale(0.9);
         }
 
         .swap-badge {
@@ -726,22 +731,22 @@
     <!-- [섹션 3] 성장 육성 탭 -->
     <div id="growth-section" class="main-section">
         <div style="max-width: 650px; margin: 0 auto 30px auto; background-color: var(--box-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 16px 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.4);">
-            <div class="section-title" style="margin-top: 0;">✨ 추천 4진화 Top 5</div>
+            <div class="section-title" style="margin-top: 0;">추천 4단 진화 Top 5</div>
             <div class="character-row" style="margin-bottom: 20px;">
-                <div class="character-card"><div class="rank-badge">1위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4진캐릭 1</div></div>
-                <div class="character-card"><div class="rank-badge">2위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4진캐릭 2</div></div>
-                <div class="character-card"><div class="rank-badge">3위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4진캐릭 3</div></div>
-                <div class="character-card"><div class="rank-badge">4위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4진캐릭 4</div></div>
-                <div class="character-card"><div class="rank-badge">5위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4진캐릭 5</div></div>
+                <div class="character-card"><div class="rank-badge">1위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4단캐릭 1</div></div>
+                <div class="character-card"><div class="rank-badge">2위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4단캐릭 2</div></div>
+                <div class="character-card"><div class="rank-badge">3위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4단캐릭 3</div></div>
+                <div class="character-card"><div class="rank-badge">4위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4단캐릭 4</div></div>
+                <div class="character-card"><div class="rank-badge">5위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4단캐릭 5</div></div>
             </div>
 
-            <div class="section-title">🌟 추천 초본능 Top 5</div>
+            <div class="section-title">추천 초본능 Top 5</div>
             <div class="character-row">
-                <div class="character-card"><div class="rank-badge">1위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">초본능 1</div></div>
-                <div class="character-card"><div class="rank-badge">2위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">초본능 2</div></div>
-                <div class="character-card"><div class="rank-badge">3위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">초본능 3</div></div>
-                <div class="character-card"><div class="rank-badge">4위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">초본능 4</div></div>
-                <div class="character-card"><div class="rank-badge">5위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">초본능 5</div></div>
+                <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1491.png" class="char-img"><div class="char-name">G데스 하데스</div></div>
+                <div class="character-card"><div class="rank-badge">2위</div><img src="IMG_1496.png" class="char-img"><div class="char-name">섬멸 송골매</div></div>
+                <div class="character-card"><div class="rank-badge">3위</div><img src="IMG_1545.png" class="char-img"><div class="char-name">쌍둥이별 시시루와 코마리Φ</div></div>
+                <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1554.png" class="char-img"><div class="char-name">황금의 미라공주 레이카</div></div>
+                <div class="character-card"><div class="rank-badge">5위</div><img src="IMG_1514.png" class="char-img"><div class="char-name">슈퍼 카이μ</div></div>
             </div>
         </div>
     </div>
@@ -1010,21 +1015,31 @@
         }
 
         function swapCharacter(cardElement) {
-            const imgElement = cardElement.querySelector('.char-img');
-            const nameElement = cardElement.querySelector('.char-name');
+            if (cardElement.classList.contains('flipping')) return;
 
-            const origImg = cardElement.getAttribute('data-orig-img');
-            const origName = cardElement.getAttribute('data-orig-name');
-            const altImg = cardElement.getAttribute('data-alt-img');
-            const altName = cardElement.getAttribute('data-alt-name');
+            // 1단계: 살짝 돌면서 작아지기 (플립 시작)
+            cardElement.classList.add('flipping');
 
-            if (imgElement.src.includes(origImg)) {
-                imgElement.src = altImg;
-                nameElement.textContent = altName;
-            } else {
-                imgElement.src = origImg;
-                nameElement.textContent = origName;
-            }
+            setTimeout(() => {
+                const imgElement = cardElement.querySelector('.char-img');
+                const nameElement = cardElement.querySelector('.char-name');
+
+                const origImg = cardElement.getAttribute('data-orig-img');
+                const origName = cardElement.getAttribute('data-orig-name');
+                const altImg = cardElement.getAttribute('data-alt-img');
+                const altName = cardElement.getAttribute('data-alt-name');
+
+                if (imgElement.src.includes(origImg)) {
+                    imgElement.src = altImg;
+                    nameElement.textContent = altName;
+                } else {
+                    imgElement.src = origImg;
+                    nameElement.textContent = origName;
+                }
+
+                // 2단계: 원래 크기로 돌아오기 (플립 끝)
+                cardElement.classList.remove('flipping');
+            }, 100); // 0.1초 뒤 전환
         }
     </script>
 
