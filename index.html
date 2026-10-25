@@ -746,7 +746,7 @@
         </div>
     </div>
 
-    <!-- [섹션 4] 범용 편성 모음 탭 (덱 1, 2, 3 반영 완료 / 4번 덱 삭제) -->
+    <!-- [섹션 4] 범용 편성 모음 탭 -->
     <div id="deck-section" class="main-section">
         
         <!-- 범용 덱 1: 쌍루노 범용덱 -->
@@ -757,29 +757,24 @@
             </div>
             <!-- 윗줄 5개 -->
             <div class="character-row" style="margin-bottom: 6px;">
-                <!-- 1. 연어알 (메탈고양이 교체) -->
                 <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1570.png" data-alt-name="메탈 고양이 빌더" data-orig-img="IMG_1534.png" data-orig-name="고양이 연어알">
                     <div class="swap-badge">🔄</div>
                     <img src="IMG_1534.png" class="char-img">
                     <div class="char-name">고양이 연어알</div>
                 </div>
-                <!-- 2. 냥돌이 -->
                 <div class="character-card">
                     <img src="IMG_1568.png" class="char-img">
                     <div class="char-name">울트라 석공 냥돌이</div>
                 </div>
-                <!-- 3. 헬옹마 -->
                 <div class="character-card">
                     <img src="IMG_1584.png" class="char-img">
                     <div class="char-name">헬파이어 도깨비 야옹마</div>
                 </div>
-                <!-- 4. 스탈 (대나무공주 교체) -->
                 <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1523.png" data-alt-name="울트라 대나무 공주" data-orig-img="IMG_1522.png" data-orig-name="블레이드 마스터 스탈">
                     <div class="swap-badge">🔄</div>
                     <img src="IMG_1522.png" class="char-img">
                     <div class="char-name">블레이드 마스터 스탈</div>
                 </div>
-                <!-- 5. 쿠니오군 (도령 파파 교체) -->
                 <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1499.png" data-alt-name="고양이 도령의 파파의 파파" data-orig-img="IMG_1498.png" data-orig-name="열혈경파 쿠니오군">
                     <div class="swap-badge">🔄</div>
                     <img src="IMG_1498.png" class="char-img">
@@ -804,19 +799,14 @@
             </div>
             <!-- 윗줄 5개 -->
             <div class="character-row" style="margin-bottom: 6px;">
-                <!-- 1. 연어알 (메탈고양이 교체) -->
                 <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1570.png" data-alt-name="메탈 고양이 빌더" data-orig-img="IMG_1534.png" data-orig-name="고양이 연어알">
                     <div class="swap-badge">🔄</div>
                     <img src="IMG_1534.png" class="char-img">
                     <div class="char-name">고양이 연어알</div>
                 </div>
-                <!-- 2. 캉캉 -->
                 <div class="character-card"><img src="IMG_1582.png" class="char-img"><div class="char-name">고양이 캉캉</div></div>
-                <!-- 3. 헬옹마 -->
                 <div class="character-card"><img src="IMG_1584.png" class="char-img"><div class="char-name">헬파이어 도깨비 야옹마</div></div>
-                <!-- 4. 코마리 -->
                 <div class="character-card"><img src="IMG_1545.png" class="char-img"><div class="char-name">쌍둥이별 시시루와 코마리Φ</div></div>
-                <!-- 5. 스탈 (대나무공주 교체) -->
                 <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1523.png" data-alt-name="울트라 대나무 공주" data-orig-img="IMG_1522.png" data-orig-name="블레이드 마스터 스탈">
                     <div class="swap-badge">🔄</div>
                     <img src="IMG_1522.png" class="char-img">
@@ -841,15 +831,10 @@
             </div>
             <!-- 윗줄 5개 -->
             <div class="character-row" style="margin-bottom: 6px;">
-                <!-- 1. 강시 -->
                 <div class="character-card"><img src="IMG_1582.png" class="char-img"><div class="char-name">고양이 강시</div></div>
-                <!-- 2. 캉캉 -->
                 <div class="character-card"><img src="IMG_1582.png" class="char-img"><div class="char-name">고양이 캉캉</div></div>
-                <!-- 3. 헬옹마 -->
                 <div class="character-card"><img src="IMG_1584.png" class="char-img"><div class="char-name">헬파이어 도깨비 야옹마</div></div>
-                <!-- 4. 다크 이즈 -->
                 <div class="character-card"><img src="IMG_1586.png" class="char-img"><div class="char-name">애도의 무희 다크 이즈</div></div>
-                <!-- 5. 쿠니오군 (도령 파파 교체) -->
                 <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1499.png" data-alt-name="고양이 도령의 파파의 파파" data-orig-img="IMG_1498.png" data-orig-name="열혈경파 쿠니오군">
                     <div class="swap-badge">🔄</div>
                     <img src="IMG_1498.png" class="char-img">
@@ -1012,7 +997,7 @@
             if (currentTargetId === targetId) {
                 targetBox.classList.remove('active');
                 buttons.forEach(btn => btn.classList.remove('selected'));
-.currentTargetId = null;
+                currentTargetId = null;
                 return;
             }
 
