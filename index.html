@@ -51,7 +51,6 @@
             margin: 0 auto 20px auto;
         }
 
-        /* 마지막 2개 버튼은 아래 줄에서 각각 1.5칸씩 차지하도록 설정하여 대칭 맞춤 */
         .main-tab-btn:nth-child(4) {
             grid-column: span 1.5;
         }
@@ -87,7 +86,6 @@
             box-shadow: 0 0 10px rgba(255, 204, 0, 0.25);
         }
 
-        /* 메인 섹션 컨테이너 토글용 */
         .main-section {
             display: none;
         }
@@ -145,7 +143,6 @@
             pointer-events: none;
         }
 
-        /* 토글 박스 */
         .content-box {
             max-width: 650px;
             width: 100%;
@@ -208,7 +205,6 @@
             margin-top: 0;
         }
 
-        /* 캐릭터 그리드 시스템 */
         .character-row {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -236,15 +232,35 @@
             min-width: 0;
         }
 
-        /* 클릭해서 대체캐로 변환되는 카드 스타일 */
+        /* 대체 가능한 카드 스타일 (직관적인 뱃지 및 테두리 효과 추가) */
         .character-card.swappable {
             cursor: pointer;
-            border-color: #555;
-            transition: border-color 0.15s, background-color 0.15s;
+            border-color: #886600;
+            background-color: #1a1915;
+            transition: all 0.15s;
         }
         .character-card.swappable:hover {
             border-color: var(--accent-color);
-            background-color: #252525;
+            background-color: #25231c;
+        }
+
+        /* 대체 가능 카드 우측 상단 교체 아이콘 뱃지 */
+        .swap-badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background-color: rgba(255, 204, 0, 0.85);
+            color: #121212;
+            font-size: 9px;
+            font-weight: 900;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
 
         .character-card.empty-slot {
@@ -307,7 +323,6 @@
             overflow: hidden;
         }
 
-        /* 냥콤보 박스 스타일 */
         .combo-rank-box {
             max-width: 650px;
             width: 100%;
@@ -335,11 +350,10 @@
         }
 
         .combo-desc {
-            font-size: 12px;
+            font-size: 11px;
             color: #aaa;
         }
 
-        /* 외부 링크 버튼 */
         .link-btn-container {
             display: flex;
             gap: 12px;
@@ -395,7 +409,6 @@
             font-size: 15px;
         }
 
-        /* 안내 문구 박스 */
         .notice-box {
             max-width: 500px;
             margin: 0 auto 30px auto;
@@ -436,44 +449,21 @@
     <div id="attribute-section" class="main-section active">
         <!-- 10개 속성 버튼 영역 -->
         <div class="attribute-container">
-            <button class="attr-btn" onclick="toggleTab('red')">
-                <img src="IMG_1478.png" class="attr-icon">
-            </button>
-            <button class="attr-btn" onclick="toggleTab('floating')">
-                <img src="IMG_1479.png" class="attr-icon">
-            </button>
-            <button class="attr-btn" onclick="toggleTab('black')">
-                <img src="IMG_1480.png" class="attr-icon">
-            </button>
-            <button class="attr-btn" onclick="toggleTab('metal')">
-                <img src="IMG_1481.png" class="attr-icon">
-            </button>
-            <button class="attr-btn" onclick="toggleTab('angel')">
-                <img src="IMG_1476.png" class="attr-icon">
-            </button>
-            <button class="attr-btn" onclick="toggleTab('alien')">
-                <img src="IMG_1483.png" class="attr-icon">
-            </button>
-            <button class="attr-btn" onclick="toggleTab('zombie')">
-                <img src="IMG_1484.png" class="attr-icon">
-            </button>
-            <button class="attr-btn" onclick="toggleTab('relic')">
-                <img src="IMG_1485.png" class="attr-icon">
-            </button>
-            <button class="attr-btn" onclick="toggleTab('aku')">
-                <img src="IMG_1486.png" class="attr-icon">
-            </button>
-            <button class="attr-btn" onclick="toggleTab('white')">
-                <img src="IMG_1487.png" class="attr-icon">
-            </button>
+            <button class="attr-btn" onclick="toggleTab('red')"><img src="IMG_1478.png" class="attr-icon"></button>
+            <button class="attr-btn" onclick="toggleTab('floating')"><img src="IMG_1479.png" class="attr-icon"></button>
+            <button class="attr-btn" onclick="toggleTab('black')"><img src="IMG_1480.png" class="attr-icon"></button>
+            <button class="attr-btn" onclick="toggleTab('metal')"><img src="IMG_1481.png" class="attr-icon"></button>
+            <button class="attr-btn" onclick="toggleTab('angel')"><img src="IMG_1476.png" class="attr-icon"></button>
+            <button class="attr-btn" onclick="toggleTab('alien')"><img src="IMG_1483.png" class="attr-icon"></button>
+            <button class="attr-btn" onclick="toggleTab('zombie')"><img src="IMG_1484.png" class="attr-icon"></button>
+            <button class="attr-btn" onclick="toggleTab('relic')"><img src="IMG_1485.png" class="attr-icon"></button>
+            <button class="attr-btn" onclick="toggleTab('aku')"><img src="IMG_1486.png" class="attr-icon"></button>
+            <button class="attr-btn" onclick="toggleTab('white')"><img src="IMG_1487.png" class="attr-icon"></button>
         </div>
 
         <!-- 1. 🔴 빨간 적 -->
         <div id="red" class="content-box">
-            <div class="attr-header">
-                <img src="IMG_1478.png">
-                <span class="attr-title-text">빨간 적</span>
-            </div>
+            <div class="attr-header"><img src="IMG_1478.png"><span class="attr-title-text">빨간 적</span></div>
             <div class="section-title">딜러 Top 5</div>
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1533.png" class="char-img"><div class="char-name">얼티밋・산디아β</div></div>
@@ -494,10 +484,7 @@
 
         <!-- 2. ☁️ 떠있는 적 -->
         <div id="floating" class="content-box">
-            <div class="attr-header">
-                <img src="IMG_1479.png">
-                <span class="attr-title-text">떠있는 적</span>
-            </div>
+            <div class="attr-header"><img src="IMG_1479.png"><span class="attr-title-text">떠있는 적</span></div>
             <div class="section-title">딜러 Top 5</div>
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1530.png" class="char-img"><div class="char-name">세이버 얼터CC</div></div>
@@ -518,10 +505,7 @@
 
         <!-- 3. ⚫ 검은 적 -->
         <div id="black" class="content-box">
-            <div class="attr-header">
-                <img src="IMG_1480.png">
-                <span class="attr-title-text">검은 적</span>
-            </div>
+            <div class="attr-header"><img src="IMG_1480.png"><span class="attr-title-text">검은 적</span></div>
             <div class="section-title">딜러 Top 5</div>
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
@@ -542,10 +526,7 @@
 
         <!-- 4. ⚙️ 메탈 적 -->
         <div id="metal" class="content-box">
-            <div class="attr-header">
-                <img src="IMG_1481.png">
-                <span class="attr-title-text">메탈 적</span>
-            </div>
+            <div class="attr-header"><img src="IMG_1481.png"><span class="attr-title-text">메탈 적</span></div>
             <div class="section-title">딜러 Top 5</div>
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1522.png" class="char-img"><div class="char-name">블레이드 마스터 스탈</div></div>
@@ -566,10 +547,7 @@
 
         <!-- 5. 👼 천사 -->
         <div id="angel" class="content-box">
-            <div class="attr-header">
-                <img src="IMG_1476.png">
-                <span class="attr-title-text">천사</span>
-            </div>
+            <div class="attr-header"><img src="IMG_1476.png"><span class="attr-title-text">천사</span></div>
             <div class="section-title">딜러 Top 5</div>
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
@@ -590,10 +568,7 @@
 
         <!-- 6. 👽 에이리언 -->
         <div id="alien" class="content-box">
-            <div class="attr-header">
-                <img src="IMG_1483.png">
-                <span class="attr-title-text">에이리언</span>
-            </div>
+            <div class="attr-header"><img src="IMG_1483.png"><span class="attr-title-text">에이리언</span></div>
             <div class="section-title">딜러 Top 5</div>
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
@@ -614,10 +589,7 @@
 
         <!-- 7. 🧟 좀비 -->
         <div id="zombie" class="content-box">
-            <div class="attr-header">
-                <img src="IMG_1484.png">
-                <span class="attr-title-text">좀비</span>
-            </div>
+            <div class="attr-header"><img src="IMG_1484.png"><span class="attr-title-text">좀비</span></div>
             <div class="section-title">딜러 Top 5</div>
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
@@ -638,10 +610,7 @@
 
         <!-- 8. 📜 고대종 -->
         <div id="relic" class="content-box">
-            <div class="attr-header">
-                <img src="IMG_1485.png">
-                <span class="attr-title-text">고대종</span>
-            </div>
+            <div class="attr-header"><img src="IMG_1485.png"><span class="attr-title-text">고대종</span></div>
             <div class="section-title">딜러 Top 5</div>
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1530.png" class="char-img"><div class="char-name">세이버 얼터CC</div></div>
@@ -662,10 +631,7 @@
 
         <!-- 9. 😈 악마 -->
         <div id="aku" class="content-box">
-            <div class="attr-header">
-                <img src="IMG_1486.png">
-                <span class="attr-title-text">악마</span>
-            </div>
+            <div class="attr-header"><img src="IMG_1486.png"><span class="attr-title-text">악마</span></div>
             <div class="section-title">딜러 Top 5</div>
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1496.png" class="char-img"><div class="char-name">섬멸 송골매</div></div>
@@ -686,10 +652,7 @@
 
         <!-- 10. ⚪ 속성이 없는 적 -->
         <div id="white" class="content-box">
-            <div class="attr-header">
-                <img src="IMG_1487.png">
-                <span class="attr-title-text">속성이 없는 적</span>
-            </div>
+            <div class="attr-header"><img src="IMG_1487.png"><span class="attr-title-text">속성이 없는 적</span></div>
             <div class="section-title">딜러 Top 5</div>
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1561.png" class="char-img"><div class="char-name">흑걸 달타냥</div></div>
@@ -708,7 +671,6 @@
             </div>
         </div>
 
-        <!-- 안내 문구 박스 (오직 속성별 가이드 하단에만 배치) -->
         <div class="notice-box" style="margin-top: 20px; margin-bottom: 0;">
             <p class="highlight">* 고방형 탱커와 양산형 딜러는 순위에서 배제하였습니다.</p>
             <p>피드백 적극 반영하고 있습니다! 오픈채팅방에 가입하여 의견을 나눠주세요!</p>
@@ -718,8 +680,6 @@
     <!-- [섹션 2] 속공 및 범용 라인업 -->
     <div id="rush-section" class="main-section">
         <div style="max-width: 650px; margin: 0 auto 30px auto; background-color: var(--box-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 16px 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.4);">
-            
-            <!-- 속공 캐릭터 Top 8 -->
             <div class="section-title" style="margin-top: 0;">⚡ 속공 캐릭터 랭킹 Top 8</div>
             <div class="character-row-4" style="margin-bottom: 20px;">
                 <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1500.png" class="char-img"><div class="char-name">각성의 고양이 무트</div></div>
@@ -732,7 +692,6 @@
                 <div class="character-card"><div class="rank-badge">8위</div><img src="IMG_1521.png" class="char-img"><div class="char-name">블랑카CC</div></div>
             </div>
 
-            <!-- 양산딜러 Top 4 -->
             <div class="section-title">🔥 범용 양산딜러 Top 4</div>
             <div class="character-row-4" style="margin-bottom: 20px;">
                 <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1568.png" class="char-img"><div class="char-name">울트라 석공 냥돌이</div></div>
@@ -741,7 +700,6 @@
                 <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1583.png" class="char-img"><div class="char-name">고양이 젤리만쥬</div></div>
             </div>
 
-            <!-- 고기방패 Top 4 -->
             <div class="section-title">🛡️ 범용 고기방패 Top 4</div>
             <div class="character-row-4" style="margin-bottom: 25px;">
                 <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1570.png" class="char-img"><div class="char-name">메탈 고양이 빌더</div></div>
@@ -750,7 +708,6 @@
                 <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1579.png" class="char-img"><div class="char-name">대광란의 고무 고양이</div></div>
             </div>
 
-            <!-- 속성별 고기방패 (10개 속성 각 1개씩) -->
             <div class="section-title">🎯 속성별 추천 고기방패 (10종)</div>
             <div class="character-row" style="grid-template-columns: repeat(5, 1fr); gap: 6px;">
                 <div class="character-card"><img src="IMG_1478.png" class="attr-mini-badge"><img src="IMG_1578.png" class="char-img"><div class="char-name">고양이 래퍼</div></div>
@@ -764,15 +721,13 @@
                 <div class="character-card"><img src="IMG_1486.png" class="attr-mini-badge"><img src="IMG_1575.png" class="char-img"><div class="char-name">냥코콘</div></div>
                 <div class="character-card"><img src="IMG_1487.png" class="attr-mini-badge"><img src="IMG_1581.png" class="char-img"><div class="char-name">세뇌된 고무 고양이</div></div>
             </div>
-
         </div>
     </div>
 
-    <!-- [섹션 3] 성장 육성 탭 (추천 4진 Top 5 + 초본능 Top 5) -->
+    <!-- [섹션 3] 성장 육성 탭 -->
     <div id="growth-section" class="main-section">
         <div style="max-width: 650px; margin: 0 auto 30px auto; background-color: var(--box-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 16px 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.4);">
-            
-            <div class="section-title" style="margin-top: 0;">추천 4단 진화 Top 5</div>
+            <div class="section-title" style="margin-top: 0;">✨ 추천 4진화 Top 5</div>
             <div class="character-row" style="margin-bottom: 20px;">
                 <div class="character-card"><div class="rank-badge">1위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4진캐릭 1</div></div>
                 <div class="character-card"><div class="rank-badge">2위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4진캐릭 2</div></div>
@@ -781,7 +736,7 @@
                 <div class="character-card"><div class="rank-badge">5위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">4진캐릭 5</div></div>
             </div>
 
-            <div class="section-title">추천 초본능 Top 5</div>
+            <div class="section-title">🌟 추천 초본능 Top 5</div>
             <div class="character-row">
                 <div class="character-card"><div class="rank-badge">1위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">초본능 1</div></div>
                 <div class="character-card"><div class="rank-badge">2위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">초본능 2</div></div>
@@ -789,76 +744,146 @@
                 <div class="character-card"><div class="rank-badge">4위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">초본능 4</div></div>
                 <div class="character-card"><div class="rank-badge">5위</div><img src="캐릭터_이미지_주소" class="char-img"><div class="char-name">초본능 5</div></div>
             </div>
-
         </div>
     </div>
 
-    <!-- [섹션 4] 범용 편성 모음 탭 (덱 4개, 10칸 슬롯 + 클릭 시 대체캐 교체 기능) -->
+    <!-- [섹션 4] 범용 편성 모음 탭 (덱 1, 2 반영 완료) -->
     <div id="deck-section" class="main-section">
         
-        <!-- 범용 덱 1 -->
+        <!-- 범용 덱 1: 쌍루노 범용덱 -->
         <div class="combo-rank-box">
             <div class="combo-header">
-                <span class="combo-rank-title">쌍루노덱</span>
-                <span class="combo-desc">안정성을 최대한 높인 덱</span>
+                <span class="combo-rank-title">쌍루노 범용덱</span>
+                <span class="combo-desc">안정성을 최대한 높인 덱 (클릭 시 대체캐 교체)</span>
             </div>
             <!-- 윗줄 5개 -->
-            <!-- 윗줄 5개 (대체가능 / 불가 / 불가 / 가능 / 가능) -->
             <div class="character-row" style="margin-bottom: 6px;">
+                <!-- 1. 연어알 (메탈고양이 교체 가능) -->
                 <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1570.png" data-alt-name="메탈 고양이 빌더" data-orig-img="IMG_1534.png" data-orig-name="고양이 연어알">
+                    <div class="swap-badge">🔄</div>
                     <img src="IMG_1534.png" class="char-img">
                     <div class="char-name">고양이 연어알</div>
                 </div>
+                <!-- 2. 냥돌이 (고정) -->
                 <div class="character-card">
-                    <img src="IMG_1568.pn" class="char-img">
+                    <img src="IMG_1568.png" class="char-img">
                     <div class="char-name">울트라 석공 냥돌이</div>
                 </div>
+                <!-- 3. 헬옹마 (고정) -->
                 <div class="character-card">
                     <img src="IMG_1584.png" class="char-img">
                     <div class="char-name">헬파이어 도깨비 야옹마</div>
                 </div>
+                <!-- 4. 스탈 (대나무공주 교체 가능) -->
                 <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1523.png" data-alt-name="울트라 대나무 공주" data-orig-img="IMG_1522.png" data-orig-name="블레이드 마스터 스탈">
+                    <div class="swap-badge">🔄</div>
                     <img src="IMG_1522.png" class="char-img">
                     <div class="char-name">블레이드 마스터 스탈</div>
                 </div>
+                <!-- 5. 쿠니오군 (도령 파파 교체 가능) -->
                 <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1499.png" data-alt-name="고양이 도령의 파파의 파파" data-orig-img="IMG_1498.png" data-orig-name="열혈경파 쿠니오군">
+                    <div class="swap-badge">🔄</div>
                     <img src="IMG_1498.png" class="char-img">
                     <div class="char-name">열혈경파 쿠니오군</div>
                 </div>
             </div>
             <!-- 아랫줄 5개 -->
             <div class="character-row">
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+                <!-- 6. 루노스 (고정) -->
+                <div class="character-card">
+                    <img src="IMG_1542.png" class="char-img">
+                    <div class="char-name">만월의 기사 루노스</div>
+                </div>
+                <!-- 7. 다크 루노스 (고정) -->
+                <div class="character-card">
+                    <img src="IMG_1543.png" class="char-img">
+                    <div class="char-name">회월의 기사 다크 루노스</div>
+                </div>
+                <!-- 8. 루나샤 (고정) -->
+                <div class="character-card">
+                    <img src="IMG_1585.png" class="char-img">
+                    <div class="char-name">구제의 선녀 루나샤</div>
+                </div>
+                <!-- 9. 다크 루나샤 (고정) -->
+                <div class="character-card">
+                    <img src="IMG_1565.png" class="char-img">
+                    <div class="char-name">적멸의 선녀 다크 루나샤</div>
+                </div>
+                <!-- 10. 이자나기 (고정) -->
+                <div class="character-card">
+                    <img src="IMG_1492.png" class="char-img">
+                    <div class="char-name">여명의 이자나기</div>
+                </div>
             </div>
         </div>
 
-        <!-- 범용 덱 2 -->
+        <!-- 범용 덱 2: 하데스 범용덱 -->
         <div class="combo-rank-box">
             <div class="combo-header">
-                <span class="combo-rank-title">덱 이름 2</span>
-                <span class="combo-desc">설명 2</span>
+                <span class="combo-rank-title">하데스 범용덱</span>
+                <span class="combo-desc">속도감을 높인 덱 (클릭 시 대체캐 교체)</span>
             </div>
+            <!-- 윗줄 5개 -->
             <div class="character-row" style="margin-bottom: 6px;">
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+                <!-- 1. 연어알 (메탈고양이 교체 가능) -->
+                <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1570.png" data-alt-name="메탈 고양이 빌더" data-orig-img="IMG_1534.png" data-orig-name="고양이 연어알">
+                    <div class="swap-badge">🔄</div>
+                    <img src="IMG_1534.png" class="char-img">
+                    <div class="char-name">고양이 연어알</div>
+                </div>
+                <!-- 2. 캉캉 (고정) -->
+                <div class="character-card">
+                    <img src="IMG_1582.png" class="char-img">
+                    <div class="char-name">고양이 캉캉</div>
+                </div>
+                <!-- 3. 헬옹마 (고정) -->
+                <div class="character-card">
+                    <img src="IMG_1584.png" class="char-img">
+                    <div class="char-name">헬파이어 도깨비 야옹마</div>
+                </div>
+                <!-- 4. 코마리 (고정) -->
+                <div class="character-card">
+                    <img src="IMG_1545.png" class="char-img">
+                    <div class="char-name">쌍둥이별 시시루와 코마리Φ</div>
+                </div>
+                <!-- 5. 스탈 (대나무공주 교체 가능) -->
+                <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1523.png" data-alt-name="울트라 대나무 공주" data-orig-img="IMG_1522.png" data-orig-name="블레이드 마스터 스탈">
+                    <div class="swap-badge">🔄</div>
+                    <img src="IMG_1522.png" class="char-img">
+                    <div class="char-name">블레이드 마스터 스탈</div>
+                </div>
             </div>
+            <!-- 아랫줄 5개 -->
             <div class="character-row">
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
-                <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+                <!-- 6. 하데스 (고정) -->
+                <div class="character-card">
+                    <img src="IMG_1491.png" class="char-img">
+                    <div class="char-name">G데스 하데스</div>
+                </div>
+                <!-- 7. 세이버 (고정) -->
+                <div class="character-card">
+                    <img src="IMG_1530.png" class="char-img">
+                    <div class="char-name">세이버 얼터CC</div>
+                </div>
+                <!-- 8. 다크 루나샤 (고정) -->
+                <div class="character-card">
+                    <img src="IMG_1565.png" class="char-img">
+                    <div class="char-name">적멸의 선녀 다크 루나샤</div>
+                </div>
+                <!-- 9. 루나샤 (고정) -->
+                <div class="character-card">
+                    <img src="IMG_1585.png" class="char-img">
+                    <div class="char-name">구제의 선녀 루나샤</div>
+                </div>
+                <!-- 10. 이자나기 (고정) -->
+                <div class="character-card">
+                    <img src="IMG_1492.png" class="char-img">
+                    <div class="char-name">여명의 이자나기</div>
+                </div>
             </div>
         </div>
 
-        <!-- 범용 덱 3 -->
+        <!-- 범용 덱 3 (빈 템플릿) -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">덱 이름 3</span>
@@ -880,7 +905,7 @@
             </div>
         </div>
 
-        <!-- 범용 덱 4 -->
+        <!-- 범용 덱 4 (빈 템플릿) -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">덱 이름 4</span>
@@ -906,7 +931,6 @@
 
     <!-- [섹션 5] 추천 냥콤보 Best 8 -->
     <div id="combo-section" class="main-section">
-        <!-- 1위 냥콤보 -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">우습게 보지 말라냥!</span>
@@ -921,7 +945,6 @@
             </div>
         </div>
 
-        <!-- 2위 냥콤보 -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">고양이 도련님&도련님 도련님</span>
@@ -936,7 +959,6 @@
             </div>
         </div>
 
-        <!-- 3위 냥콤보 -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">よくきたな！&いきてはかえさん！</span>
@@ -951,7 +973,6 @@
             </div>
         </div>
 
-        <!-- 4위 냥콤보 -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">육공군 합동작전</span>
@@ -966,7 +987,6 @@
             </div>
         </div>
 
-        <!-- 5위 냥콤보 -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">바람을 의심</span>
@@ -981,7 +1001,6 @@
             </div>
         </div>
 
-        <!-- 6위 냥콤보 -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">악에 물든 자들</span>
@@ -996,7 +1015,6 @@
             </div>
         </div>
 
-        <!-- 7위 냥콤보 -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">한숨</span>
@@ -1011,7 +1029,6 @@
             </div>
         </div>
 
-        <!-- 8위 냥콤보 -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">긴 소매 선수권</span>
@@ -1027,7 +1044,7 @@
         </div>
     </div>
 
-    <!-- 외부 링크 버튼 (유튜브 / 오픈채팅방) -->
+    <!-- 외부 링크 버튼 -->
     <div class="link-btn-container">
         <a href="https://www.youtube.com/@미사카미코토" target="_blank" class="link-btn youtube-btn">
             <span class="btn-icon">▶</span> 디디잇 유튜브 구독
@@ -1040,7 +1057,6 @@
     <script>
         let currentTargetId = null;
 
-        // 메인 대분류 탭 전환 함수 (5개 탭 지원)
         function switchMainTab(sectionId, btnElement) {
             document.querySelectorAll('.main-section').forEach(sec => sec.classList.remove('active'));
             document.querySelectorAll('.main-tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -1049,7 +1065,6 @@
             btnElement.classList.add('active');
         }
 
-        // 속성별 세부 토글 함수
         function toggleTab(targetId) {
             const boxes = document.querySelectorAll('#attribute-section .content-box');
             const buttons = document.querySelectorAll('.attribute-container .attr-btn');
@@ -1070,7 +1085,6 @@
             currentTargetId = targetId;
         }
 
-        // 범용 편성 덱에서 캐릭터를 클릭했을 때 기본 <-> 대체 캐릭터로 왕복 교체되는 함수
         function swapCharacter(cardElement) {
             const imgElement = cardElement.querySelector('.char-img');
             const nameElement = cardElement.querySelector('.char-name');
@@ -1080,7 +1094,6 @@
             const altImg = cardElement.getAttribute('data-alt-img');
             const altName = cardElement.getAttribute('data-alt-name');
 
-            // 현재 이미지가 기본 이미지면 대체 이미지로, 대체 이미지면 다시 기본 이미지로 왕복 토글
             if (imgElement.src.includes(origImg)) {
                 imgElement.src = altImg;
                 nameElement.textContent = altName;
