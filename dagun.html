@@ -20,6 +20,7 @@
             padding: 0;
             user-select: none;
             -webkit-user-select: none;
+            overflow: hidden;
         }
 
         .tier-banner {
@@ -188,6 +189,10 @@
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
             element.blur();
+
+            // 부모창으로 실시간 높이 전송
+            const currentHeight = document.body.scrollHeight;
+            window.parent.postMessage({ type: 'resizeHeight', id: 'dagunFrame', height: currentHeight }, '*');
         }
     </script>
 </body>
