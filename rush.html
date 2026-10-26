@@ -271,15 +271,10 @@
         });
 
         function triggerEasterEgg2(cardElement) {
-            // 부모 윈도우의 foundEggs 상태 업데이트
-            if (window.parent && window.parent.foundEggs) {
-                window.parent.foundEggs.scroll = true;
-            }
-
             cardElement.classList.add('flash-effect');
             setTimeout(() => {
                 if (window.parent && window.parent.openGlobalEeModal) {
-                    window.parent.openGlobalEeModal("두루마리 휴지는 벽 쪽이 아니라 바깥쪽으로 풀리게 걸어둬야 쓸 때 훨씬 편합니다.");
+                    window.parent.openGlobalEeModal('scroll', "두루마리 휴지는 벽 쪽이 아니라 바깥쪽으로 풀리게 걸어둬야 쓸 때 훨씬 편합니다.");
                 }
                 cardElement.classList.remove('flash-effect');
             }, 400);
