@@ -433,9 +433,7 @@
             font-weight: 600;
         }
 
-        /* -------------------------------------------------- */
-        /* 1번 이스터에그 스타일 (변신 후 황금 테두리 & 황금 글씨 추가) */
-        /* -------------------------------------------------- */
+        /* 1번 이스터에그 스타일 */
         .easter-egg-card {
             cursor: pointer;
             transition: transform 0.6s ease, border-color 0.3s ease, background-color 0.3s ease;
@@ -468,11 +466,9 @@
             100% { transform: rotateY(0deg); }
         }
 
-        /* -------------------------------------------------- */
-        /* 2번 이스터에그 (2000px 악질 낚시 스크롤) 스타일 */
-        /* -------------------------------------------------- */
+        /* 2번 이스터에그 전용 2000px 낚시 스크롤 여백 (버튼 아래에 위치) */
         .infinite-scroll-trap {
-            height: 2000px; /* 요청하신 2000px로 대폭 확장 */
+            height: 2000px; 
             position: relative;
             display: flex;
             justify-content: center;
@@ -514,9 +510,7 @@
             margin-top: 5px;
         }
 
-        /* -------------------------------------------------- */
         /* 공통 팝업 모달 스타일 */
-        /* -------------------------------------------------- */
         .ee-modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -882,7 +876,17 @@
             </div>
         </div>
 
-        <!-- [2번 이스터에그 전용 2000px 낚시형 스크롤 여백] 버튼들 밑에 배치 -->
+        <!-- 📌 유튜브 & 카카오톡 버튼은 이 자리에 제자리에 딱 고정됨 -->
+        <div class="link-btn-container" style="max-width: 650px; margin: 0 auto 15px auto;">
+            <a href="https://www.youtube.com/@미사카미코토" target="_blank" class="link-btn youtube-btn">
+                <span class="btn-icon">▶</span> 디디잇 유튜브 구독
+            </a>
+            <a href="https://open.kakao.com/o/pHG8yJOi" target="_blank" class="link-btn kakao-btn">
+                <span class="btn-icon">💬</span> 냥코 연구소 오픈채팅방
+            </a>
+        </div>
+
+        <!-- 📌 버튼 아래로만 2000px짜리 허전한 낚시 스크롤 공간이 이어짐 -->
         <div class="infinite-scroll-trap">
             <div class="hidden-bottom-egg" id="bottomEggCard" onclick="triggerEasterEgg2(this)">
                 <img src="IMG_1593.png">
@@ -1125,16 +1129,6 @@
         </div>
     </div>
 
-    <!-- 외부 링크 버튼 (정상 위치에 고정) -->
-    <div class="link-btn-container">
-        <a href="https://www.youtube.com/@미사카미코토" target="_blank" class="link-btn youtube-btn">
-            <span class="btn-icon">▶</span> 디디잇 유튜브 구독
-        </a>
-        <a href="https://open.kakao.com/o/pHG8yJOi" target="_blank" class="link-btn kakao-btn">
-            <span class="btn-icon">💬</span> 냥코 연구소 오픈채팅방
-        </a>
-    </div>
-
     <!-- 이스터에그 공통 정중앙 팝업 모달 -->
     <div class="ee-modal-overlay" id="eeModalOverlay" onclick="closeEeModal(event)">
         <div class="ee-modal-content" onclick="event.stopPropagation()">
@@ -1207,9 +1201,7 @@
             }, 100);
         }
 
-        /* -------------------------------------------------- */
         /* 공통 팝업 및 유동 카운트 출력 함수 */
-        /* -------------------------------------------------- */
         function showEePopup(tmiText) {
             const foundCount = (egg1Found ? 1 : 0) + (egg2Found ? 1 : 0);
             
@@ -1223,9 +1215,7 @@
             document.getElementById('eeModalOverlay').classList.remove('active');
         }
 
-        /* -------------------------------------------------- */
         /* 1번 이스터에그 (무속성 5등 카드 변신) 로직 */
-        /* -------------------------------------------------- */
         function triggerEasterEgg1(cardElement) {
             if (cardElement.classList.contains('activated')) {
                 egg1Found = true;
@@ -1242,7 +1232,6 @@
                 if (cardImg) cardImg.src = 'IMG_1593.png';
                 if (cardName) cardName.innerText = '고양이 에그';
 
-                // 황금색 테두리 & 글자색 스타일 활성화
                 cardElement.classList.add('activated');
             }, 300);
 
@@ -1253,9 +1242,7 @@
             }, 500);
         }
 
-        /* -------------------------------------------------- */
         /* 2번 이스터에그 (속공 및 범용 탭 전용 2000px 낚시 스크롤) 로직 */
-        /* -------------------------------------------------- */
         window.addEventListener('scroll', () => {
             const rushSection = document.getElementById('rush-section');
             
@@ -1263,7 +1250,6 @@
                 const scrollBottom = window.innerHeight + window.scrollY;
                 const documentHeight = document.body.offsetHeight;
 
-                // 2000px 밑바닥 끝까지 바짝 내려왔을 때 팝 하고 등장
                 if (scrollBottom >= documentHeight - 20) {
                     const bottomEgg = document.getElementById('bottomEggCard');
                     if (bottomEgg) {
