@@ -434,13 +434,107 @@
             color: var(--accent-color);
             font-weight: 600;
         }
+
+        /* -------------------------------------------------- */
+        /* 이스터에그 애니메이션 및 팝업 스타일 추가 */
+        /* -------------------------------------------------- */
+        .easter-egg-card {
+            cursor: pointer;
+            transition: transform 0.6s ease;
+            transform-style: preserve-3d;
+        }
+
+        .easter-egg-card.flash-effect {
+            animation: flashGold 0.4s ease-in-out, flipCard 0.6s ease-in-out;
+        }
+
+        @keyframes flashGold {
+            0% { filter: brightness(1); box-shadow: 0 0 0px rgba(255, 204, 0, 0); }
+            50% { filter: brightness(2.5) drop-shadow(0 0 25px #ffcc00); box-shadow: 0 0 30px #ffcc00; }
+            100% { filter: brightness(1); box-shadow: 0 0 0px rgba(255, 204, 0, 0); }
+        }
+
+        @keyframes flipCard {
+            0% { transform: rotateY(0deg); }
+            50% { transform: rotateY(90deg); }
+            100% { transform: rotateY(0deg); }
+        }
+
+        .ee-modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .ee-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .ee-modal-content {
+            background: #1e1e1e;
+            color: #ffffff;
+            border: 2px solid #ffcc00;
+            border-radius: 14px;
+            padding: 24px 24px;
+            max-width: 360px;
+            width: 85%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.25);
+            transform: scale(0.85);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .ee-modal-overlay.active .ee-modal-content {
+            transform: scale(1);
+        }
+
+        .ee-modal-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #ffcc00;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .ee-modal-body {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #dddddd;
+            margin-bottom: 20px;
+            word-break: keep-all;
+        }
+
+        .ee-modal-btn {
+            background: #ffcc00;
+            color: #121212;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .ee-modal-btn:hover {
+            background: #e6b800;
+        }
     </style>
 </head>
 <body>
 
     <h1>냥코대전쟁 캐릭터 가이드</h1>
 
-    <!-- 메인 대분류 탭 메뉴 (변경됨) -->
+    <!-- 메인 대분류 탭 메뉴 -->
     <div class="main-tab-container">
         <button class="main-tab-btn active" onclick="switchMainTab('attribute-section', this)">속성별 가이드</button>
         <button class="main-tab-btn" onclick="switchMainTab('rush-section', this)">속공 및 범용</button>
@@ -671,7 +765,12 @@
                 <div class="character-card"><img src="IMG_1543.png" class="char-img"><div class="char-name">회월의 기사 다크 루노스</div></div>
                 <div class="character-card"><img src="IMG_1553.png" class="char-img"><div class="char-name">염라 대장 엠마</div></div>
                 <div class="character-card"><img src="IMG_1565.png" class="char-img"><div class="char-name">적멸의 선녀 다크 루나샤</div></div>
-                <div class="character-card"><img src="IMG_1566.png" class="char-img"><div class="char-name">날아라 변신소녀 단</div></div>
+                
+                <!-- [이스터에그 대상 카드] 5등 영역 -->
+                <div class="character-card easter-egg-card" onclick="triggerEasterEgg(this)">
+                    <img src="IMG_1566.png" class="char-img" id="eeCardImg">
+                    <div class="char-name" id="eeCardName">날아라 변신소녀 단</div>
+                </div>
             </div>
         </div>
 
@@ -728,7 +827,7 @@
         </div>
     </div>
 
-    <!-- [섹션 3] 추천 4진/초본 탭 (캐릭터 적용 완료) -->
+    <!-- [섹션 3] 추천 4진/초본 탭 -->
     <div id="growth-section" class="main-section">
         <div style="max-width: 650px; margin: 0 auto 30px auto; background-color: var(--box-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 16px 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.4);">
             <div class="section-title" style="margin-top: 0;">추천 4단 진화 Top 5</div>
@@ -760,7 +859,6 @@
                 <span class="combo-rank-title">쌍루노 범용덱</span>
                 <span class="combo-desc">안정성을 최대한 높인 덱 (클릭 시 대체캐 교체)</span>
             </div>
-            <!-- 윗줄 5개 -->
             <div class="character-row" style="margin-bottom: 6px;">
                 <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1570.png" data-alt-name="메탈 고양이 빌더" data-orig-img="IMG_1534.png" data-orig-name="고양이 연어알">
                     <div class="swap-badge">🔄</div>
@@ -786,7 +884,6 @@
                     <div class="char-name">열혈경파 쿠니오군</div>
                 </div>
             </div>
-            <!-- 아랫줄 5개 -->
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1542.png" class="char-img"><div class="char-name">만월의 기사 루노스</div></div>
                 <div class="character-card"><img src="IMG_1543.png" class="char-img"><div class="char-name">회월의 기사 다크 루노스</div></div>
@@ -802,7 +899,6 @@
                 <span class="combo-rank-title">하데스 범용덱</span>
                 <span class="combo-desc">속도감을 높인 덱 (클릭 시 대체캐 교체)</span>
             </div>
-            <!-- 윗줄 5개 -->
             <div class="character-row" style="margin-bottom: 6px;">
                 <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1570.png" data-alt-name="메탈 고양이 빌더" data-orig-img="IMG_1534.png" data-orig-name="고양이 연어알">
                     <div class="swap-badge">🔄</div>
@@ -818,7 +914,6 @@
                     <div class="char-name">블레이드 마스터 스탈</div>
                 </div>
             </div>
-            <!-- 아랫줄 5개 -->
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1491.png" class="char-img"><div class="char-name">G데스 하데스</div></div>
                 <div class="character-card"><img src="IMG_1530.png" class="char-img"><div class="char-name">세이버 얼터CC</div></div>
@@ -834,7 +929,6 @@
                 <span class="combo-rank-title">흙수저덱</span>
                 <span class="combo-desc">스탈이 없고 저렴한 덱 (클릭 시 대체캐 교체)</span>
             </div>
-            <!-- 윗줄 5개 -->
             <div class="character-row" style="margin-bottom: 6px;">
                 <div class="character-card"><img src="IMG_1571.png" class="char-img"><div class="char-name">고양이 강시</div></div>
                 <div class="character-card"><img src="IMG_1582.png" class="char-img"><div class="char-name">고양이 캉캉</div></div>
@@ -846,7 +940,6 @@
                     <div class="char-name">열혈경파 쿠니오군</div>
                 </div>
             </div>
-            <!-- 아랫줄 5개 -->
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1542.png" class="char-img"><div class="char-name">만월의 기사 루노스</div></div>
                 <div class="character-card"><img src="IMG_1543.png" class="char-img"><div class="char-name">회월의 기사 다크 루노스</div></div>
@@ -983,6 +1076,17 @@
         </a>
     </div>
 
+    <!-- 이스터에그 정중앙 팝업 모달 HTML -->
+    <div class="ee-modal-overlay" id="eeModalOverlay" onclick="closeEeModal(event)">
+        <div class="ee-modal-content" onclick="event.stopPropagation()">
+            <div class="ee-modal-title">[숨겨진 이스터에그 발견]</div>
+            <div class="ee-modal-body">
+                편의점에서 사이다를 고를 때는 칠성사이다보다 스프라이트가 탄산이 더 강합니다.
+            </div>
+            <button class="ee-modal-btn" onclick="closeEeModal()">확인</button>
+        </div>
+    </div>
+
     <script>
         let currentTargetId = null;
 
@@ -1040,6 +1144,42 @@
                 // 2단계: 원래 크기로 돌아오기 (플립 끝)
                 cardElement.classList.remove('flipping');
             }, 100); // 0.1초 뒤 전환
+        }
+
+        /* -------------------------------------------------- */
+        /* 이스터에그 트리거 및 팝업 스크립트 추가 */
+        /* -------------------------------------------------- */
+        function triggerEasterEgg(cardElement) {
+            // 이미 변신한 상태면 팝업만 재출력
+            if (cardElement.classList.contains('activated')) {
+                document.getElementById('eeModalOverlay').classList.add('active');
+                return;
+            }
+
+            // 번쩍임 & 회전 애니메이션
+            cardElement.classList.add('flash-effect');
+
+            // 0.3초 뒤(회전 중간) 고양이 에그로 이미지 및 이름 교체
+            setTimeout(() => {
+                const cardImg = document.getElementById('eeCardImg');
+                const cardName = document.getElementById('eeCardName');
+
+                if (cardImg) cardImg.src = 'image.png'; // 올리신 고양이 에그 이미지 파일명
+                if (cardName) cardName.innerText = '고양이 에그';
+
+                cardElement.classList.add('activated');
+            }, 300);
+
+            // 0.5초 뒤 팝업 출력
+            setTimeout(() => {
+                document.getElementById('eeModalOverlay').classList.add('active');
+                cardElement.classList.remove('flash-effect');
+            }, 500);
+        }
+
+        function closeEeModal(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('eeModalOverlay').classList.remove('active');
         }
     </script>
 
