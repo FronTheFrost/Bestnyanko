@@ -195,6 +195,15 @@
             margin-top: 5px;
         }
 
+        .flash-effect {
+            animation: flashGold 0.4s ease-in-out;
+        }
+        @keyframes flashGold {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(2.5); }
+            100% { filter: brightness(1); }
+        }
+
         /* 팝업 모달 */
         .ee-modal-overlay {
             position: fixed;
@@ -316,8 +325,6 @@
     </div>
 
     <script>
-        let egg2Found = false;
-
         window.addEventListener('scroll', () => {
             const scrollBottom = window.innerHeight + window.scrollY;
             const documentHeight = document.body.offsetHeight;
@@ -327,20 +334,19 @@
             }
         });
 
-        function showEePopup(tmiText) {
-            document.getElementById('eeModalTitle').innerText = `[숨겨진 이스터에그 발견 (2/3)]`;
-            document.getElementById('eeModalBody').innerText = tmiText;
-            document.getElementById('eeModalOverlay').classList.add('active');
-        }
-
         function closeEeModal(event) {
             if (event) event.stopPropagation();
             document.getElementById('eeModalOverlay').classList.remove('active');
         }
 
         function triggerEasterEgg2(cardElement) {
-            egg2Found = true;
-            showEePopup("두루마리 휴지는 벽 쪽이 아니라 바깥쪽으로 풀리게 걸어둬야 쓸 때 훨씬 편합니다.");
+            cardElement.classList.add('flash-effect');
+            setTimeout(() => {
+                document.getElementById('eeModalTitle').innerText = "[숨겨진 이스터에그 발견 (2/3)]";
+                document.getElementById('eeModalBody').innerText = "두루마리 휴지는 벽 쪽이 아니라 바깥쪽으로 풀리게 걸어둬야 쓸 때 훨씬 편합니다.";
+                document.getElementById('eeModalOverlay').classList.add('active');
+                cardElement.classList.remove('flash-effect');
+            }, 400);
         }
     </script>
 </body>
