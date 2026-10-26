@@ -436,7 +436,7 @@
         }
 
         /* -------------------------------------------------- */
-        /* 1번 이스터에그 (카드 플립 & 번쩍임) 스타일 */
+        /* 1번 이스터에그 스타일 */
         /* -------------------------------------------------- */
         .easter-egg-card {
             cursor: pointer;
@@ -461,15 +461,15 @@
         }
 
         /* -------------------------------------------------- */
-        /* 2번 이스터에그 (낚시형 무한 스크롤 및 튀어나오는 에그) 스타일 */
+        /* 2번 이스터에그 (속공 및 범용 탭 전용 낚시형 무한 스크롤) 스타일 */
         /* -------------------------------------------------- */
         .infinite-scroll-trap {
-            height: 180px; /* 끝난 줄 알았는데 더 내려가지게 만드는 허전한 빈 공간 */
+            height: 320px; /* 빈 공간을 더 길게 주어 한참 내려야 하도록 설정 */
             position: relative;
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            padding-bottom: 20px;
+            padding-bottom: 40px;
         }
 
         .hidden-bottom-egg {
@@ -815,7 +815,7 @@
                 <div class="character-card"><img src="IMG_1553.png" class="char-img"><div class="char-name">염라 대장 엠마</div></div>
                 <div class="character-card"><img src="IMG_1565.png" class="char-img"><div class="char-name">적멸의 선녀 다크 루나샤</div></div>
                 
-                <!-- [1번 이스터에그 대상 카드] 무속성 탱커 5등 위치 -->
+                <!-- [1번 이스터에그 대상 카드] 이름 통일 -->
                 <div class="character-card easter-egg-card" onclick="triggerEasterEgg1(this)">
                     <img src="IMG_1566.png" class="char-img" id="eeCardImg1">
                     <div class="char-name" id="eeCardName1">날아라 변신소녀 단</div>
@@ -829,7 +829,7 @@
         </div>
     </div>
 
-    <!-- [섹션 2] 속공 및 범용 라인업 -->
+    <!-- [섹션 2] 속공 및 범용 라인업 (여기에만 낚시형 스크롤 에그 배치) -->
     <div id="rush-section" class="main-section">
         <div style="max-width: 650px; margin: 0 auto 30px auto; background-color: var(--box-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 16px 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.4);">
             <div class="section-title" style="margin-top: 0;">⚡ 속공 캐릭터 랭킹 Top 8</div>
@@ -872,6 +872,14 @@
                 <div class="character-card"><img src="IMG_1485.png" class="attr-mini-badge"><img src="IMG_1575.png" class="char-img"><div class="char-name">냥코콘</div></div>
                 <div class="character-card"><img src="IMG_1486.png" class="attr-mini-badge"><img src="IMG_1575.png" class="char-img"><div class="char-name">냥코콘</div></div>
                 <div class="character-card"><img src="IMG_1487.png" class="attr-mini-badge"><img src="IMG_1581.png" class="char-img"><div class="char-name">세뇌된 고무 고양이</div></div>
+            </div>
+        </div>
+
+        <!-- [2번 이스터에그] 속공 및 범용 탭 맨 아래 허전한 빈 공간 및 튀어나오는 고양이 에그 -->
+        <div class="infinite-scroll-trap">
+            <div class="hidden-bottom-egg" id="bottomEggCard" onclick="triggerEasterEgg2(this)">
+                <img src="IMG_1593.png">
+                <div class="egg-label">고양이 에그</div>
             </div>
         </div>
     </div>
@@ -1125,14 +1133,6 @@
         </a>
     </div>
 
-    <!-- [2번 이스터에그] 끝난 줄 알았는데 더 내려가지게 만드는 낚시형 빈 공간 및 튀어나오는 에그 -->
-    <div class="infinite-scroll-trap">
-        <div class="hidden-bottom-egg" id="bottomEggCard" onclick="triggerEasterEgg2(this)">
-            <img src="IMG_1593.png">
-            <div class="egg-label">🥚 숨겨진 에그</div>
-        </div>
-    </div>
-
     <!-- 이스터에그 공통 정중앙 팝업 모달 -->
     <div class="ee-modal-overlay" id="eeModalOverlay" onclick="closeEeModal(event)">
         <div class="ee-modal-content" onclick="event.stopPropagation()">
@@ -1147,7 +1147,7 @@
     <script>
         let currentTargetId = null;
 
-        // 이스터에그 수집 상태 추적 (각각 true/false)
+        // 이스터에그 수집 상태 추적
         let egg1Found = false;
         let egg2Found = false;
 
@@ -1206,13 +1206,11 @@
         }
 
         /* -------------------------------------------------- */
-        /* 공통 팝업 및 유동 카운트 출력 함수 */
+        /* 공통 팝업 및 유동 카운트 출력 함수 (이름 통일 반영) */
         /* -------------------------------------------------- */
         function showEePopup(tmiText) {
-            // 현재 몇 개 찾았는지 계산
             const foundCount = (egg1Found ? 1 : 0) + (egg2Found ? 1 : 0);
             
-            // 제목에 유동적으로 (1/2), (2/2) 반영
             document.getElementById('eeModalTitle').innerText = `[숨겨진 이스터에그 발견 (${foundCount}/2)]`;
             document.getElementById('eeModalBody').innerText = tmiText;
             document.getElementById('eeModalOverlay').classList.add('active');
@@ -1253,18 +1251,22 @@
         }
 
         /* -------------------------------------------------- */
-        /* 2번 이스터에그 (하단 스크롤 낚시 에그) 로직 */
+        /* 2번 이스터에그 (속공 및 범용 탭 전용 낚시형 무한 스크롤) 로직 */
         /* -------------------------------------------------- */
-        // 스크롤이 맨 밑바닥을 지나 허전한 공간에 도달할 때 감지
         window.addEventListener('scroll', () => {
-            const scrollBottom = window.innerHeight + window.scrollY;
-            const documentHeight = document.body.offsetHeight;
+            const rushSection = document.getElementById('rush-section');
+            
+            // 현재 '속공 및 범용' 탭이 활성화되어 있을 때만 스크롤 감지 실행
+            if (rushSection.classList.contains('active')) {
+                const scrollBottom = window.innerHeight + window.scrollY;
+                const documentHeight = document.body.offsetHeight;
 
-            // 맨 밑에 거의 도달했을 때 에그 카드가 스르륵 튀어나옴
-            if (scrollBottom >= documentHeight - 60) {
-                const bottomEgg = document.getElementById('bottomEggCard');
-                if (bottomEgg) {
-                    bottomEgg.classList.add('reveal');
+                // 스크롤을 아주 꽉 채워서 바닥까지 내렸을 때만 에그가 튀어나오도록 조정
+                if (scrollBottom >= documentHeight - 15) {
+                    const bottomEgg = document.getElementById('bottomEggCard');
+                    if (bottomEgg) {
+                        bottomEgg.classList.add('reveal');
+                    }
                 }
             }
         });
