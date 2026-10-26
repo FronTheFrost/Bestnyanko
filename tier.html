@@ -36,7 +36,6 @@
             -webkit-tap-highlight-color: transparent !important;
             -webkit-touch-callout: none;
         }
-        /* 클릭/포커스 시에도 테두리 색상 변화 방지 및 강제 초기화 */
         .tier-banner:focus, .tier-banner:active {
             outline: none !important;
             border-color: var(--border-color) !important;
@@ -85,6 +84,7 @@
             font-weight: 900;
             padding: 6px 4px;
             color: #fff;
+            flex-shrink: 0;
         }
         /* SS ~ D 등급별 색상 분기 */
         .tier-label.ss { background: #b82323; }
@@ -100,16 +100,16 @@
             gap: 6px;
             padding: 8px;
             flex: 1;
-            align-items: center;
+            align-items: flex-start;
         }
-        /* 캐릭터 미니 카드 */
+        /* 캐릭터 미니 카드 (폭 확장 & 전체 이름 표시) */
         .t-card {
             background: #252525;
             border: 1px solid #444;
             border-radius: 6px;
-            width: 52px;
+            width: 64px;
             text-align: center;
-            padding: 3px 2px;
+            padding: 4px 2px;
         }
         .t-card img {
             width: 100%;
@@ -120,12 +120,13 @@
             display: block;
         }
         .t-name {
-            font-size: 9px;
-            margin-top: 3px;
-            color: #ccc;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            font-size: 9.5px;
+            line-height: 1.25;
+            margin-top: 4px;
+            color: #ddd;
+            word-break: keep-all;
+            white-space: normal;
+            overflow: visible;
         }
     </style>
 </head>
@@ -144,7 +145,7 @@
             <div class="tier-row">
                 <div class="tier-label ss">SS</div>
                 <div class="tier-cards-area">
-                    <div class="t-card"><img src="dagun/IMG_1584.png"><div class="t-name">야옹마</div></div>
+                    <div class="t-card"><img src="dagun/IMG_1584.png"><div class="t-name">헬파이어 도깨비 야옹마</div></div>
                 </div>
             </div>
 
@@ -204,7 +205,7 @@
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
             
-            // 터치 후 포커스가 남아있지 않도록 강제로 포커스를 해제(blur)하여 노란 테두리 잔상 제거
+            // 터치 후 노란 테두리 잔상 방지를 위한 포커스 해제
             element.blur();
         }
     </script>
