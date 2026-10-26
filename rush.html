@@ -22,6 +22,7 @@
             padding: 10px 4px;
             user-select: none;
             -webkit-user-select: none;
+            overflow: visible !important;
         }
 
         .box-container {
@@ -154,6 +155,7 @@
             box-shadow: 0 4px 15px rgba(254, 229, 0, 0.2);
         }
 
+        /* 이스터에그 트랩 영역 */
         .infinite-scroll-trap {
             height: 2000px; 
             position: relative;
@@ -261,14 +263,35 @@
     </div>
 
     <script>
-        window.addEventListener('scroll', () => {
-            const scrollBottom = window.innerHeight + window.scrollY;
-            const documentHeight = document.body.offsetHeight;
-            if (scrollBottom >= documentHeight - 20) {
-                const bottomEgg = document.getElementById('bottomEggCard');
-                if (bottomEgg) bottomEgg.classList.add('reveal');
+        // 부모 창(메인 index.html)의 스크롤을 감지해서 이스터에그 등장시킴
+        function checkScrollPosition() {
+            if (window.parent) {
+                const parentScrollBottom = window.parent.innerHeight + window.parent.scrollY;
+                const bodyHeight = document.body.offsetHeight;
+                
+                // 부모 스크롤이 맨 바닥 근처(마지막 50px)까지 오면 등장!
+                if (parentScrollBottom >= bodyHeight - 50) {
+                    const bottomEgg = document.getElementById('bottomEggCard');
+                    if (bottomEgg) bottomEgg.classList.add('reveal');
+                }
             }
-        });
+        }
+
+        // 부모 창 스크롤 이벤트 수신
+        try {
+            window.parent.addEventListener('scroll', checkScrollPosition);
+        } catch(e) {}
+        window.addEventListener('scroll', checkScrollPosition);
+
+        // 높이 자동 동기화
+        function sendHeight() {
+            const currentHeight = document.body.scrollHeight;
+            window.parent.postMessage({ type: 'resizeHeight', id: 'rushFrame', height: currentHeight }, '*');
+        }
+
+        const observer = new ResizeObserver(() => { sendHeight(); });
+        observer.observe(document.body);
+        window.addEventListener('load', sendHeight);
 
         function triggerEasterEgg2(cardElement) {
             cardElement.classList.add('flash-effect');
