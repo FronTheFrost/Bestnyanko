@@ -42,7 +42,7 @@
             letter-spacing: -0.5px;
         }
 
-        /* 메인 대분류 탭 메뉴 (모바일 세로 화면을 고려한 2줄 그리드 배치) */
+        /* 메인 대분류 탭 메뉴 */
         .main-tab-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -95,7 +95,7 @@
             animation: fadeIn 0.2s ease-out;
         }
 
-        /* 1. 상단 10개 속성 아이콘 Grid */
+        /* 속성 아이콘 Grid */
         .attribute-container {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -233,7 +233,6 @@
             transition: transform 0.2s ease, background-color 0.15s, border-color 0.15s;
         }
 
-        /* 대체 가능한 카드 스타일 (플립 효과 추가) */
         .character-card.swappable {
             cursor: pointer;
             border-color: #886600;
@@ -244,7 +243,6 @@
             background-color: #25231c;
         }
 
-        /* 교체 시 팽글 도는 플립 효과 클래스 */
         .character-card.flipping {
             transform: rotateY(90deg) scale(0.9);
         }
@@ -436,12 +434,22 @@
         }
 
         /* -------------------------------------------------- */
-        /* 1번 이스터에그 스타일 */
+        /* 1번 이스터에그 스타일 (변신 후 황금 테두리 & 황금 글씨 추가) */
         /* -------------------------------------------------- */
         .easter-egg-card {
             cursor: pointer;
-            transition: transform 0.6s ease;
-            transform-style: preserve-3d;
+            transition: transform 0.6s ease, border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .easter-egg-card.activated {
+            border: 2px solid #ffcc00 !important;
+            background-color: #1a1915 !important;
+            box-shadow: 0 0 12px rgba(255, 204, 0, 0.3);
+        }
+
+        .easter-egg-card.activated .char-name {
+            color: #ffcc00 !important;
+            font-weight: bold;
         }
 
         .easter-egg-card.flash-effect {
@@ -461,15 +469,15 @@
         }
 
         /* -------------------------------------------------- */
-        /* 2번 이스터에그 (3배로 늘려버린 낚시형 무한 스크롤 구간) 스타일 */
+        /* 2번 이스터에그 (2000px 악질 낚시 스크롤) 스타일 */
         /* -------------------------------------------------- */
         .infinite-scroll-trap {
-            height: 950px; /* 기존보다 3배 이상 깊게 늘려 한참 내려야 하도록 설정 */
+            height: 2000px; /* 요청하신 2000px로 대폭 확장 */
             position: relative;
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            padding-bottom: 50px;
+            padding-bottom: 60px;
         }
 
         .hidden-bottom-egg {
@@ -594,7 +602,6 @@
 
     <!-- [섹션 1] 속성별 가이드 -->
     <div id="attribute-section" class="main-section active">
-        <!-- 10개 속성 버튼 영역 -->
         <div class="attribute-container">
             <button class="attr-btn" onclick="toggleTab('red')"><img src="IMG_1478.png" class="attr-icon"></button>
             <button class="attr-btn" onclick="toggleTab('floating')"><img src="IMG_1479.png" class="attr-icon"></button>
@@ -815,7 +822,7 @@
                 <div class="character-card"><img src="IMG_1553.png" class="char-img"><div class="char-name">염라 대장 엠마</div></div>
                 <div class="character-card"><img src="IMG_1565.png" class="char-img"><div class="char-name">적멸의 선녀 다크 루나샤</div></div>
                 
-                <!-- [1번 이스터에그 대상 카드] 이름 통일 -->
+                <!-- [1번 이스터에그 대상 카드] -->
                 <div class="character-card easter-egg-card" onclick="triggerEasterEgg1(this)">
                     <img src="IMG_1566.png" class="char-img" id="eeCardImg1">
                     <div class="char-name" id="eeCardName1">날아라 변신소녀 단</div>
@@ -829,7 +836,7 @@
         </div>
     </div>
 
-    <!-- [섹션 2] 속공 및 범용 라인업 (여기에만 낚시형 스크롤 에그 배치) -->
+    <!-- [섹션 2] 속공 및 범용 라인업 -->
     <div id="rush-section" class="main-section">
         <div style="max-width: 650px; margin: 0 auto 30px auto; background-color: var(--box-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 16px 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.4);">
             <div class="section-title" style="margin-top: 0;">⚡ 속공 캐릭터 랭킹 Top 8</div>
@@ -875,7 +882,7 @@
             </div>
         </div>
 
-        <!-- [2번 이스터에그] 3배로 길어진 낚시형 무한 스크롤 빈 공간 -->
+        <!-- [2번 이스터에그 전용 2000px 낚시형 스크롤 여백] 버튼들 밑에 배치 -->
         <div class="infinite-scroll-trap">
             <div class="hidden-bottom-egg" id="bottomEggCard" onclick="triggerEasterEgg2(this)">
                 <img src="IMG_1593.png">
@@ -909,8 +916,6 @@
 
     <!-- [섹션 4] 범용 편성 모음 탭 -->
     <div id="deck-section" class="main-section">
-        
-        <!-- 범용 덱 1: 쌍루노 범용덱 -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">쌍루노 범용덱</span>
@@ -950,7 +955,6 @@
             </div>
         </div>
 
-        <!-- 범용 덱 2: 하데스 범용덱 -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">하데스 범용덱</span>
@@ -980,7 +984,6 @@
             </div>
         </div>
 
-        <!-- 범용 덱 3: 흙수저덱 -->
         <div class="combo-rank-box">
             <div class="combo-header">
                 <span class="combo-rank-title">흙수저덱</span>
@@ -1005,7 +1008,6 @@
                 <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
             </div>
         </div>
-
     </div>
 
     <!-- [섹션 5] 추천 냥콤보 Best 8 -->
@@ -1123,7 +1125,7 @@
         </div>
     </div>
 
-    <!-- 외부 링크 버튼 -->
+    <!-- 외부 링크 버튼 (정상 위치에 고정) -->
     <div class="link-btn-container">
         <a href="https://www.youtube.com/@미사카미코토" target="_blank" class="link-btn youtube-btn">
             <span class="btn-icon">▶</span> 디디잇 유튜브 구독
@@ -1206,7 +1208,7 @@
         }
 
         /* -------------------------------------------------- */
-        /* 공통 팝업 및 유동 카운트 출력 함수 (이름 통일 반영) */
+        /* 공통 팝업 및 유동 카운트 출력 함수 */
         /* -------------------------------------------------- */
         function showEePopup(tmiText) {
             const foundCount = (egg1Found ? 1 : 0) + (egg2Found ? 1 : 0);
@@ -1240,6 +1242,7 @@
                 if (cardImg) cardImg.src = 'IMG_1593.png';
                 if (cardName) cardName.innerText = '고양이 에그';
 
+                // 황금색 테두리 & 글자색 스타일 활성화
                 cardElement.classList.add('activated');
             }, 300);
 
@@ -1251,18 +1254,17 @@
         }
 
         /* -------------------------------------------------- */
-        /* 2번 이스터에그 (속공 및 범용 탭 전용 낚시형 무한 스크롤) 로직 */
+        /* 2번 이스터에그 (속공 및 범용 탭 전용 2000px 낚시 스크롤) 로직 */
         /* -------------------------------------------------- */
         window.addEventListener('scroll', () => {
             const rushSection = document.getElementById('rush-section');
             
-            // 현재 '속공 및 범용' 탭이 활성화되어 있을 때만 스크롤 감지 실행
             if (rushSection.classList.contains('active')) {
                 const scrollBottom = window.innerHeight + window.scrollY;
                 const documentHeight = document.body.offsetHeight;
 
-                // 스크롤을 아주 꽉 채워서 맨 바닥 끝까지 쫙 내렸을 때만 에그가 튀어나오도록 조정 (3배 깊이)
-                if (scrollBottom >= documentHeight - 15) {
+                // 2000px 밑바닥 끝까지 바짝 내려왔을 때 팝 하고 등장
+                if (scrollBottom >= documentHeight - 20) {
                     const bottomEgg = document.getElementById('bottomEggCard');
                     if (bottomEgg) {
                         bottomEgg.classList.add('reveal');
