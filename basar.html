@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>냥코대전쟁 시리즈별 티어표 - 초환수 바사라즈</title>
+    <title>초환수 바사라즈 티어표</title>
     <style>
         :root {
-            --bg-color: #282828;
             --card-bg: #1e1e1e;
             --text-color: #ffffff;
             --accent-color: #ffcc00;
@@ -18,15 +17,15 @@
             background-color: transparent;
             color: var(--text-color);
             margin: 0;
-            padding: 12px;
+            padding: 0;
             user-select: none;
             -webkit-user-select: none;
         }
 
-        /* 상단 배너 (노란 테두리 잔상 완전 차단) */
+        /* 상단 배너 */
         .tier-banner {
             width: 100%;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
             border: 2px solid var(--border-color);
             background: #000;
@@ -35,10 +34,7 @@
             outline: none !important;
             -webkit-tap-highlight-color: transparent !important;
             -webkit-touch-callout: none;
-        }
-        .tier-banner:focus, .tier-banner:active {
-            outline: none !important;
-            border-color: var(--border-color) !important;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         .tier-banner:hover {
             border-color: var(--accent-color);
@@ -50,7 +46,7 @@
             pointer-events: none;
         }
 
-        /* 티어표 전체 컨테이너 */
+        /* 티어표 컨테이너 (아코디언 토글) */
         .tier-content-wrapper {
             display: none;
             margin-top: 10px;
@@ -86,7 +82,6 @@
             color: #fff;
             flex-shrink: 0;
         }
-        /* SS ~ D 등급별 색상 분기 */
         .tier-label.ss { background: #b82323; }
         .tier-label.s  { background: #b8621b; }
         .tier-label.a  { background: #b89d1b; color: #121212; }
@@ -102,7 +97,6 @@
             flex: 1;
             align-items: flex-start;
         }
-        /* 캐릭터 미니 카드 */
         .t-card {
             background: #252525;
             border: 1px solid #444;
@@ -132,24 +126,20 @@
 </head>
 <body>
 
-    <!-- 상단 시리즈 배너 이미지 (메인 폴더에 있음) -->
-    <div class="tier-banner" id="tierBanner" onclick="toggleTierList(this)">
+    <!-- 바사라즈 배너 -->
+    <div class="tier-banner" onclick="toggleTierList(this)">
         <img src="IMG_1617.jpeg" alt="초환수 바사라즈 배너">
     </div>
 
-    <!-- 배너를 눌렀을 때 나타나는 티어표 영역 (SS ~ D) -->
+    <!-- 펼쳐질 티어표 내용 -->
     <div class="tier-content-wrapper" id="tierContent">
         <div style="display: flex; flex-direction: column; gap: 8px;">
             
-            <!-- SS 등급 -->
             <div class="tier-row">
                 <div class="tier-label ss">SS</div>
-                <div class="tier-cards-area">
-                    <!-- 없음 -->
-                </div>
+                <div class="tier-cards-area"></div>
             </div>
 
-            <!-- S 등급 -->
             <div class="tier-row">
                 <div class="tier-label s">S</div>
                 <div class="tier-cards-area">
@@ -157,7 +147,6 @@
                 </div>
             </div>
 
-            <!-- A 등급 -->
             <div class="tier-row">
                 <div class="tier-label a">A</div>
                 <div class="tier-cards-area">
@@ -167,28 +156,19 @@
                 </div>
             </div>
 
-            <!-- B 등급 -->
             <div class="tier-row">
                 <div class="tier-label b">B</div>
-                <div class="tier-cards-area">
-                    <!-- 없음 -->
-                </div>
+                <div class="tier-cards-area"></div>
             </div>
 
-            <!-- C 등급 -->
             <div class="tier-row">
                 <div class="tier-label c">C</div>
-                <div class="tier-cards-area">
-                    <!-- 없음 -->
-                </div>
+                <div class="tier-cards-area"></div>
             </div>
 
-            <!-- D 등급 -->
             <div class="tier-row">
                 <div class="tier-label d">D</div>
-                <div class="tier-cards-area">
-                    <!-- 없음 -->
-                </div>
+                <div class="tier-cards-area"></div>
             </div>
 
         </div>
@@ -198,11 +178,8 @@
         function toggleTierList(element) {
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
-            
-            // 터치 후 노란 테두리 잔상 방지를 위한 포커스 해제
             element.blur();
         }
     </script>
-
 </body>
 </html>
