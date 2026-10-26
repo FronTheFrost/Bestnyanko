@@ -51,20 +51,13 @@
             transform: scale(0.95);
         }
 
-        /* 메인 대분류 탭 메뉴 */
+        /* 메인 대분류 탭 메뉴 (6개 탭 레이아웃 대응) */
         .main-tab-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 6px;
             max-width: 500px;
             margin: 0 auto 20px auto;
-        }
-
-        .main-tab-btn:nth-child(4) {
-            grid-column: span 1.5;
-        }
-        .main-tab-btn:nth-child(5) {
-            grid-column: span 1.5;
         }
 
         .main-tab-btn {
@@ -365,6 +358,69 @@
             color: #aaa;
         }
 
+        /* DB 검색 탭 전용 스타일 */
+        .db-search-input {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-color);
+            font-size: 14px;
+            outline: none;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+        .db-search-input:focus {
+            border-color: var(--accent-color);
+        }
+        .db-category-filter {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+        .db-filter-btn {
+            flex: 1;
+            padding: 8px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: #aaa;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .db-filter-btn.active {
+            background-color: #2a2a24;
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+        .db-results-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .db-item-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 4px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .db-item-name {
+            font-size: 10px;
+            margin-top: 6px;
+            color: #ddd;
+            word-break: break-all;
+        }
+
         .link-btn-container {
             display: flex;
             gap: 12px;
@@ -519,7 +575,7 @@
             margin-top: 5px;
         }
 
-        /* 공통 팝업 모달 스타일 (1, 2번용) */
+        /* 공통 팝업 모달 스타일 */
         .ee-modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -589,7 +645,7 @@
             background: #e6b800;
         }
 
-        /* 3번 이스터에그 전용 '역대급 거대 에그' 풀스크린 모달 스타일 */
+        /* 3번 이스터에그 전용 풀스크린 모달 */
         .giant-egg-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -665,13 +721,14 @@
     <!-- 3번 이스터에그 적용 상단 타이틀 -->
     <h1 id="mainTitle" onclick="handleTitleClick()">냥코대전쟁 캐릭터 가이드</h1>
 
-    <!-- 메인 대분류 탭 메뉴 -->
+    <!-- 메인 대분류 탭 메뉴 (6개 탭 확장) -->
     <div class="main-tab-container">
         <button class="main-tab-btn active" onclick="switchMainTab('attribute-section', this)">속성별 가이드</button>
         <button class="main-tab-btn" onclick="switchMainTab('rush-section', this)">속공 및 범용</button>
         <button class="main-tab-btn" onclick="switchMainTab('growth-section', this)">추천 4진/초본</button>
         <button class="main-tab-btn" onclick="switchMainTab('deck-section', this)">범용 편성 모음</button>
         <button class="main-tab-btn" onclick="switchMainTab('combo-section', this)">냥콤보 best 8</button>
+        <button class="main-tab-btn" onclick="switchMainTab('database-section', this)">📦 DB 검색</button>
     </div>
 
     <!-- [섹션 1] 속성별 가이드 -->
@@ -909,7 +966,6 @@
             <p>피드백 적극 반영하고 있습니다! 오픈채팅방에 가입하여 의견을 나눠주세요!</p>
         </div>
 
-        <!-- [속성별 가이드 탭 하단] 고정 링크 버튼 -->
         <div class="link-btn-container" style="max-width: 500px; margin: 35px auto 15px auto;">
             <a href="https://www.youtube.com/@미사카미코토" target="_blank" class="link-btn youtube-btn">
                 <span class="btn-icon">▶</span> 디디잇 유튜브 구독
@@ -966,7 +1022,6 @@
             </div>
         </div>
 
-        <!-- [속공 및 범용] 탭 내부 고정 버튼 -->
         <div class="link-btn-container" style="max-width: 650px; margin: 0 auto 15px auto;">
             <a href="https://www.youtube.com/@미사카미코토" target="_blank" class="link-btn youtube-btn">
                 <span class="btn-icon">▶</span> 디디잇 유튜브 구독
@@ -976,7 +1031,6 @@
             </a>
         </div>
 
-        <!-- 2번 이스터에그 2000px 낚시 트랩 -->
         <div class="infinite-scroll-trap">
             <div class="hidden-bottom-egg" id="bottomEggCard" onclick="triggerEasterEgg2(this)">
                 <img src="IMG_1593.png">
@@ -1030,14 +1084,8 @@
                     <img src="IMG_1534.png" class="char-img">
                     <div class="char-name">고양이 연어알</div>
                 </div>
-                <div class="character-card">
-                    <img src="IMG_1568.png" class="char-img">
-                    <div class="char-name">울트라 석공 냥돌이</div>
-                </div>
-                <div class="character-card">
-                    <img src="IMG_1584.png" class="char-img">
-                    <div class="char-name">헬파이어 도깨비 야옹마</div>
-                </div>
+                <div class="character-card"><img src="IMG_1568.png" class="char-img"><div class="char-name">울트라 석공 냥돌이</div></div>
+                <div class="character-card"><img src="IMG_1584.png" class="char-img"><div class="char-name">헬파이어 도깨비 야옹마</div></div>
                 <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1523.png" data-alt-name="울트라 대나무 공주" data-orig-img="IMG_1522.png" data-orig-name="블레이드 마스터 스탈">
                     <div class="swap-badge">🔄</div>
                     <img src="IMG_1522.png" class="char-img">
@@ -1214,7 +1262,7 @@
                 <span class="combo-desc">연구력 UP 【중】</span>
             </div>
             <div class="character-row">
-                <div class="character-card"><img src="IMG_1509.png" class="char-img"><div class="char-name">카오란파사란</div></div>
+                <div class="character-card"><img src="IMG_149;IMG_1509.png" class="char-img"><div class="char-name">카오란파사란</div></div>
                 <div class="character-card"><img src="IMG_1510.png" class="char-img"><div class="char-name">광란의 고양이 드래곤</div></div>
                 <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
                 <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
@@ -1230,7 +1278,7 @@
             <div class="character-row">
                 <div class="character-card"><img src="IMG_1511.png" class="char-img"><div class="char-name">여우아가씨 하늘나리</div></div>
                 <div class="character-card"><img src="IMG_1512.png" class="char-img"><div class="char-name">처녀귀신 냥코</div></div>
-                <div class="character-card"><img src="IMG_1513.png" class="char-img"><div class="char-name">냥코 오도리</div></div>
+                <div class="character-card"><img src="IMG_1513.png" class="char-img"><div class="char-name">냥코 nadori</div></div>
                 <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
                 <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
             </div>
@@ -1246,7 +1294,39 @@
         </div>
     </div>
 
-    <!-- 1, 2번 이스터에그 공통 팝업 모달 -->
+    <!-- [섹션 6] 신설된 DB 검색 탭 -->
+    <div id="database-section" class="main-section">
+        <div style="max-width: 650px; margin: 0 auto 30px auto; background-color: var(--box-bg); border: 2px solid var(--border-color); border-radius: 16px; padding: 16px 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.4);">
+            <div class="section-title" style="margin-top: 0;">🔍 냥코 대전쟁 데이터베이스 통합 검색</div>
+            
+            <!-- 검색창 -->
+            <input type="text" id="dbSearchInput" class="db-search-input" placeholder="캐릭터명, 적 이름, 스테이지 검색..." onkeyup="filterDatabase()">
+            
+            <!-- 카테고리 필터 버튼 -->
+            <div class="db-category-filter">
+                <button class="db-filter-btn active" onclick="setDbCategory('all', this)">전체</button>
+                <button class="db-filter-btn" onclick="setDbCategory('unit', this)">유닛</button>
+                <button class="db-filter-btn" onclick="setDbCategory('enemy', this)">적</button>
+                <button class="db-filter-btn" onclick="setDbCategory('stage', this)">스테이지</button>
+            </div>
+
+            <!-- 결과 그리드 -->
+            <div id="dbResultsGrid" class="db-results-grid">
+                <!-- 자바스크립트로 동적 렌더링 -->
+            </div>
+        </div>
+
+        <div class="link-btn-container" style="max-width: 500px; margin: 35px auto 15px auto;">
+            <a href="https://www.youtube.com/@미사카미코토" target="_blank" class="link-btn youtube-btn">
+                <span class="btn-icon">▶</span> 디디잇 유튜브 구독
+            </a>
+            <a href="https://open.kakao.com/o/pHG8yJOi" target="_blank" class="link-btn kakao-btn">
+                <span class="btn-icon">💬</span> 냥코 연구소 오픈채팅방
+            </a>
+        </div>
+    </div>
+
+    <!-- 모달들 -->
     <div class="ee-modal-overlay" id="eeModalOverlay" onclick="closeEeModal(event)">
         <div class="ee-modal-content" onclick="event.stopPropagation()">
             <div class="ee-modal-title" id="eeModalTitle">[숨겨진 이스터에그 발견]</div>
@@ -1255,7 +1335,6 @@
         </div>
     </div>
 
-    <!-- 3번 이스터에그 전용 '역대급 거대 에그' 풀스크린 모달 -->
     <div class="giant-egg-overlay" id="giantEggOverlay" onclick="closeGiantEgg()">
         <div class="giant-egg-box" onclick="event.stopPropagation()">
             <img src="IMG_1593.png" class="giant-egg-img">
@@ -1264,17 +1343,17 @@
         </div>
     </div>
 
+    <!-- catalog_2.js 연동 및 DB 검색 스크립트 -->
+    <script src="catalog_2.js"></script>
     <script>
         let currentTargetId = null;
-
-        // 이스터에그 수집 상태 추적 (총 3개)
         let egg1Found = false;
         let egg2Found = false;
         let egg3Found = false;
-
-        // 3번 이스터에그 (제목 연타 빌드업) 상태 변수
         let titleClickCount = 0;
         let titleHijacked = false;
+
+        let activeDbCategory = 'all';
 
         function switchMainTab(sectionId, btnElement) {
             document.querySelectorAll('.main-section').forEach(sec => sec.classList.remove('active'));
@@ -1282,6 +1361,11 @@
             
             document.getElementById(sectionId).classList.add('active');
             btnElement.classList.add('active');
+
+            // DB 탭으로 넘어올 때 초기 데이터 렌더링
+            if (sectionId === 'database-section') {
+                renderDatabaseList('');
+            }
         }
 
         function toggleTab(targetId) {
@@ -1306,7 +1390,6 @@
 
         function swapCharacter(cardElement) {
             if (cardElement.classList.contains('flipping')) return;
-
             cardElement.classList.add('flipping');
 
             setTimeout(() => {
@@ -1330,10 +1413,8 @@
             }, 100);
         }
 
-        /* 1, 2번 이스터에그 팝업 함수 (총 3개 기준 카운트 연동) */
         function showEePopup(tmiText) {
             const foundCount = (egg1Found ? 1 : 0) + (egg2Found ? 1 : 0) + (egg3Found ? 1 : 0);
-            
             document.getElementById('eeModalTitle').innerText = `[숨겨진 이스터에그 발견 (${foundCount}/3)]`;
             document.getElementById('eeModalBody').innerText = tmiText;
             document.getElementById('eeModalOverlay').classList.add('active');
@@ -1344,7 +1425,6 @@
             document.getElementById('eeModalOverlay').classList.remove('active');
         }
 
-        /* 1번 이스터에그 (무속성 5등 카드 변신) */
         function triggerEasterEgg1(cardElement) {
             if (cardElement.classList.contains('activated')) {
                 egg1Found = true;
@@ -1357,10 +1437,8 @@
             setTimeout(() => {
                 const cardImg = document.getElementById('eeCardImg1');
                 const cardName = document.getElementById('eeCardName1');
-
                 if (cardImg) cardImg.src = 'IMG_1593.png';
                 if (cardName) cardName.innerText = '고양이 에그';
-
                 cardElement.classList.add('activated');
             }, 300);
 
@@ -1371,26 +1449,21 @@
             }, 500);
         }
 
-        /* 2번 이스터에그 (속공 및 범용 탭 2000px 낚시 스크롤) */
         window.addEventListener('scroll', () => {
             const rushSection = document.getElementById('rush-section');
-            
             if (rushSection.classList.contains('active')) {
                 const scrollBottom = window.innerHeight + window.scrollY;
                 const documentHeight = document.body.offsetHeight;
 
                 if (scrollBottom >= documentHeight - 20) {
                     const bottomEgg = document.getElementById('bottomEggCard');
-                    if (bottomEgg) {
-                        bottomEgg.classList.add('reveal');
-                    }
+                    if (bottomEgg) bottomEgg.classList.add('reveal');
                 }
             }
         });
 
         function triggerEasterEgg2(cardElement) {
             cardElement.classList.add('flash-effect');
-
             setTimeout(() => {
                 egg2Found = true;
                 showEePopup("두루마리 휴지는 벽 쪽이 아니라 바깥쪽으로 풀리게 걸어둬야 쓸 때 훨씬 편합니다.");
@@ -1398,27 +1471,20 @@
             }, 400);
         }
 
-        /* 3번 이스터에그 (상단 타이틀 연타 빌드업 & 거대 에그 폭발 & 타이틀 잠식) */
         function handleTitleClick() {
             const titleEl = document.getElementById('mainTitle');
             titleClickCount++;
-
-            // 누를 때마다 아주 미세하게 커지는 빌드업 효과 (최대 1.35배까지)
             let currentScale = 1 + (titleClickCount * 0.07);
             if (currentScale > 1.35) currentScale = 1.35;
             titleEl.style.transform = `scale(${currentScale})`;
 
-            // 5번 이상 누르면 터짐!
             if (titleClickCount >= 5) {
                 triggerGiantEgg();
             }
         }
 
         function triggerGiantEgg() {
-            // 거대 에그 풀스크린 오픈
             document.getElementById('giantEggOverlay').classList.add('active');
-
-            // 타이틀을 '고양이 에그'로 영구 변경 (잠식)
             const titleEl = document.getElementById('mainTitle');
             titleEl.innerText = "고양이 에그";
             titleEl.style.transform = "scale(1)";
@@ -1427,14 +1493,84 @@
 
         function closeGiantEgg() {
             document.getElementById('giantEggOverlay').classList.remove('active');
-            
-            // 3번 에그 발견 처리 및 (3/3) 팝업 띄우기
             if (!egg3Found) {
                 egg3Found = true;
                 showEePopup("비 오는 날은 파전이 최고입니다.");
             }
         }
-    </script>
 
+        /* --- [DB 검색 기능 로직] --- */
+        function setDbCategory(category, btnEl) {
+            activeDbCategory = category;
+            document.querySelectorAll('.db-filter-btn').forEach(b => b.classList.remove('active'));
+            btnEl.classList.add('active');
+            filterDatabase();
+        }
+
+        function filterDatabase() {
+            const keyword = document.getElementById('dbSearchInput').value.trim().toLowerCase();
+            renderDatabaseList(keyword);
+        }
+
+        function renderDatabaseList(keyword) {
+            const container = document.getElementById('dbResultsGrid');
+            container.innerHTML = '';
+
+            // catalog_2.js 내 데이터 안전하게 참조 (구조에 맞게 매핑)
+            const catalog = window.NYANKODB_SEARCH_CATALOG || {};
+            
+            // 수집할 전체 아이템 통합 배열 생성 (유닛, 적, 스테이지 등 구조 대응)
+            let items = [];
+
+            // 예시 구조 파싱 (catalog_2.js의 프로퍼티 키 구성에 맞춤)
+            // 만약 units, enemies, stages 등의 배열/객체가 있다면 여기에 push
+            for (let key in catalog) {
+                let categoryData = catalog[key];
+                if (Array.isArray(categoryData)) {
+                    categoryData.forEach(item => {
+                        items.push({
+                            name: item.name || item.title || String(key),
+                            img: item.icon || item.img || 'IMG_1593.png',
+                            type: key
+                        });
+                    });
+                }
+            }
+
+            // 만약 catalog_2.js가 로드되지 않았거나 테스트용 빈 상태일 경우 기본 가이드 데이터 샘플 제공
+            if (items.length === 0) {
+                items = [
+                    { name: '여명의 이자나기', img: 'IMG_1492.png', type: 'unit' },
+                    { name: '울트라 석공 냥돌이', img: 'IMG_1568.png', type: 'unit' },
+                    { name: 'G데스 하데스', img: 'IMG_1491.png', type: 'unit' },
+                    { name: '고양이 캉캉', img: 'IMG_1582.png', type: 'unit' },
+                    { name: '멍뭉이', img: 'IMG_1593.png', type: 'enemy' },
+                    { name: '세계편 1장', img: 'IMG_1593.png', type: 'stage' }
+                ];
+            }
+
+            // 필터링 적용
+            const filtered = items.filter(item => {
+                const matchesCategory = (activeDbCategory === 'all' || item.type.includes(activeDbCategory));
+                const matchesKeyword = item.name.toLowerCase().includes(keyword);
+                return matchesCategory && matchesKeyword;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div style="grid-column: span 4; text-align: center; color: #888; padding: 30px 0; font-size: 12px;">검색 결과가 없습니다.</div>`;
+                return;
+            }
+
+            filtered.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'db-item-card';
+                card.innerHTML = `
+                    <img src="${item.img}" class="char-img" onerror="this.src='IMG_1593.png'">
+                    <div class="db-item-name">${item.name}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+    </script>
 </body>
 </html>
