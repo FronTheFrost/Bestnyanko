@@ -23,7 +23,7 @@
             -webkit-user-select: none;
         }
 
-        /* 상단 배너 (클릭 가능하도록 커서 추가) */
+        /* 상단 배너 (클릭 시 테두리 남지 않도록 outline 제거) */
         .tier-banner {
             width: 100%;
             border-radius: 10px;
@@ -31,25 +31,25 @@
             border: 2px solid var(--border-color);
             background: #000;
             cursor: pointer;
-            transition: transform 0.1s ease, border-color 0.2s ease;
+            transition: border-color 0.2s ease;
             position: relative;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
         }
         .tier-banner:hover {
             border-color: var(--accent-color);
-        }
-        .tier-banner:active {
-            transform: scale(0.98);
         }
         .tier-banner img {
             width: 100%;
             display: block;
             object-fit: cover;
+            pointer-events: none;
         }
 
-        /* 툴바 (정렬/필터) 및 티어표 전체 컨테이너 (기본은 숨김) */
+        /* 티어표 전체 컨테이너 */
         .tier-content-wrapper {
             display: none;
-            margin-top: 12px;
+            margin-top: 10px;
             animation: fadeIn 0.25s ease-out;
         }
         .tier-content-wrapper.active {
@@ -61,25 +61,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 툴바 (정렬/필터) */
-        .tier-toolbar {
-            display: flex;
-            justify-content: flex-end;
-            gap: 6px;
-            margin-bottom: 10px;
-        }
-        .tool-btn {
-            background: #1e1e1e;
-            color: #ddd;
-            border: 1px solid var(--border-color);
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .tool-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
-
         /* 티어 등급 행 */
         .tier-row {
             display: flex;
@@ -90,19 +71,17 @@
             overflow: hidden;
         }
         .tier-label {
-            width: 80px;
+            width: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            font-size: 11px;
-            font-weight: 800;
+            font-size: 13px;
+            font-weight: 900;
             padding: 6px 4px;
-            line-height: 1.3;
             color: #fff;
-            word-break: keep-all;
         }
-        /* SS ~ D 등급별 색상 분기 */
+        /* SS ~ D 등급별 색상 분기 (수식어 없이 깔끔하게) */
         .tier-label.ss { background: #b82323; }
         .tier-label.s  { background: #b8621b; }
         .tier-label.a  { background: #b89d1b; color: #121212; }
@@ -147,68 +126,68 @@
 </head>
 <body>
 
-    <!-- 상단 시리즈 배너 이미지 (IMG_1601.jpeg 적용, 누르면 티어표 토글) -->
+    <!-- 상단 시리즈 배너 이미지 -->
     <div class="tier-banner" onclick="toggleTierList()">
-        <img src="IMG_1601.jpeg" alt="다이너마이트 군단 배너">
+        <img src="images/IMG_1601.jpeg" alt="다이너마이트 군단 배너">
     </div>
 
-    <!-- 배너를 눌렀을 때 나타나는 티어표 영역 -->
+    <!-- 배너를 눌렀을 때 나타나는 티어표 영역 (SS ~ D) -->
     <div class="tier-content-wrapper" id="tierContent">
-        
-        <!-- 정렬 / 필터 버튼 -->
-        <div class="tier-toolbar">
-            <button class="tool-btn">정렬</button>
-            <button class="tool-btn">필터</button>
-        </div>
-
-        <!-- 티어표 리스트 (SS ~ D) -->
         <div style="display: flex; flex-direction: column; gap: 8px;">
             
             <!-- SS 등급 -->
             <div class="tier-row">
-                <div class="tier-label ss">SS<br>최고의 군단</div>
+                <div class="tier-label ss">SS</div>
                 <div class="tier-cards-area">
-                    <div class="t-card"><img src="IMG_1492.png"><div class="t-name">이자나기</div></div>
+                    <div class="t-card"><img src="images/IMG_1584.png"><div class="t-name">야옹마</div></div>
                 </div>
             </div>
 
-            <!-- S 등급 -->
+            <!-- S 등급 (없음) -->
             <div class="tier-row">
-                <div class="tier-label s">S<br>강력한 핵심</div>
+                <div class="tier-label s">S</div>
                 <div class="tier-cards-area">
-                    <div class="t-card"><img src="IMG_1568.png"><div class="t-name">냥돌이</div></div>
+                    <!-- 없음 -->
                 </div>
             </div>
 
             <!-- A 등급 -->
             <div class="tier-row">
-                <div class="tier-label a">A<br>범용 채용</div>
+                <div class="tier-label a">A</div>
                 <div class="tier-cards-area">
-                    <div class="t-card"><img src="IMG_1530.png"><div class="t-name">세이버</div></div>
+                    <div class="t-card"><img src="images/IMG_1526.png"><div class="t-name">고양이 파라딘</div></div>
+                    <div class="t-card"><img src="images/IMG_1538.png"><div class="t-name">머신・멸</div></div>
+                    <div class="t-card"><img src="images/IMG_1610.png"><div class="t-name">신 라스트 보스</div></div>
+                    <div class="t-card"><img src="images/IMG_1615.png"><div class="t-name">모모코</div></div>
                 </div>
             </div>
 
             <!-- B 등급 -->
             <div class="tier-row">
-                <div class="tier-label b">B<br>애정/특화</div>
+                <div class="tier-label b">B</div>
                 <div class="tier-cards-area">
-                    <div class="t-card"><img src="IMG_1582.png"><div class="t-name">캉캉</div></div>
+                    <div class="t-card"><img src="images/IMG_1607.png"><div class="t-name">베이비월드</div></div>
+                    <div class="t-card"><img src="images/IMG_1611.png"><div class="t-name">사토루</div></div>
                 </div>
             </div>
 
             <!-- C 등급 -->
             <div class="tier-row">
-                <div class="tier-label c">C<br>조금 아쉬움</div>
+                <div class="tier-label c">C</div>
                 <div class="tier-cards-area">
-                    <div class="t-card"><img src="IMG_1571.png"><div class="t-name">강시</div></div>
+                    <div class="t-card"><img src="images/IMG_1604.png"><div class="t-name">변신소녀 단</div></div>
+                    <div class="t-card"><img src="images/IMG_1603.png"><div class="t-name">아이스 크리스탈</div></div>
+                    <div class="t-card"><img src="images/IMG_1609.png"><div class="t-name">퀘스트 헤븐</div></div>
+                    <div class="t-card"><img src="images/IMG_1613.png"><div class="t-name">메카 다이너사우루스</div></div>
                 </div>
             </div>
 
             <!-- D 등급 -->
             <div class="tier-row">
-                <div class="tier-label d">D<br>사용 보류</div>
+                <div class="tier-label d">D</div>
                 <div class="tier-cards-area">
-                    <!-- 빈 공간 예시 -->
+                    <div class="t-card"><img src="images/IMG_1608.png"><div class="t-name">간호사</div></div>
+                    <div class="t-card"><img src="images/IMG_1612.png"><div class="t-name">고양이 텐구</div></div>
                 </div>
             </div>
 
