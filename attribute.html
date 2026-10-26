@@ -484,9 +484,8 @@
         }
 
         function triggerEasterEgg1(cardElement) {
-            const isFirstTime = !cardElement.classList.contains('activated');
-
-            if (isFirstTime) {
+            // 이미 변신한 카드가 아닐 때만 카드 변신 애니메이션 수행
+            if (!cardElement.classList.contains('activated')) {
                 cardElement.classList.add('flash-effect');
 
                 setTimeout(() => {
@@ -504,6 +503,7 @@
                     cardElement.classList.remove('flash-effect');
                 }, 500);
             } else {
+                // 이미 변신한 상태에서 재클릭 시에도 현재 등록된 정확한 순서의 팝업 출력
                 if (window.parent && window.parent.openGlobalEeModal) {
                     window.parent.openGlobalEeModal('card', "편의점에서 사이다를 고를 때는 칠성사이다보다 스프라이트가 탄산이 더 강합니다.");
                 }
