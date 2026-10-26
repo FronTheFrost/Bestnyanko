@@ -461,15 +461,15 @@
         }
 
         /* -------------------------------------------------- */
-        /* 2번 이스터에그 (속공 및 범용 탭 전용 낚시형 무한 스크롤) 스타일 */
+        /* 2번 이스터에그 (3배로 늘려버린 낚시형 무한 스크롤 구간) 스타일 */
         /* -------------------------------------------------- */
         .infinite-scroll-trap {
-            height: 320px; /* 빈 공간을 더 길게 주어 한참 내려야 하도록 설정 */
+            height: 950px; /* 기존보다 3배 이상 깊게 늘려 한참 내려야 하도록 설정 */
             position: relative;
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            padding-bottom: 40px;
+            padding-bottom: 50px;
         }
 
         .hidden-bottom-egg {
@@ -875,7 +875,7 @@
             </div>
         </div>
 
-        <!-- [2번 이스터에그] 속공 및 범용 탭 맨 아래 허전한 빈 공간 및 튀어나오는 고양이 에그 -->
+        <!-- [2번 이스터에그] 3배로 길어진 낚시형 무한 스크롤 빈 공간 -->
         <div class="infinite-scroll-trap">
             <div class="hidden-bottom-egg" id="bottomEggCard" onclick="triggerEasterEgg2(this)">
                 <img src="IMG_1593.png">
@@ -1261,7 +1261,7 @@
                 const scrollBottom = window.innerHeight + window.scrollY;
                 const documentHeight = document.body.offsetHeight;
 
-                // 스크롤을 아주 꽉 채워서 바닥까지 내렸을 때만 에그가 튀어나오도록 조정
+                // 스크롤을 아주 꽉 채워서 맨 바닥 끝까지 쫙 내렸을 때만 에그가 튀어나오도록 조정 (3배 깊이)
                 if (scrollBottom >= documentHeight - 15) {
                     const bottomEgg = document.getElementById('bottomEggCard');
                     if (bottomEgg) {
