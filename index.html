@@ -236,27 +236,28 @@
         <button class="main-tab-btn" onclick="switchMainTab('tier-section', this)">시리즈별 티어표</button>
     </div>
 
+    <!-- 모든 아이프레임의 scrolling을 no로 설정하여 내부 스크롤 꼬임 원천 차단 -->
     <div id="attribute-section" class="main-section active">
-        <iframe src="attribute.html" class="tab-frame" style="height: 420px;" scrolling="auto"></iframe>
+        <iframe src="attribute.html" id="attrFrame" class="tab-frame" style="height: 600px;" scrolling="no"></iframe>
     </div>
 
     <div id="rush-section" class="main-section">
-        <iframe src="rush.html" class="tab-frame" style="height: 2200px;" scrolling="auto"></iframe>
+        <iframe src="rush.html" id="rushFrame" class="tab-frame" style="height: 1200px;" scrolling="no"></iframe>
     </div>
 
     <div id="growth-section" class="main-section">
-        <iframe src="growth.html" class="tab-frame" style="height: 350px;" scrolling="auto"></iframe>
+        <iframe src="growth.html" id="growthFrame" class="tab-frame" style="height: 500px;" scrolling="no"></iframe>
     </div>
 
     <div id="deck-section" class="main-section">
-        <iframe src="deck.html" class="tab-frame" style="height: 750px;" scrolling="auto"></iframe>
+        <iframe src="deck.html" id="deckFrame" class="tab-frame" style="height: 850px;" scrolling="no"></iframe>
     </div>
 
     <div id="combo-section" class="main-section">
-        <iframe src="combo.html" class="tab-frame" style="height: 1200px;" scrolling="auto"></iframe>
+        <iframe src="combo.html" id="comboFrame" class="tab-frame" style="height: 1300px;" scrolling="no"></iframe>
     </div>
 
-    <!-- [섹션 6] 시리즈별 티어표 탭 (높이 200px 유지 & 전체 시리즈 추가) -->
+    <!-- [섹션 6] 시리즈별 티어표 탭 -->
     <div id="tier-section" class="main-section">
         <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; display: flex; flex-direction: column; gap: 15px;">
             <iframe src="dagun.html" id="dagunFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
@@ -299,8 +300,12 @@
             
             document.getElementById(sectionId).classList.add('active');
             btnElement.classList.add('active');
+
+            // 탭 변경 시 스크롤을 맨 위로 부드럽게 복구
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // 아이프레임 내부에서 높이 조절 요청이 올 때 실시간으로 크기 늘려주기
         window.addEventListener('message', function(event) {
             if (event.data && event.data.type === 'resizeHeight') {
                 const iframe = document.getElementById(event.data.id);
