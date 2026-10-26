@@ -20,6 +20,7 @@
             padding: 4px;
             user-select: none;
             -webkit-user-select: none;
+            overflow: hidden;
         }
 
         .tier-banner {
@@ -155,6 +156,10 @@
         function toggleTierList() {
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
+
+            // 배너를 누할 때마다 부모창에 현재 높이를 실시간 전달하여 빈 공간 제거
+            const currentHeight = document.body.scrollHeight;
+            window.parent.postMessage({ type: 'resizeHeight', id: 'basarFrame', height: currentHeight }, '*');
         }
     </script>
 </body>
