@@ -487,11 +487,6 @@
             const isFirstTime = !cardElement.classList.contains('activated');
 
             if (isFirstTime) {
-                // 부모 윈도우의 foundEggs 상태 업데이트
-                if (window.parent && window.parent.foundEggs) {
-                    window.parent.foundEggs.card = true;
-                }
-
                 cardElement.classList.add('flash-effect');
 
                 setTimeout(() => {
@@ -504,13 +499,13 @@
 
                 setTimeout(() => {
                     if (window.parent && window.parent.openGlobalEeModal) {
-                        window.parent.openGlobalEeModal("편의점에서 사이다를 고를 때는 칠성사이다보다 스프라이트가 탄산이 더 강합니다.");
+                        window.parent.openGlobalEeModal('card', "편의점에서 사이다를 고를 때는 칠성사이다보다 스프라이트가 탄산이 더 강합니다.");
                     }
                     cardElement.classList.remove('flash-effect');
                 }, 500);
             } else {
                 if (window.parent && window.parent.openGlobalEeModal) {
-                    window.parent.openGlobalEeModal("편의점에서 사이다를 고를 때는 칠성사이다보다 스프라이트가 탄산이 더 강합니다.");
+                    window.parent.openGlobalEeModal('card', "편의점에서 사이다를 고를 때는 칠성사이다보다 스프라이트가 탄산이 더 강합니다.");
                 }
             }
         }
