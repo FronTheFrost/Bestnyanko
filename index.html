@@ -665,7 +665,6 @@
         <button class="main-tab-btn" onclick="switchMainTab('growth-section', this)">추천 4진/초본</button>
         <button class="main-tab-btn" onclick="switchMainTab('deck-section', this)">범용 편성 모음</button>
         <button class="main-tab-btn" onclick="switchMainTab('combo-section', this)">냥콤보 best 8</button>
-        <!-- 인라인 스타일이 완전히 제거된 깔끔한 6번 탭 버튼 -->
         <button class="main-tab-btn" onclick="switchMainTab('tier-section', this)">시리즈별 티어표</button>
     </div>
 
@@ -961,7 +960,6 @@
             </div>
         </div>
 
-        <!-- [속공 및 범용] 탭 내부 고정 버튼 -->
         <div class="link-btn-container" style="max-width: 650px; margin: 0 auto 15px auto;">
             <a href="https://www.youtube.com/@미사카미코토" target="_blank" class="link-btn youtube-btn">
                 <span class="btn-icon">▶</span> 디디잇 유튜브 구독
@@ -1241,10 +1239,17 @@
         </div>
     </div>
 
-    <!-- [섹션 6] 시리즈별 티어표 탭 (tier.html 외부 파일 연동) -->
+    <!-- [섹션 6] 시리즈별 티어표 탭 (시리즈 선택 버튼 + 독립 파일 아이프레임 연동) -->
     <div id="tier-section" class="main-section">
+        <!-- 시리즈 선택 버튼들 -->
+        <div style="display: flex; gap: 8px; max-width: 650px; margin: 0 auto 12px auto; overflow-x: auto; padding-bottom: 4px;">
+            <button onclick="loadSeries('tier.html', this)" class="series-select-btn active" style="flex: 1; padding: 10px; background: #2a2a24; border: 2px solid var(--accent-color); color: var(--accent-color); border-radius: 10px; font-weight: bold; cursor: pointer; white-space: nowrap;">다이너마이트 군단</button>
+            <button onclick="loadSeries('basar.html', this)" class="series-select-btn" style="flex: 1; padding: 10px; background: var(--card-bg); border: 2px solid var(--border-color); color: #aaa; border-radius: 10px; font-weight: bold; cursor: pointer; white-space: nowrap;">초환수 바사라즈</button>
+        </div>
+
+        <!-- 독립된 티어표 파일이 로드되는 공간 -->
         <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; background-color: var(--box-bg); border: 2px solid var(--border-color); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 16px rgba(0,0,0,0.4);">
-            <iframe src="tier.html" style="width: 100%; height: 850px; border: none; background: transparent;" scrolling="auto"></iframe>
+            <iframe id="tierFrame" src="tier.html" style="width: 100%; height: 850px; border: none; background: transparent;" scrolling="auto"></iframe>
         </div>
     </div>
 
@@ -1284,6 +1289,23 @@
             
             document.getElementById(sectionId).classList.add('active');
             btnElement.classList.add('active');
+        }
+
+        /* 시리즈별 티어표 파일 전환 함수 */
+        function loadSeries(pageUrl, btnElement) {
+            document.getElementById('tierFrame').src = pageUrl;
+            
+            // 모든 시리즈 버튼 스타일 초기화
+            document.querySelectorAll('.series-select-btn').forEach(btn => {
+                btn.style.background = 'var(--card-bg)';
+                btn.style.borderColor = 'var(--border-color)';
+                btn.style.color = '#aaa';
+            });
+            
+            // 선택한 버튼만 강조 스타일 적용
+            btnElement.style.background = '#2a2a24';
+            btnElement.style.borderColor = 'var(--accent-color)';
+            btnElement.style.color = 'var(--accent-color)';
         }
 
         function toggleTab(targetId) {
@@ -1405,22 +1427,18 @@
             const titleEl = document.getElementById('mainTitle');
             titleClickCount++;
 
-            // 누를 때마다 아주 미세하게 커지는 빌드업 효과 (최대 1.35배까지)
             let currentScale = 1 + (titleClickCount * 0.07);
             if (currentScale > 1.35) currentScale = 1.35;
             titleEl.style.transform = `scale(${currentScale})`;
 
-            // 5번 이상 누르면 터짐!
             if (titleClickCount >= 5) {
                 triggerGiantEgg();
             }
         }
 
         function triggerGiantEgg() {
-            // 거대 에그 풀스크린 오픈
             document.getElementById('giantEggOverlay').classList.add('active');
 
-            // 타이틀을 '고양이 에그'로 영구 변경 (잠식)
             const titleEl = document.getElementById('mainTitle');
             titleEl.innerText = "고양이 에그";
             titleEl.style.transform = "scale(1)";
@@ -1430,7 +1448,6 @@
         function closeGiantEgg() {
             document.getElementById('giantEggOverlay').classList.remove('active');
             
-            // 3번 에그 발견 처리 및 (3/3) 팝업 띄우기
             if (!egg3Found) {
                 egg3Found = true;
                 showEePopup("비 오는 날은 파전이 최고입니다.");
