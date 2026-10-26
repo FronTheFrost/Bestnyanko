@@ -17,10 +17,9 @@
             background-color: transparent;
             color: var(--text-color);
             margin: 0;
-            padding: 0;
+            padding: 4px;
             user-select: none;
             -webkit-user-select: none;
-            overflow: hidden;
         }
 
         .tier-banner {
@@ -31,9 +30,6 @@
             background: #000;
             cursor: pointer;
             position: relative;
-            outline: none !important;
-            -webkit-tap-highlight-color: transparent !important;
-            -webkit-touch-callout: none;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
         .tier-banner:hover {
@@ -49,15 +45,9 @@
         .tier-content-wrapper {
             display: none;
             margin-top: 10px;
-            animation: fadeIn 0.25s ease-out;
         }
         .tier-content-wrapper.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-6px); }
-            to { opacity: 1; transform: translateY(0); }
+            display: block !important;
         }
 
         .tier-row {
@@ -117,34 +107,27 @@
             margin-top: 4px;
             color: #ddd;
             word-break: keep-all;
-            white-space: normal;
-            overflow: visible;
         }
     </style>
 </head>
 <body>
 
-    <!-- 다이너마이트 군단 배너 -->
-    <div class="tier-banner" onclick="toggleTierList(this)">
+    <div class="tier-banner" onclick="toggleTierList()">
         <img src="IMG_1601.jpeg" alt="다이너마이트 군단 배너">
     </div>
 
-    <!-- 펼쳐질 티어표 내용 -->
     <div class="tier-content-wrapper" id="tierContent">
         <div style="display: flex; flex-direction: column; gap: 8px;">
-            
             <div class="tier-row">
                 <div class="tier-label ss">SS</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="dagun/IMG_1584.png"><div class="t-name">헬파이어 도깨비 야옹마</div></div>
                 </div>
             </div>
-
             <div class="tier-row">
                 <div class="tier-label s">S</div>
                 <div class="tier-cards-area"></div>
             </div>
-
             <div class="tier-row">
                 <div class="tier-label a">A</div>
                 <div class="tier-cards-area">
@@ -154,7 +137,6 @@
                     <div class="t-card"><img src="dagun/IMG_1615.png"><div class="t-name">스타라이트 모모코</div></div>
                 </div>
             </div>
-
             <div class="tier-row">
                 <div class="tier-label b">B</div>
                 <div class="tier-cards-area">
@@ -162,7 +144,6 @@
                     <div class="t-card"><img src="dagun/IMG_1611.png"><div class="t-name">데빌 헌터 사토루</div></div>
                 </div>
             </div>
-
             <div class="tier-row">
                 <div class="tier-label c">C</div>
                 <div class="tier-cards-area">
@@ -172,7 +153,6 @@
                     <div class="t-card"><img src="dagun/IMG_1613.png"><div class="t-name">메카 고양이 다이너사우루스</div></div>
                 </div>
             </div>
-
             <div class="tier-row">
                 <div class="tier-label d">D</div>
                 <div class="tier-cards-area">
@@ -180,19 +160,13 @@
                     <div class="t-card"><img src="dagun/IMG_1612.png"><div class="t-name">대신선 고양이 텐구</div></div>
                 </div>
             </div>
-
         </div>
     </div>
 
     <script>
-        function toggleTierList(element) {
+        function toggleTierList() {
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
-            element.blur();
-
-            // 부모창으로 실시간 높이 전송
-            const currentHeight = document.body.scrollHeight;
-            window.parent.postMessage({ type: 'resizeHeight', id: 'dagunFrame', height: currentHeight }, '*');
         }
     </script>
 </body>
