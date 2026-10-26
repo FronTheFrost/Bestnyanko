@@ -22,20 +22,45 @@
             user-select: none;
             -webkit-user-select: none;
         }
-        /* 상단 배너 */
+
+        /* 상단 배너 (클릭 가능하도록 커서 추가) */
         .tier-banner {
             width: 100%;
             border-radius: 10px;
             overflow: hidden;
             border: 2px solid var(--border-color);
-            margin-bottom: 12px;
             background: #000;
+            cursor: pointer;
+            transition: transform 0.1s ease, border-color 0.2s ease;
+            position: relative;
+        }
+        .tier-banner:hover {
+            border-color: var(--accent-color);
+        }
+        .tier-banner:active {
+            transform: scale(0.98);
         }
         .tier-banner img {
             width: 100%;
             display: block;
             object-fit: cover;
         }
+
+        /* 툴바 (정렬/필터) 및 티어표 전체 컨테이너 (기본은 숨김) */
+        .tier-content-wrapper {
+            display: none;
+            margin-top: 12px;
+            animation: fadeIn 0.25s ease-out;
+        }
+        .tier-content-wrapper.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* 툴바 (정렬/필터) */
         .tier-toolbar {
             display: flex;
@@ -77,10 +102,13 @@
             color: #fff;
             word-break: keep-all;
         }
+        /* SS ~ D 등급별 색상 분기 */
         .tier-label.ss { background: #b82323; }
-        .tier-label.s { background: #b8621b; }
-        .tier-label.a { background: #b89d1b; color: #121212; }
-        .tier-label.b { background: #337d33; }
+        .tier-label.s  { background: #b8621b; }
+        .tier-label.a  { background: #b89d1b; color: #121212; }
+        .tier-label.b  { background: #337d33; }
+        .tier-label.c  { background: #236ab8; }
+        .tier-label.d  { background: #555555; }
 
         .tier-cards-area {
             display: flex;
@@ -119,54 +147,80 @@
 </head>
 <body>
 
-    <!-- 상단 시리즈 배너 이미지 (예: 다이너마이트 군단 등) -->
-    <div class="tier-banner">
-        <img src="IMG_banner.png" alt="시리즈 배너">
+    <!-- 상단 시리즈 배너 이미지 (IMG_1601.jpeg 적용, 누르면 티어표 토글) -->
+    <div class="tier-banner" onclick="toggleTierList()">
+        <img src="IMG_1601.jpeg" alt="다이너마이트 군단 배너">
     </div>
 
-    <!-- 정렬 / 필터 버튼 -->
-    <div class="tier-toolbar">
-        <button class="tool-btn">정렬</button>
-        <button class="tool-btn">필터</button>
-    </div>
-
-    <!-- 티어표 리스트 -->
-    <div style="display: flex; flex-direction: column; gap: 8px;">
+    <!-- 배너를 눌렀을 때 나타나는 티어표 영역 -->
+    <div class="tier-content-wrapper" id="tierContent">
         
-        <!-- SS 등급 -->
-        <div class="tier-row">
-            <div class="tier-label ss">SS<br>최고의 군단</div>
-            <div class="tier-cards-area">
-                <div class="t-card"><img src="IMG_1492.png"><div class="t-name">이자나기</div></div>
-                <div class="t-card"><img src="IMG_1568.png"><div class="t-name">냥돌이</div></div>
-            </div>
+        <!-- 정렬 / 필터 버튼 -->
+        <div class="tier-toolbar">
+            <button class="tool-btn">정렬</button>
+            <button class="tool-btn">필터</button>
         </div>
 
-        <!-- S 등급 -->
-        <div class="tier-row">
-            <div class="tier-label s">S<br>강력한 핵심</div>
-            <div class="tier-cards-area">
-                <div class="t-card"><img src="IMG_1530.png"><div class="t-name">세이버</div></div>
+        <!-- 티어표 리스트 (SS ~ D) -->
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            
+            <!-- SS 등급 -->
+            <div class="tier-row">
+                <div class="tier-label ss">SS<br>최고의 군단</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1492.png"><div class="t-name">이자나기</div></div>
+                </div>
             </div>
-        </div>
 
-        <!-- A 등급 -->
-        <div class="tier-row">
-            <div class="tier-label a">A<br>범용 채용</div>
-            <div class="tier-cards-area">
-                <div class="t-card"><img src="IMG_1582.png"><div class="t-name">캉캉</div></div>
+            <!-- S 등급 -->
+            <div class="tier-row">
+                <div class="tier-label s">S<br>강력한 핵심</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1568.png"><div class="t-name">냥돌이</div></div>
+                </div>
             </div>
-        </div>
 
-        <!-- B 등급 -->
-        <div class="tier-row">
-            <div class="tier-label b">B<br>애정/특화</div>
-            <div class="tier-cards-area">
-                <div class="t-card"><img src="IMG_1571.png"><div class="t-name">강시</div></div>
+            <!-- A 등급 -->
+            <div class="tier-row">
+                <div class="tier-label a">A<br>범용 채용</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1530.png"><div class="t-name">세이버</div></div>
+                </div>
             </div>
-        </div>
 
+            <!-- B 등급 -->
+            <div class="tier-row">
+                <div class="tier-label b">B<br>애정/특화</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1582.png"><div class="t-name">캉캉</div></div>
+                </div>
+            </div>
+
+            <!-- C 등급 -->
+            <div class="tier-row">
+                <div class="tier-label c">C<br>조금 아쉬움</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1571.png"><div class="t-name">강시</div></div>
+                </div>
+            </div>
+
+            <!-- D 등급 -->
+            <div class="tier-row">
+                <div class="tier-label d">D<br>사용 보류</div>
+                <div class="tier-cards-area">
+                    <!-- 빈 공간 예시 -->
+                </div>
+            </div>
+
+        </div>
     </div>
+
+    <script>
+        function toggleTierList() {
+            const content = document.getElementById('tierContent');
+            content.classList.toggle('active');
+        }
+    </script>
 
 </body>
 </html>
