@@ -22,6 +22,7 @@
             padding: 10px 4px;
             user-select: none;
             -webkit-user-select: none;
+            overflow: visible !important;
         }
 
         .attribute-container {
@@ -472,6 +473,8 @@
                 targetBox.classList.remove('active');
                 buttons.forEach(btn => btn.classList.remove('selected'));
                 currentTargetId = null;
+                // 탭 닫힐 때 높이 재전송
+                sendHeight();
                 return;
             }
 
@@ -481,10 +484,22 @@
             event.currentTarget.classList.add('selected');
             targetBox.classList.add('active');
             currentTargetId = targetId;
+
+            // 탭 열릴 때 높이 재전송
+            sendHeight();
         }
 
+        // 부모창에 높이 실시간 동기화
+        function sendHeight() {
+            const currentHeight = document.body.scrollHeight;
+            window.parent.postMessage({ type: 'resizeHeight', id: 'attrFrame', height: currentHeight }, '*');
+        }
+
+        const observer = new ResizeObserver(() => { sendHeight(); });
+        observer.observe(document.body);
+        window.addEventListener('load', sendHeight);
+
         function triggerEasterEgg1(cardElement) {
-            // 이미 변신한 카드가 아닐 때만 카드 변신 애니메이션 수행
             if (!cardElement.classList.contains('activated')) {
                 cardElement.classList.add('flash-effect');
 
@@ -494,6 +509,7 @@
                     if (cardImg) cardImg.src = 'IMG_1593.png';
                     if (cardName) cardName.innerText = '고양이 에그';
                     cardElement.classList.add('activated');
+                    sendHeight(); // 에그 변신 후 높이 바뀔 때 반영
                 }, 300);
 
                 setTimeout(() => {
@@ -503,7 +519,6 @@
                     cardElement.classList.remove('flash-effect');
                 }, 500);
             } else {
-                // 이미 변신한 상태에서 재클릭 시에도 현재 등록된 정확한 순서의 팝업 출력
                 if (window.parent && window.parent.openGlobalEeModal) {
                     window.parent.openGlobalEeModal('card', "편의점에서 사이다를 고를 때는 칠성사이다보다 스프라이트가 탄산이 더 강합니다.");
                 }
