@@ -154,7 +154,6 @@
             box-shadow: 0 4px 15px rgba(254, 229, 0, 0.2);
         }
 
-        /* 2번 이스터에그 낚시 스크롤 */
         .infinite-scroll-trap {
             height: 2000px; 
             position: relative;
@@ -195,64 +194,11 @@
             margin-top: 5px;
         }
 
-        .flash-effect {
-            animation: flashGold 0.4s ease-in-out;
-        }
+        .flash-effect { animation: flashGold 0.4s ease-in-out; }
         @keyframes flashGold {
             0% { filter: brightness(1); }
             50% { filter: brightness(2.5); }
             100% { filter: brightness(1); }
-        }
-
-        /* 팝업 모달 */
-        .ee-modal-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        .ee-modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .ee-modal-content {
-            background: #1e1e1e;
-            color: #ffffff;
-            border: 2px solid #ffcc00;
-            border-radius: 14px;
-            padding: 24px;
-            max-width: 360px;
-            width: 85%;
-            text-align: center;
-        }
-        .ee-modal-title {
-            font-size: 1.05rem;
-            font-weight: 800;
-            color: #ffcc00;
-            margin-bottom: 12px;
-        }
-        .ee-modal-body {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #ddd;
-            margin-bottom: 20px;
-            word-break: keep-all;
-        }
-        .ee-modal-btn {
-            background: #ffcc00;
-            color: #121212;
-            border: none;
-            padding: 8px 24px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -307,20 +253,10 @@
         <a href="https://open.kakao.com/o/pHG8yJOi" target="_blank" class="link-btn kakao-btn">💬 냥코 연구소 오픈채팅방</a>
     </div>
 
-    <!-- 2번 이스터에그 낚시 스크롤 -->
     <div class="infinite-scroll-trap">
         <div class="hidden-bottom-egg" id="bottomEggCard" onclick="triggerEasterEgg2(this)">
             <img src="IMG_1593.png">
             <div class="egg-label">고양이 에그</div>
-        </div>
-    </div>
-
-    <!-- 팝업 모달 -->
-    <div class="ee-modal-overlay" id="eeModalOverlay" onclick="closeEeModal(event)">
-        <div class="ee-modal-content" onclick="event.stopPropagation()">
-            <div class="ee-modal-title" id="eeModalTitle">[숨겨진 이스터에그 발견]</div>
-            <div class="ee-modal-body" id="eeModalBody">내용</div>
-            <button class="ee-modal-btn" onclick="closeEeModal()">확인</button>
         </div>
     </div>
 
@@ -334,17 +270,17 @@
             }
         });
 
-        function closeEeModal(event) {
-            if (event) event.stopPropagation();
-            document.getElementById('eeModalOverlay').classList.remove('active');
-        }
-
         function triggerEasterEgg2(cardElement) {
+            // 부모 윈도우의 foundEggs 상태 업데이트
+            if (window.parent && window.parent.foundEggs) {
+                window.parent.foundEggs.scroll = true;
+            }
+
             cardElement.classList.add('flash-effect');
             setTimeout(() => {
-                document.getElementById('eeModalTitle').innerText = "[숨겨진 이스터에그 발견 (2/3)]";
-                document.getElementById('eeModalBody').innerText = "두루마리 휴지는 벽 쪽이 아니라 바깥쪽으로 풀리게 걸어둬야 쓸 때 훨씬 편합니다.";
-                document.getElementById('eeModalOverlay').classList.add('active');
+                if (window.parent && window.parent.openGlobalEeModal) {
+                    window.parent.openGlobalEeModal("두루마리 휴지는 벽 쪽이 아니라 바깥쪽으로 풀리게 걸어둬야 쓸 때 훨씬 편합니다.");
+                }
                 cardElement.classList.remove('flash-effect');
             }, 400);
         }
