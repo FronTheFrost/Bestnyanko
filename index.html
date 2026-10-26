@@ -17,9 +17,7 @@
             --border-color: #3d3d3d;
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
@@ -31,7 +29,6 @@
             -webkit-user-select: none;
         }
 
-        /* 3번 이스터에그 적용 대상 타이틀 */
         h1 {
             text-align: center;
             color: var(--accent-color);
@@ -46,11 +43,8 @@
             width: 100%;
         }
 
-        h1:active {
-            transform: scale(0.95);
-        }
+        h1:active { transform: scale(0.95); }
 
-        /* 메인 대분류 탭 메뉴 (6개 탭 레이아웃 호환) */
         .main-tab-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -87,10 +81,7 @@
             box-shadow: 0 0 10px rgba(255, 204, 0, 0.25);
         }
 
-        .main-section {
-            display: none;
-        }
-
+        .main-section { display: none; }
         .main-section.active {
             display: block;
             animation: fadeIn 0.2s ease-out;
@@ -101,10 +92,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 탭 내부 아이프레임 공통 스타일 */
+        /* 각 탭별 최적화된 아이프레임 높이 설정 */
         .tab-frame {
             width: 100%;
-            height: 950px;
             border: none;
             background: transparent;
         }
@@ -143,9 +133,7 @@
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .ee-modal-overlay.active .ee-modal-content {
-            transform: scale(1);
-        }
+        .ee-modal-overlay.active .ee-modal-content { transform: scale(1); }
 
         .ee-modal-title {
             font-size: 1.05rem;
@@ -172,7 +160,6 @@
             cursor: pointer;
         }
 
-        /* 3번 이스터에그 전용 '역대급 거대 에그' 풀스크린 모달 스타일 */
         .giant-egg-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -202,9 +189,7 @@
             padding: 10px;
         }
 
-        .giant-egg-overlay.active .giant-egg-box {
-            transform: scale(1);
-        }
+        .giant-egg-overlay.active .giant-egg-box { transform: scale(1); }
 
         .giant-egg-img {
             width: 100%;
@@ -240,10 +225,8 @@
 </head>
 <body>
 
-    <!-- 3번 이스터에그 적용 상단 타이틀 -->
     <h1 id="mainTitle" onclick="handleTitleClick()">냥코대전쟁 캐릭터 가이드</h1>
 
-    <!-- 메인 대분류 탭 메뉴 (6개 탭) -->
     <div class="main-tab-container">
         <button class="main-tab-btn active" onclick="switchMainTab('attribute-section', this)">속성별 가이드</button>
         <button class="main-tab-btn" onclick="switchMainTab('rush-section', this)">속공 및 범용</button>
@@ -253,32 +236,32 @@
         <button class="main-tab-btn" onclick="switchMainTab('tier-section', this)">시리즈별 티어표</button>
     </div>
 
-    <!-- [섹션 1] 속성별 가이드 탭 -->
+    <!-- [섹션 1] 속성별 가이드 탭 (높이 420px로 여백 축소) -->
     <div id="attribute-section" class="main-section active">
-        <iframe src="attribute.html" class="tab-frame" scrolling="auto"></iframe>
+        <iframe src="attribute.html" class="tab-frame" style="height: 420px;" scrolling="auto"></iframe>
     </div>
 
-    <!-- [섹션 2] 속공 및 범용 탭 -->
+    <!-- [섹션 2] 속공 및 범용 탭 (내용이 길어서 2200px) -->
     <div id="rush-section" class="main-section">
-        <iframe src="rush.html" class="tab-frame" scrolling="auto"></iframe>
+        <iframe src="rush.html" class="tab-frame" style="height: 2200px;" scrolling="auto"></iframe>
     </div>
 
-    <!-- [섹션 3] 추천 4진/초본 탭 -->
+    <!-- [섹션 3] 추천 4진/초본 탭 (높이 350px로 여백 축소) -->
     <div id="growth-section" class="main-section">
-        <iframe src="growth.html" class="tab-frame" scrolling="auto"></iframe>
+        <iframe src="growth.html" class="tab-frame" style="height: 350px;" scrolling="auto"></iframe>
     </div>
 
     <!-- [섹션 4] 범용 편성 모음 탭 -->
     <div id="deck-section" class="main-section">
-        <iframe src="deck.html" class="tab-frame" scrolling="auto"></iframe>
+        <iframe src="deck.html" class="tab-frame" style="height: 750px;" scrolling="auto"></iframe>
     </div>
 
     <!-- [섹션 5] 냥콤보 best 8 탭 -->
     <div id="combo-section" class="main-section">
-        <iframe src="combo.html" class="tab-frame" scrolling="auto"></iframe>
+        <iframe src="combo.html" class="tab-frame" style="height: 1200px;" scrolling="auto"></iframe>
     </div>
 
-    <!-- [섹션 6] 시리즈별 티어표 탭 (배너 세로 나열) -->
+    <!-- [섹션 6] 시리즈별 티어표 탭 -->
     <div id="tier-section" class="main-section">
         <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; display: flex; flex-direction: column; gap: 20px;">
             <iframe src="dagun.html" style="width: 100%; height: auto; min-height: 70px; border: none; background: transparent;" scrolling="no"></iframe>
@@ -295,7 +278,7 @@
         </div>
     </div>
 
-    <!-- 3번 이스터에그 전용 '역대급 거대 에그' 풀스크린 모달 -->
+    <!-- 거대 에그 모달 -->
     <div class="giant-egg-overlay" id="giantEggOverlay" onclick="closeGiantEgg()">
         <div class="giant-egg-box" onclick="event.stopPropagation()">
             <img src="IMG_1593.png" class="giant-egg-img">
@@ -306,7 +289,20 @@
 
     <script>
         let titleClickCount = 0;
-        let titleHijacked = false;
+        
+        window.foundEggs = {
+            card: false,
+            scroll: false,
+            title: false
+        };
+
+        function getFoundCount() {
+            let count = 0;
+            if (window.foundEggs.card) count++;
+            if (window.foundEggs.scroll) count++;
+            if (window.foundEggs.title) count++;
+            return count;
+        }
 
         function switchMainTab(sectionId, btnElement) {
             document.querySelectorAll('.main-section').forEach(sec => sec.classList.remove('active'));
@@ -315,6 +311,13 @@
             document.getElementById(sectionId).classList.add('active');
             btnElement.classList.add('active');
         }
+
+        window.openGlobalEeModal = function(tmiText) {
+            const count = getFoundCount();
+            document.getElementById('eeModalTitle').innerText = `[숨겨진 이스터에그 발견 (${count}/3)]`;
+            document.getElementById('eeModalBody').innerText = tmiText;
+            document.getElementById('eeModalOverlay').classList.add('active');
+        };
 
         function closeEeModal(event) {
             if (event) event.stopPropagation();
@@ -330,18 +333,18 @@
             titleEl.style.transform = `scale(${currentScale})`;
 
             if (titleClickCount >= 5) {
+                if (!window.foundEggs.title) {
+                    window.foundEggs.title = true;
+                }
                 document.getElementById('giantEggOverlay').classList.add('active');
                 titleEl.innerText = "고양이 에그";
                 titleEl.style.transform = "scale(1)";
-                titleHijacked = true;
             }
         }
 
         function closeGiantEgg() {
             document.getElementById('giantEggOverlay').classList.remove('active');
-            document.getElementById('eeModalTitle').innerText = "[숨겨진 이스터에그 발견 (3/3)]";
-            document.getElementById('eeModalBody').innerText = "비 오는 날은 파전이 최고입니다.";
-            document.getElementById('eeModalOverlay').classList.add('active');
+            openGlobalEeModal("비 오는 날은 파전이 최고입니다.");
         }
     </script>
 </body>
