@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>냥콤보 Best 8</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --box-bg: #282828;
+            --text-color: #ffffff;
+            --accent-color: #ffcc00;
+            --border-color: #3d3d3d;
+            --empty-slot-bg: #181818;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+            background-color: transparent;
+            color: var(--text-color);
+            margin: 0;
+            padding: 10px 4px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .combo-rank-box {
+            max-width: 650px;
+            width: 100%;
+            margin: 0 auto 16px auto;
+            background-color: var(--box-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 14px 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .combo-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #3a3a3a;
+            padding-bottom: 6px;
+        }
+
+        .combo-rank-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--accent-color);
+        }
+
+        .combo-desc {
+            font-size: 11px;
+            color: #aaa;
+        }
+
+        .character-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            width: 100%;
+        }
+
+        .character-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 6px 2px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            min-width: 0;
+        }
+
+        .character-card.empty-slot {
+            background: var(--empty-slot-bg);
+            border: 1px dashed #333;
+        }
+
+        .empty-icon-placeholder {
+            width: 100%;
+            max-width: 104px;
+            aspect-ratio: 4 / 3;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.02);
+        }
+
+        .char-img {
+            width: 100%;
+            max-width: 104px;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 4px;
+            background-color: #000;
+        }
+
+        .char-name {
+            font-size: 10px;
+            margin-top: 5px;
+            font-weight: 600;
+            word-break: break-all;
+            color: #ddd;
+            line-height: 1.2;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .link-btn-container {
+            display: flex;
+            gap: 12px;
+            max-width: 500px;
+            margin: 35px auto 15px auto;
+        }
+
+        .link-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .youtube-btn {
+            background: linear-gradient(135deg, #e60000 0%, #990000 100%);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(230, 0, 0, 0.25);
+        }
+
+        .kakao-btn {
+            background: linear-gradient(135deg, #ffe812 0%, #f7c600 100%);
+            color: #222222;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(254, 229, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="combo-rank-box">
+        <div class="combo-header">
+            <span class="combo-rank-title">우습게 보지 말라냥!</span>
+            <span class="combo-desc">일 고양이의 초기 레벨 UP 【중】</span>
+        </div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1498.png" class="char-img"><div class="char-name">열혈경파 쿠니오군</div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+        </div>
+    </div>
+
+    <div class="combo-rank-box">
+        <div class="combo-header">
+            <span class="combo-rank-title">고양이 도련님&도련님 도련님</span>
+            <span class="combo-desc">일 고양이의 초기 레벨 UP 【소】& 초기 소지금 UP 【중】</span>
+        </div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1499.png" class="char-img"><div class="char-name">고양이 도령의 파파의 파파</div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+        </div>
+    </div>
+
+    <div class="combo-rank-box">
+        <div class="combo-header">
+            <span class="combo-rank-title">よくきたな！&いきてはかえさん！</span>
+            <span class="combo-desc">캐릭터의 이동 속도 UP 【소】& 초기 소지금 UP 【소】</span>
+        </div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1501.png" class="char-img"><div class="char-name">りゅういち＆りゅうじ</div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+        </div>
+    </div>
+
+    <div class="combo-rank-box">
+        <div class="combo-header">
+            <span class="combo-rank-title">육공군 합동작전</span>
+            <span class="combo-desc">캐릭터의 공격력 UP 【중】</span>
+        </div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1502.png" class="char-img"><div class="char-name">초전자전기 디아 볼로스</div></div>
+            <div class="character-card"><img src="IMG_1503.png" class="char-img"><div class="char-name">대광란의 천공의 고양이</div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+        </div>
+    </div>
+
+    <div class="combo-rank-box">
+        <div class="combo-header">
+            <span class="combo-rank-title">바람을 의심</span>
+            <span class="combo-desc">연구력 UP 【중】</span>
+        </div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1504.png" class="char-img"><div class="char-name">망자탐정 비그라</div></div>
+            <div class="character-card"><img src="IMG_1505.png" class="char-img"><div class="char-name">마담・더・스모</div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+        </div>
+    </div>
+
+    <div class="combo-rank-box">
+        <div class="combo-header">
+            <span class="combo-rank-title">악에 물든 자들</span>
+            <span class="combo-desc">연구력 UP 【대】</span>
+        </div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1508.png" class="char-img"><div class="char-name">라스트 보스</div></div>
+            <div class="character-card"><img src="IMG_1507.png" class="char-img"><div class="char-name">꼬맹이 야옹마</div></div>
+            <div class="character-card"><img src="IMG_1506.png" class="char-img"><div class="char-name">살의의 고양이</div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+        </div>
+    </div>
+
+    <div class="combo-rank-box">
+        <div class="combo-header">
+            <span class="combo-rank-title">한숨</span>
+            <span class="combo-desc">연구력 UP 【중】</span>
+        </div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1509.png" class="char-img"><div class="char-name">카오란파사란</div></div>
+            <div class="character-card"><img src="IMG_1510.png" class="char-img"><div class="char-name">광란의 고양이 드래곤</div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+        </div>
+    </div>
+
+    <div class="combo-rank-box">
+        <div class="combo-header">
+            <span class="combo-rank-title">긴 소매 선수권</span>
+            <span class="combo-desc">연구력 UP 【대】</span>
+        </div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1511.png" class="char-img"><div class="char-name">여우아가씨 하늘나리</div></div>
+            <div class="character-card"><img src="IMG_1512.png" class="char-img"><div class="char-name">처녀귀신 냥코</div></div>
+            <div class="character-card"><img src="IMG_1513.png" class="char-img"><div class="char-name">냥코 오도리</div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+            <div class="character-card empty-slot"><div class="empty-icon-placeholder"></div></div>
+        </div>
+    </div>
+
+    <div class="link-btn-container">
+        <a href="https://www.youtube.com/@미사카미코토" target="_blank" class="link-btn youtube-btn">▶ 디디잇 유튜브 구독</a>
+        <a href="https://open.kakao.com/o/pHG8yJOi" target="_blank" class="link-btn kakao-btn">💬 냥코 연구소 오픈채팅방</a>
+    </div>
+
+</body>
+</html>
