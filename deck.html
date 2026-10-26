@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>범용 편성 모음</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --box-bg: #282828;
+            --text-color: #ffffff;
+            --accent-color: #ffcc00;
+            --border-color: #3d3d3d;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+            background-color: transparent;
+            color: var(--text-color);
+            margin: 0;
+            padding: 10px 4px;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .combo-rank-box {
+            max-width: 650px;
+            width: 100%;
+            margin: 0 auto 16px auto;
+            background-color: var(--box-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 14px 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .combo-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #3a3a3a;
+            padding-bottom: 6px;
+        }
+
+        .combo-rank-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--accent-color);
+        }
+
+        .combo-desc {
+            font-size: 11px;
+            color: #aaa;
+        }
+
+        .character-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            width: 100%;
+        }
+
+        .character-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 6px 2px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            min-width: 0;
+            transition: transform 0.2s ease, background-color 0.15s, border-color 0.15s;
+        }
+
+        .character-card.swappable {
+            cursor: pointer;
+            border-color: #886600;
+            background-color: #1a1915;
+        }
+        .character-card.swappable:hover {
+            border-color: var(--accent-color);
+            background-color: #25231c;
+        }
+        .character-card.flipping {
+            transform: rotateY(90deg) scale(0.9);
+        }
+
+        .swap-badge {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background-color: rgba(255, 204, 0, 0.85);
+            color: #121212;
+            font-size: 9px;
+            font-weight: 900;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .char-img {
+            width: 100%;
+            max-width: 104px;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 4px;
+            background-color: #000;
+        }
+
+        .char-name {
+            font-size: 10px;
+            margin-top: 5px;
+            font-weight: 600;
+            word-break: break-all;
+            color: #ddd;
+            line-height: 1.2;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .link-btn-container {
+            display: flex;
+            gap: 12px;
+            max-width: 500px;
+            margin: 35px auto 15px auto;
+        }
+
+        .link-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .youtube-btn {
+            background: linear-gradient(135deg, #e60000 0%, #990000 100%);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(230, 0, 0, 0.25);
+        }
+
+        .kakao-btn {
+            background: linear-gradient(135deg, #ffe812 0%, #f7c600 100%);
+            color: #222222;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(254, 229, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="combo-rank-box">
+        <div class="combo-header">
+            <span class="combo-rank-title">쌍루노 범용덱</span>
+            <span class="combo-desc">안정성을 최대한 높인 덱 (클릭 시 대체캐 교체)</span>
+        </div>
+        <div class="character-row" style="margin-bottom: 6px;">
+            <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1570.png" data-alt-name="메탈 고양이 빌더" data-orig-img="IMG_1534.png" data-orig-name="고양이 연어알">
+                <div class="swap-badge">🔄</div>
+                <img src="IMG_1534.png" class="char-img">
+                <div class="char-name">고양이 연어알</div>
+            </div>
+            <div class="character-card"><img src="IMG_1568.png" class="char-img"><div class="char-name">울트라 석공 냥돌이</div></div>
+            <div class="character-card"><img src="IMG_1584.png" class="char-img"><div class="char-name">헬파이어 도깨비 야옹마</div></div>
+            <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1523.png" data-alt-name="울트라 대나무 공주" data-orig-img="IMG_1522.png" data-orig-name="블레이드 마스터 스탈">
+                <div class="swap-badge">🔄</div>
+                <img src="IMG_1522.png" class="char-img">
+                <div class="char-name">블레이드 마스터 스탈</div>
+            </div>
+            <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1499.png" data-alt-name="고양이 도령의 파파의 파파" data-orig-img="IMG_1498.png" data-orig-name="열혈경파 쿠니오군">
+                <div class="swap-badge">🔄</div>
+                <img src="IMG_1498.png" class="char-img">
+                <div class="char-name">열혈경파 쿠니오군</div>
+            </div>
+        </div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1542.png" class="char-img"><div class="char-name">만월의 기사 루노스</div></div>
+            <div class="character-card"><img src="IMG_1543.png" class="char-img"><div class="char-name">회월의 기사 다크 루노스</div></div>
+            <div class="character-card"><img src="IMG_1585.png" class="char-img"><div class="char-name">구제의 선녀 루나샤</div></div>
+            <div class="character-card"><img src="IMG_1565.png" class="char-img"><div class="char-name">적멸의 선녀 다크 루나샤</div></div>
+            <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
+        </div>
+    </div>
+
+    <div class="combo-rank-box">
+        <div class="combo-header">
+            <span class="combo-rank-title">하데스 범용덱</span>
+            <span class="combo-desc">속도감을 높인 덱 (클릭 시 대체캐 교체)</span>
+        </div>
+        <div class="character-row" style="margin-bottom: 6px;">
+            <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1570.png" data-alt-name="메탈 고양이 빌더" data-orig-img="IMG_1534.png" data-orig-name="고양이 연어알">
+                <div class="swap-badge">🔄</div>
+                <img src="IMG_1534.png" class="char-img">
+                <div class="char-name">고양이 연어알</div>
+            </div>
+            <div class="character-card"><img src="IMG_1582.png" class="char-img"><div class="char-name">고양이 캉캉</div></div>
+            <div class="character-card"><img src="IMG_1584.png" class="char-img"><div class="char-name">헬파이어 도깨비 야옹마</div></div>
+            <div class="character-card"><img src="IMG_1545.png" class="char-img"><div class="char-name">쌍둥이별 시시루와 코마리Φ</div></div>
+            <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1523.png" data-alt-name="울트라 대나무 공주" data-orig-img="IMG_1522.png" data-orig-name="블레이드 마스터 스탈">
+                <div class="swap-badge">🔄</div>
+                <img src="IMG_1522.png" class="char-img">
+                <div class="char-name">블레이드 마스터 스탈</div>
+            </div>
+        </div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1491.png" class="char-img"><div class="char-name">G데스 하데스</div></div>
+            <div class="character-card"><img src="IMG_1530.png" class="char-img"><div class="char-name">세이버 얼터CC</div></div>
+            <div class="character-card"><img src="IMG_1565.png" class="char-img"><div class="char-name">적멸의 선녀 다크 루나샤</div></div>
+            <div class="character-card"><img src="IMG_1585.png" class="char-img"><div class="char-name">구제의 선녀 루나샤</div></div>
+            <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
+        </div>
+    </div>
+
+    <div class="combo-rank-box">
+        <div class="combo-header">
+            <span class="combo-rank-title">흙수저덱</span>
+            <span class="combo-desc">스탈이 없고 저렴한 덱 (클릭 시 대체캐 교체)</span>
+        </div>
+        <div class="character-row" style="margin-bottom: 6px;">
+            <div class="character-card"><img src="IMG_1571.png" class="char-img"><div class="char-name">고양이 강시</div></div>
+            <div class="character-card"><img src="IMG_1582.png" class="char-img"><div class="char-name">고양이 캉캉</div></div>
+            <div class="character-card"><img src="IMG_1584.png" class="char-img"><div class="char-name">헬파이어 도깨비 야옹마</div></div>
+            <div class="character-card"><img src="IMG_1586.png" class="char-img"><div class="char-name">애도의 무희 다크 이즈</div></div>
+            <div class="character-card swappable" onclick="swapCharacter(this)" data-alt-img="IMG_1499.png" data-alt-name="고양이 도령의 파파의 파파" data-orig-img="IMG_1498.png" data-orig-name="열혈경파 쿠니오군">
+                <div class="swap-badge">🔄</div>
+                <img src="IMG_1498.png" class="char-img">
+                <div class="char-name">열혈경파 쿠니오군</div>
+            </div>
+        </div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1542.png" class="char-img"><div class="char-name">만월의 기사 루노스</div></div>
+            <div class="character-card"><img src="IMG_1543.png" class="char-img"><div class="char-name">회월의 기사 다크 루노스</div></div>
+            <div class="character-card"><img src="IMG_1585.png" class="char-img"><div class="char-name">구제의 선녀 루나샤</div></div>
+            <div class="character-card"><img src="IMG_1565.png" class="char-img"><div class="char-name">적멸의 선녀 다크 루나샤</div></div>
+            <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
+        </div>
+    </div>
+
+    <div class="link-btn-container">
+        <a href="https://www.youtube.com/@미사카미코토" target="_blank" class="link-btn youtube-btn">▶ 디디잇 유튜브 구독</a>
+        <a href="https://open.kakao.com/o/pHG8yJOi" target="_blank" class="link-btn kakao-btn">💬 냥코 연구소 오픈채팅방</a>
+    </div>
+
+    <script>
+        function swapCharacter(cardElement) {
+            if (cardElement.classList.contains('flipping')) return;
+            cardElement.classList.add('flipping');
+            setTimeout(() => {
+                const imgElement = cardElement.querySelector('.char-img');
+                const nameElement = cardElement.querySelector('.char-name');
+                const origImg = cardElement.getAttribute('data-orig-img');
+                const origName = cardElement.getAttribute('data-orig-name');
+                const altImg = cardElement.getAttribute('data-alt-img');
+                const altName = cardElement.getAttribute('data-alt-name');
+
+                if (imgElement.src.includes(origImg)) {
+                    imgElement.src = altImg;
+                    nameElement.textContent = altName;
+                } else {
+                    imgElement.src = origImg;
+                    nameElement.textContent = origName;
+                }
+                cardElement.classList.remove('flipping');
+            }, 100);
+        }
+    </script>
+</body>
+</html>
