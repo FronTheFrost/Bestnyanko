@@ -113,9 +113,9 @@
 </head>
 <body>
 
-    <!-- 상대 경로 명시를 위해 ./ 추가 -->
+    <!-- 깃허브 Raw 절대 주소로 배너 이미지 설정 -->
     <div class="tier-banner" onclick="toggleTierList()">
-        <img src="./IMG_1626.jpeg" alt="사이버 학원 갤럭시 걸즈 배너">
+        <img src="https://raw.githubusercontent.com/FronTheFrost/Bestnyanko/main/IMG_1626.jpeg" alt="사이버 학원 갤럭시 걸즈 배너">
     </div>
 
     <div class="tier-content-wrapper" id="tierContent">
@@ -170,7 +170,6 @@
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
 
-            // 배너를 누를 때마다 부모창에 현재 높이를 실시간 전달하여 빈 공간 제거
             const currentHeight = document.body.scrollHeight;
             window.parent.postMessage({ type: 'resizeHeight', id: 'galaxyFrame', height: currentHeight }, '*');
         }
