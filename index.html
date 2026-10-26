@@ -51,20 +51,13 @@
             transform: scale(0.95);
         }
 
-        /* 메인 대분류 탭 메뉴 */
+        /* 메인 대분류 탭 메뉴 (6개 탭 레이아웃 호환) */
         .main-tab-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 6px;
             max-width: 500px;
             margin: 0 auto 20px auto;
-        }
-
-        .main-tab-btn:nth-child(4) {
-            grid-column: span 1.5;
-        }
-        .main-tab-btn:nth-child(5) {
-            grid-column: span 1.5;
         }
 
         .main-tab-btn {
@@ -665,13 +658,14 @@
     <!-- 3번 이스터에그 적용 상단 타이틀 -->
     <h1 id="mainTitle" onclick="handleTitleClick()">냥코대전쟁 캐릭터 가이드</h1>
 
-    <!-- 메인 대분류 탭 메뉴 -->
+    <!-- 메인 대분류 탭 메뉴 (6개 탭 레이아웃 분할) -->
     <div class="main-tab-container">
         <button class="main-tab-btn active" onclick="switchMainTab('attribute-section', this)">속성별 가이드</button>
         <button class="main-tab-btn" onclick="switchMainTab('rush-section', this)">속공 및 범용</button>
         <button class="main-tab-btn" onclick="switchMainTab('growth-section', this)">추천 4진/초본</button>
         <button class="main-tab-btn" onclick="switchMainTab('deck-section', this)">범용 편성 모음</button>
         <button class="main-tab-btn" onclick="switchMainTab('combo-section', this)">냥콤보 best 8</button>
+        <button class="main-tab-btn" onclick="switchMainTab('tier-section', this)" style="border-color: #ffcc00; color: #ffcc00;">시리즈별 티어표</button>
     </div>
 
     <!-- [섹션 1] 속성별 가이드 -->
@@ -1243,6 +1237,13 @@
             <a href="https://open.kakao.com/o/pHG8yJOi" target="_blank" class="link-btn kakao-btn">
                 <span class="btn-icon">💬</span> 냥코 연구소 오픈채팅방
             </a>
+        </div>
+    </div>
+
+    <!-- [섹션 6] 시리즈별 티어표 탭 (tier.html 외부 파일 연동) -->
+    <div id="tier-section" class="main-section">
+        <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; background-color: var(--box-bg); border: 2px solid var(--border-color); border-radius: 16px; overflow: hidden; box-shadow: 0 8px 16px rgba(0,0,0,0.4);">
+            <iframe src="tier.html" style="width: 100%; height: 850px; border: none; background: transparent;" scrolling="auto"></iframe>
         </div>
     </div>
 
