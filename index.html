@@ -254,10 +254,11 @@
         <iframe src="combo.html" class="tab-frame" style="height: 1200px;" scrolling="auto"></iframe>
     </div>
 
+    <!-- [섹션 6] 시리즈별 티어표 탭 (티어표가 펼쳐질 수 있도록 높이 넉넉하게 확보) -->
     <div id="tier-section" class="main-section">
         <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; display: flex; flex-direction: column; gap: 20px;">
-            <iframe src="dagun.html" style="width: 100%; height: auto; min-height: 70px; border: none; background: transparent;" scrolling="no"></iframe>
-            <iframe src="basar.html" style="width: 100%; height: auto; min-height: 70px; border: none; background: transparent;" scrolling="no"></iframe>
+            <iframe src="dagun.html" class="tab-frame" style="height: 850px;" scrolling="auto"></iframe>
+            <iframe src="basar.html" class="tab-frame" style="height: 850px;" scrolling="auto"></iframe>
         </div>
     </div>
 
@@ -279,8 +280,6 @@
 
     <script>
         let titleClickCount = 0;
-        
-        // 발견 순서 기록 배열 (먼저 발견한 순서대로 아이디가 쏙 들어감)
         window.foundEggOrder = [];
 
         function switchMainTab(sectionId, btnElement) {
@@ -291,7 +290,6 @@
             btnElement.classList.add('active');
         }
 
-        // 이스터에그 등록 및 순서 번호 반환 함수
         window.registerEggAndGetIndex = function(eggKey) {
             if (!window.foundEggOrder.includes(eggKey)) {
                 window.foundEggOrder.push(eggKey);
@@ -328,7 +326,6 @@
 
         function closeGiantEgg() {
             document.getElementById('giantEggOverlay').classList.remove('active');
-            // 제목 이스터에그 키는 'title'
             window.openGlobalEeModal('title', "비 오는 날은 파전이 최고입니다.");
         }
     </script>
