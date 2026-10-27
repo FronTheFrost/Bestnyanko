@@ -353,9 +353,9 @@
         <iframe src="combo.html" id="comboFrame" class="tab-frame" style="height: 1300px;" scrolling="no"></iframe>
     </div>
 
-    <!-- [섹션 6] 시리즈별 티어표 탭 -->
+    <!-- [섹션 6] 시리즈별 티어표 탭 (하단 여백 padding-bottom 추가로 맨 아래 시리즈도 정상 정렬) -->
     <div id="tier-section" class="main-section">
-        <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; display: flex; flex-direction: column;">
+        <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; display: flex; flex-direction: column; padding-bottom: 80vh;">
             
             <div class="tier-search-container">
                 <div class="search-box-wrapper">
@@ -401,7 +401,7 @@
         let titleClickCount = 0;
         window.foundEggOrder = [];
 
-        // --- 티어표 데이터베이스 (시리즈 기본 정보 및 줄임말만 정의) ---
+        // --- 티어표 데이터베이스 (시리즈 기본 정보 및 줄임말 정의) ---
         const tierSeriesData = [
             { id: "dagunFrame", title: "다이너마이트 군단", alias: ["다군"], characters: [] },
             { id: "basarFrame", title: "초환수 바사라즈", alias: ["바사라", "바사라즈"], characters: [] },
