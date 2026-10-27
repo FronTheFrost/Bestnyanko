@@ -174,13 +174,43 @@
         </div>
     </div>
 
+    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <div style="display: none;">
+        <div class="t-name">여우아가씨 하늘나리</div>
+        <div class="t-name">구미호공주 하늘나리</div>
+
+        <div class="t-name">인어아가씨 루리</div>
+        <div class="t-name">인어공주 루리</div>
+
+        <div class="t-name">미라아가씨 레이카</div>
+        <div class="t-name">미라공주 레이카</div>
+
+        <div class="t-name">늑대아가씨 딜</div>
+        <div class="t-name">늑대공주 딜</div>
+
+        <div class="t-name">좀비아가씨 버베나</div>
+        <div class="t-name">사령의 신부 버베나</div>
+
+        <div class="t-name">모험가 칸나</div>
+        <div class="t-name">대모험 소녀 칸나</div>
+
+        <div class="t-name">여신 베가</div>
+        <div class="t-name">환영의 가호여신 베가</div>
+
+        <div class="t-name">닌자아가씨 토모에</div>
+        <div class="t-name">식도락 닌자 토모에</div>
+
+        <div class="t-name">마도사 시드미</div>
+
+        <div class="t-name">나나호</div>
+    </div>
+
     <script>
         function sendHeight() {
             const currentHeight = document.body.scrollHeight;
             window.parent.postMessage({ type: 'resizeHeight', id: 'monstersFrame', height: currentHeight }, '*');
         }
 
-        // 페이지 로드 직후 및 이미지 로딩 완료 시점에 높이 자동 보고
         window.addEventListener('load', function() {
             sendHeight();
             setTimeout(sendHeight, 100);
@@ -191,7 +221,6 @@
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
 
-            // 토글 애니메이션 전후로 높이 재전송
             setTimeout(sendHeight, 50);
             setTimeout(sendHeight, 300);
         }
