@@ -174,13 +174,50 @@
         </div>
     </div>
 
+    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <div style="display: none;">
+        <div class="t-name">강철육군 카타바르스</div>
+        <div class="t-name">격멸전차 기가파르도</div>
+        <div class="t-name">초격멸전차 기가파르도</div>
+
+        <div class="t-name">고대군함 가레스</div>
+        <div class="t-name">무적함대 시갈레온</div>
+        <div class="t-name">초무적함대 시갈레온</div>
+
+        <div class="t-name">비행습격 바머스</div>
+        <div class="t-name">비행전함 보르본</div>
+        <div class="t-name">초비행전함 보르본바</div>
+
+        <div class="t-name">관측병기 갈릴레오</div>
+        <div class="t-name">시공기지 아마겟돈</div>
+
+        <div class="t-name">온천천국 테르마이</div>
+        <div class="t-name">지하전대 그란돈</div>
+        <div class="t-name">초지하전대 그란돈</div>
+
+        <div class="t-name">공중상사 콜럼버스</div>
+        <div class="t-name">수송병단 아틀란티스</div>
+
+        <div class="t-name">초용전기 데스 트로이</div>
+        <div class="t-name">전자전기 디아 볼로스</div>
+
+        <div class="t-name">유랑극단 캐러셀즈</div>
+        <div class="t-name">기습괴광 유에포즈</div>
+
+        <div class="t-name">건설병단 스핑크스</div>
+        <div class="t-name">돌격부대 콘보이즈</div>
+
+        <div class="t-name">곡사포대 런처즈</div>
+
+        <div class="t-name">종말 병기 무우</div>
+    </div>
+
     <script>
         function sendHeight() {
             const currentHeight = document.body.scrollHeight;
             window.parent.postMessage({ type: 'resizeHeight', id: 'ironFrame', height: currentHeight }, '*');
         }
 
-        // 페이지 로드 직후 및 이미지 로딩 완료 시점에 높이 자동 보고
         window.addEventListener('load', function() {
             sendHeight();
             setTimeout(sendHeight, 100);
@@ -191,7 +228,6 @@
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
 
-            // 토글 애니메이션 전후로 높이 재전송
             setTimeout(sendHeight, 50);
             setTimeout(sendHeight, 300);
         }
