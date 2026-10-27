@@ -72,12 +72,13 @@
             color: #fff;
             flex-shrink: 0;
         }
-        .tier-label.ss { background: #b82323; }
-        .tier-label.s  { background: #b8621b; }
-        .tier-label.a  { background: #b89d1b; color: #121212; }
-        .tier-label.b  { background: #337d33; }
-        .tier-label.c  { background: #236ab8; }
-        .tier-label.d  { background: #555555; }
+        .tier-label.sss { background: #6c5ce7; }
+        .tier-label.ss  { background: #b82323; }
+        .tier-label.s   { background: #b8621b; }
+        .tier-label.a   { background: #b89d1b; color: #121212; }
+        .tier-label.b   { background: #337d33; }
+        .tier-label.c   { background: #236ab8; }
+        .tier-label.d   { background: #555555; }
 
         .tier-cards-area {
             display: flex;
@@ -121,24 +122,24 @@
 
     <div class="tier-content-wrapper" id="tierContent">
         <div style="display: flex; flex-direction: column; gap: 8px;">
-            <!-- SS등급 -->
+            <!-- SSS등급 (없음) -->
             <div class="tier-row">
-                <div class="tier-label ss">SS</div>
+                <div class="tier-label sss">SSS</div>
                 <div class="tier-cards-area"></div>
             </div>
 
-            <!-- S등급 (송골매, 제로그라비티) -->
+            <!-- SS등급 (송골매, 제로그라비티) -->
             <div class="tier-row">
-                <div class="tier-label s">S</div>
+                <div class="tier-label ss">SS</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1496.png"><div class="t-name">섬멸 송골매</div></div>
                     <div class="t-card"><img src="IMG_1679.png"><div class="t-name">성마탐정 제로그라비티</div></div>
                 </div>
             </div>
 
-            <!-- A등급 (캣맨, 스펙트르, 클레이, 사키) -->
+            <!-- S등급 (캣맨, 스펙트르, 클레이, 사키) -->
             <div class="tier-row">
-                <div class="tier-label a">A</div>
+                <div class="tier-label s">S</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1495.png"><div class="t-name">캣맨포에버</div></div>
                     <div class="t-card"><img src="IMG_1592.png"><div class="t-name">스펙트르 캣</div></div>
@@ -147,36 +148,42 @@
                 </div>
             </div>
 
-            <!-- B등급 (아키라, 메카소녀, 라이트닝잭) -->
+            <!-- A등급 (메카소녀, 라이트닝잭) -->
             <div class="tier-row">
-                <div class="tier-label b">B</div>
+                <div class="tier-label a">A</div>
                 <div class="tier-cards-area">
-                    <div class="t-card"><img src="IMG_1678.png"><div class="t-name">인펠・아키라</div></div>
                     <div class="t-card"><img src="IMG_1680.png"><div class="t-name">스페이스 메카소녀 진</div></div>
                     <div class="t-card"><img src="IMG_1681.png"><div class="t-name">라이트닝 잭</div></div>
                 </div>
             </div>
 
-            <!-- C등급 (아비스) -->
+            <!-- B등급 (아키라, 아비스) -->
             <div class="tier-row">
-                <div class="tier-label c">C</div>
+                <div class="tier-label b">B</div>
                 <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1678.png"><div class="t-name">인펠・아키라</div></div>
                     <div class="t-card"><img src="IMG_1682.png"><div class="t-name">시공 과학자 아비스 박사</div></div>
                 </div>
             </div>
 
-            <!-- D등급 (키클롭스, 엑셀) -->
+            <!-- C등급 (키클롭스, 엑셀) -->
             <div class="tier-row">
-                <div class="tier-label d">D</div>
+                <div class="tier-label c">C</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1683.png"><div class="t-name">신마기사 키클롭스</div></div>
                     <div class="t-card"><img src="IMG_1684.png"><div class="t-name">더티 엑셀</div></div>
                 </div>
             </div>
+
+            <!-- D등급 (없음) -->
+            <div class="tier-row">
+                <div class="tier-label d">D</div>
+                <div class="tier-cards-area"></div>
+            </div>
         </div>
     </div>
 
-    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <!-- 검색 전용 숨김 키워드 리스트 -->
     <div style="display: none;">
         <div class="t-name">아키라</div>
         <div class="t-name">쉐도우・아키라</div>
