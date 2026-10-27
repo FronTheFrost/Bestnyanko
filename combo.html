@@ -23,6 +23,7 @@
             padding: 10px 4px;
             user-select: none;
             -webkit-user-select: none;
+            overflow: visible !important;
         }
 
         .combo-rank-box {
@@ -264,5 +265,16 @@
         <a href="https://open.kakao.com/o/pHG8yJOi" target="_blank" class="link-btn kakao-btn">💬 냥코 연구소 오픈채팅방</a>
     </div>
 
+    <script>
+        // 부모창에 높이 실시간 동기화
+        function sendHeight() {
+            const currentHeight = document.body.scrollHeight;
+            window.parent.postMessage({ type: 'resizeHeight', id: 'comboFrame', height: currentHeight }, '*');
+        }
+
+        const observer = new ResizeObserver(() => { sendHeight(); });
+        observer.observe(document.body);
+        window.addEventListener('load', sendHeight);
+    </script>
 </body>
 </html>
