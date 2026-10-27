@@ -175,13 +175,54 @@
         </div>
     </div>
 
+    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <div style="display: none;">
+        <div class="t-name">복숭아 동자</div>
+        <div class="t-name">폭주형제 피치스타즈</div>
+
+        <div class="t-name">대나무 공주</div>
+        <div class="t-name">파괴위성 데스문</div>
+        <div class="t-name">파괴위성 카오스문</div>
+
+        <div class="t-name">석공 냥돌이</div>
+        <div class="t-name">이동요새 카무이</div>
+        <div class="t-name">이동요새 골드카무이</div>
+
+        <div class="t-name">냥꼬북</div>
+        <div class="t-name">용궁수 거북레온</div>
+
+        <div class="t-name">크레인 냥코</div>
+        <div class="t-name">은하전사 코스모</div>
+        <div class="t-name">궁극전사 코즈믹 코스모</div>
+
+        <div class="t-name">너굴냥즈</div>
+        <div class="t-name">화염돌격대 너굴냥즈</div>
+
+        <div class="t-name">떠돌이 악사</div>
+        <div class="t-name">폭주 락밴드 몽키헤븐</div>
+
+        <div class="t-name">긴타로</div>
+        <div class="t-name">맹총전대 긴레인저</div>
+
+        <div class="t-name">혀 잘린 참새</div>
+        <div class="t-name">요괴 결사 짹짹</div>
+
+        <div class="t-name">엄지 동자</div>
+        <div class="t-name">귀습잠수함 방망-E</div>
+
+        <div class="t-name">냥꽃 할배</div>
+
+        <div class="t-name">이나바의 흰 토끼</div>
+
+        <div class="t-name">리코더 고양이</div>
+    </div>
+
     <script>
         function sendHeight() {
             const currentHeight = document.body.scrollHeight;
             window.parent.postMessage({ type: 'resizeHeight', id: 'soulsFrame', height: currentHeight }, '*');
         }
 
-        // 페이지 로드 직후 및 이미지 로딩 완료 시점에 높이 자동 보고
         window.addEventListener('load', function() {
             sendHeight();
             setTimeout(sendHeight, 100);
@@ -192,7 +233,6 @@
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
 
-            // 토글 애니메이션 전후로 높이 재전송
             setTimeout(sendHeight, 50);
             setTimeout(sendHeight, 300);
         }
