@@ -176,13 +176,55 @@
         </div>
     </div>
 
+    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <div style="display: none;">
+        <div class="t-name">바람의 신・윈디</div>
+        <div class="t-name">바람의 신・윈디α</div>
+        <div class="t-name">질풍의 신・윈디α</div>
+
+        <div class="t-name">번개의 신・산디아</div>
+        <div class="t-name">번개의 신・산디아β</div>
+        <div class="t-name">천둥의 신・산디아β</div>
+
+        <div class="t-name">쿠우</div>
+        <div class="t-name">쿠우γ</div>
+
+        <div class="t-name">카이</div>
+        <div class="t-name">카이μ</div>
+
+        <div class="t-name">갓파 마인</div>
+        <div class="t-name">갓파κ</div>
+
+        <div class="t-name">명계의 칼리파</div>
+        <div class="t-name">명계의X칼리파</div>
+
+        <div class="t-name">시시루와 코마리</div>
+        <div class="t-name">시시루와 코마리Φ</div>
+
+        <div class="t-name">멜슈</div>
+        <div class="t-name">멜슈ξ</div>
+
+        <div class="t-name">리린</div>
+        <div class="t-name">리린π</div>
+
+        <div class="t-name">테룬</div>
+        <div class="t-name">테룬ζ</div>
+
+        <div class="t-name">페가사</div>
+        <div class="t-name">페가사ν</div>
+
+        <div class="t-name">라클레스</div>
+
+        <div class="t-name">잔다르크</div>
+        <div class="t-name">잔다르크ψ</div>
+    </div>
+
     <script>
         function sendHeight() {
             const currentHeight = document.body.scrollHeight;
             window.parent.postMessage({ type: 'resizeHeight', id: 'galaxyFrame', height: currentHeight }, '*');
         }
 
-        // 페이지 로드 직후 및 이미지 로딩 완료 시점에 높이 자동 보고
         window.addEventListener('load', function() {
             sendHeight();
             setTimeout(sendHeight, 100);
@@ -193,7 +235,6 @@
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
 
-            // 토글 애니메이션 전후로 높이 재전송
             setTimeout(sendHeight, 50);
             setTimeout(sendHeight, 300);
         }
