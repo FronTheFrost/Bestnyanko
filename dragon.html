@@ -58,6 +58,7 @@
             border-radius: 10px;
             margin-bottom: 8px;
             overflow: hidden;
+            min-height: 48px; /* 빈 칸일 때도 행 높이 유지 */
         }
         .tier-label {
             width: 60px;
@@ -120,13 +121,13 @@
 
     <div class="tier-content-wrapper" id="tierContent">
         <div style="display: flex; flex-direction: column; gap: 8px;">
-            <!-- SS 등급 (빈 칸) -->
-            <div class="tier-row" style="display: none;">
+            <!-- SS 등급 (빈 칸 유지) -->
+            <div class="tier-row">
                 <div class="tier-label ss">SS</div>
                 <div class="tier-cards-area"></div>
             </div>
-            <!-- S 등급 (빈 칸) -->
-            <div class="tier-row" style="display: none;">
+            <!-- S 등급 (빈 칸 유지) -->
+            <div class="tier-row">
                 <div class="tier-label s">S</div>
                 <div class="tier-cards-area"></div>
             </div>
