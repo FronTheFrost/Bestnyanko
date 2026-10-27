@@ -544,7 +544,7 @@
 
             const targetIframe = document.getElementById(series.id);
             if (targetIframe) {
-                targetIframe.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                targetIframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
                 try {
                     if (targetIframe.contentWindow && typeof targetIframe.contentWindow.toggleTierList === 'function') {
