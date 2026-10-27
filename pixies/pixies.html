@@ -172,13 +172,47 @@
         </div>
     </div>
 
+    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <div style="display: none;">
+        <div class="t-name">불의 정령 메라라</div>
+        <div class="t-name">불꽃의 정령 메라란</div>
+        <div class="t-name">불꽃의 정령왕 메라버닝</div>
+
+        <div class="t-name">물의 정령 마리</div>
+        <div class="t-name">유수의 정령 마리린</div>
+        <div class="t-name">유수의 정령왕 마리리린</div>
+
+        <div class="t-name">바람의 정령 에어리</div>
+        <div class="t-name">폭풍의 정령 에어린</div>
+        <div class="t-name">폭풍의 정령왕 에어리린</div>
+
+        <div class="t-name">번개의 정령 볼트</div>
+        <div class="t-name">벼락의 정령 피카볼트</div>
+        <div class="t-name">벼락의 정령왕 기가볼트</div>
+
+        <div class="t-name">돌의 정령 롤링스톤</div>
+        <div class="t-name">암석의 정령 락앤롤</div>
+
+        <div class="t-name">어둠의 정령 야미</div>
+        <div class="t-name">암흑의 정령 야미누아르</div>
+
+        <div class="t-name">얼음의 정령 블리즈</div>
+        <div class="t-name">빙결의 정령 블리자나</div>
+
+        <div class="t-name">철의 정령 메탈릭</div>
+        <div class="t-name">강철의 정령 헤비메탈</div>
+
+        <div class="t-name">나무의 정령 모리</div>
+
+        <div class="t-name">환상의 정령 루미나</div>
+    </div>
+
     <script>
         function sendHeight() {
             const currentHeight = document.body.scrollHeight;
             window.parent.postMessage({ type: 'resizeHeight', id: 'pixiesFrame', height: currentHeight }, '*');
         }
 
-        // 페이지 로드 직후 및 이미지 로딩 완료 시점에 높이 자동 보고
         window.addEventListener('load', function() {
             sendHeight();
             setTimeout(sendHeight, 100);
@@ -189,7 +223,6 @@
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
 
-            // 토글 애니메이션 전후로 높이 재전송
             setTimeout(sendHeight, 50);
             setTimeout(sendHeight, 300);
         }
