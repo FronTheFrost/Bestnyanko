@@ -22,6 +22,7 @@
             padding: 10px 4px;
             user-select: none;
             -webkit-user-select: none;
+            overflow: visible !important;
         }
 
         .combo-rank-box {
@@ -276,8 +277,19 @@
                     nameElement.textContent = origName;
                 }
                 cardElement.classList.remove('flipping');
+                sendHeight(); // 교체 후 높이 변경 대응
             }, 100);
         }
+
+        // 부모창에 높이 실시간 동기화
+        function sendHeight() {
+            const currentHeight = document.body.scrollHeight;
+            window.parent.postMessage({ type: 'resizeHeight', id: 'deckFrame', height: currentHeight }, '*');
+        }
+
+        const observer = new ResizeObserver(() => { sendHeight(); });
+        observer.observe(document.body);
+        window.addEventListener('load', sendHeight);
     </script>
 </body>
 </html>
