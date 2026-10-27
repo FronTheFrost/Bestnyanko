@@ -100,6 +100,98 @@
             transition: height 0.25s ease;
         }
 
+        /* --- 6번 탭 내부 전용 검색창 및 추천 검색어 스타일 --- */
+        .tier-search-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .search-box-wrapper {
+            display: flex;
+            gap: 6px;
+        }
+
+        .search-input {
+            flex: 1;
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .search-btn {
+            background-color: var(--accent-color);
+            color: #121212;
+            border: none;
+            border-radius: 10px;
+            padding: 0 16px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .search-btn:hover {
+            background-color: #e6b800;
+        }
+
+        .autocomplete-list {
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
+            background-color: #222222;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            margin: 0;
+            padding: 4px 0;
+            list-style: none;
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+        }
+
+        .autocomplete-item {
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .autocomplete-item:last-child {
+            border-bottom: none;
+        }
+
+        .autocomplete-item:hover {
+            background-color: #333333;
+            color: var(--accent-color);
+        }
+
+        .matched-chars {
+            font-size: 11px;
+            color: #888;
+            margin-left: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
+        }
+
         .ee-modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -233,7 +325,7 @@
         <button class="main-tab-btn" onclick="switchMainTab('growth-section', this)">추천 4진/초본</button>
         <button class="main-tab-btn" onclick="switchMainTab('deck-section', this)">범용 편성 모음</button>
         <button class="main-tab-btn" onclick="switchMainTab('combo-section', this)">냥콤보 best 8</button>
-        <button class="main-tab-btn" onclick="switchMainTab('tier-section', this)">시리즈별 티어표</button>
+        <button class="main-tab-btn" id="tierTabBtn" onclick="switchMainTab('tier-section', this)">시리즈별 티어표</button>
     </div>
 
     <!-- 모든 아이프레임의 scrolling을 no로 설정하여 내부 스크롤 꼬임 원천 차단 -->
@@ -257,20 +349,32 @@
         <iframe src="combo.html" id="comboFrame" class="tab-frame" style="height: 1300px;" scrolling="no"></iframe>
     </div>
 
-    <!-- [섹션 6] 시리즈별 티어표 탭 (개별 폴더 경로로 변경 완료) -->
+    <!-- [섹션 6] 시리즈별 티어표 탭 -->
     <div id="tier-section" class="main-section">
-        <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; display: flex; flex-direction: column; gap: 15px;">
-            <iframe src="dagun/dagun.html" id="dagunFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
-            <iframe src="basar/basar.html" id="basarFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
-            <iframe src="galaxy/galaxy.html" id="galaxyFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
-            <iframe src="dragon/dragon.html" id="dragonFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
-            <iframe src="souls/souls.html" id="soulsFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
-            <iframe src="heroes/heroes.html" id="heroesFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
-            <iframe src="zeus/zeus.html" id="zeusFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
-            <iframe src="iron/iron.html" id="ironFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
-            <iframe src="pixies/pixies.html" id="pixiesFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
-            <iframe src="monsters/monsters.html" id="monstersFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
-            <iframe src="luga/luga.html" id="lugaFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
+        <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; display: flex; flex-direction: column;">
+            
+            <!-- 6번 탭 내부 상단 검색창 -->
+            <div class="tier-search-container">
+                <div class="search-box-wrapper">
+                    <input type="text" id="searchInput" class="search-input" placeholder="시리즈명 또는 캐릭터 검색 (예: 드엠, 테라볼타, 볼)" autocomplete="off">
+                    <button class="search-btn" onclick="executeSearch()">검색</button>
+                </div>
+                <ul id="autocompleteList" class="autocomplete-list"></ul>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <iframe src="dagun/dagun.html" id="dagunFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
+                <iframe src="basar/basar.html" id="basarFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
+                <iframe src="galaxy/galaxy.html" id="galaxyFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
+                <iframe src="dragon/dragon.html" id="dragonFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
+                <iframe src="souls/souls.html" id="soulsFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
+                <iframe src="heroes/heroes.html" id="heroesFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
+                <iframe src="zeus/zeus.html" id="zeusFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
+                <iframe src="iron/iron.html" id="ironFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
+                <iframe src="pixies/pixies.html" id="pixiesFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
+                <iframe src="monsters/monsters.html" id="monstersFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
+                <iframe src="luga/luga.html" id="lugaFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
+            </div>
         </div>
     </div>
 
@@ -294,16 +398,193 @@
         let titleClickCount = 0;
         window.foundEggOrder = [];
 
+        // --- 티어표 데이터베이스 (검색 기능용) ---
+        const tierSeriesData = [
+            {
+                id: "dagunFrame",
+                title: "전설의 고양이 다군",
+                alias: ["다군"],
+                characters: []
+            },
+            {
+                id: "basarFrame",
+                title: "바사라즈",
+                alias: ["바사라", "전국무장 바사라즈"],
+                characters: []
+            },
+            {
+                id: "galaxyFrame",
+                title: "갤러시걸즈",
+                alias: ["갤걸", "전뇌학원 갤러시걸즈"],
+                characters: []
+            },
+            {
+                id: "dragonFrame",
+                title: "초파괴전함 드래곤 엠퍼러즈",
+                alias: ["드엠", "드래곤 엠퍼러즈"],
+                characters: ["성룡 메기도라", "지룡 소돔", "신룡 카무쿠라", "용기사 바르스", "용사자 바벨", "해룡달시앙", "패룡 디오람스", "구룡강성 볼네이도"]
+            },
+            {
+                id: "soulsFrame",
+                title: "울트라 소울즈",
+                alias: ["울소", "울트라소울즈"],
+                characters: []
+            },
+            {
+                id: "heroesFrame",
+                title: "다크 히어로즈",
+                alias: ["다히", "다크히어로즈"],
+                characters: []
+            },
+            {
+                id: "zeusFrame",
+                title: "기간트 제우스",
+                alias: ["제우스", "알수없는 기간트 제우스"],
+                characters: []
+            },
+            {
+                id: "ironFrame",
+                title: "혁명군 아이언 워스",
+                alias: ["아이언워스", "아워"],
+                characters: []
+            },
+            {
+                id: "pixiesFrame",
+                title: "대정령 엘리멘탈 픽시즈",
+                alias: ["픽시즈", "엘리멘탈 픽시즈"],
+                characters: ["벼락의 대정령 테라볼타", "암흑의 정령왕 야미슈발츠", "불꽃의 대정령 메라피닉스", "유수의 대정령 마리나데", "암석의 정령왕 스톤헨지", "몽환의 정령 루미나리아", "폭풍의 대정령 에어리얼", "빙결의 정령왕 블리자레나", "강철의 정령왕 파워메탈", "수목의 정령 모리린"]
+            },
+            {
+                id: "monstersFrame",
+                title: "몬스터 걸즈",
+                alias: ["몬걸", "몬스터걸즈"],
+                characters: []
+            },
+            {
+                id: "lugaFrame",
+                title: "초고대 전설 루가족",
+                alias: ["루가족", "루가"],
+                characters: []
+            }
+        ];
+
         function switchMainTab(sectionId, btnElement) {
             document.querySelectorAll('.main-section').forEach(sec => sec.classList.remove('active'));
             document.querySelectorAll('.main-tab-btn').forEach(btn => btn.classList.remove('active'));
             
             document.getElementById(sectionId).classList.add('active');
-            btnElement.classList.add('active');
+            if (btnElement) btnElement.classList.add('active');
 
             // 탭 변경 시 스크롤을 맨 위로 부드럽게 복구
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // --- 검색 및 추천 검색어 자동완성 로직 ---
+        const searchInput = document.getElementById('searchInput');
+        const autoList = document.getElementById('autocompleteList');
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value.trim().toLowerCase();
+            autoList.innerHTML = '';
+
+            if (!query) {
+                autoList.style.display = 'none';
+                return;
+            }
+
+            const results = [];
+
+            tierSeriesData.forEach(item => {
+                const titleMatch = item.title.toLowerCase().includes(query);
+                const aliasMatch = item.alias && item.alias.some(a => a.toLowerCase().includes(query));
+                const matchedChars = item.characters.filter(char => char.toLowerCase().includes(query));
+
+                if (titleMatch || aliasMatch || matchedChars.length > 0) {
+                    results.push({
+                        series: item,
+                        matchedChars: matchedChars
+                    });
+                }
+            });
+
+            if (results.length > 0) {
+                results.forEach(res => {
+                    const li = document.createElement('li');
+                    li.className = 'autocomplete-item';
+
+                    let charText = res.matchedChars.length > 0 ? `(${res.matchedChars.join(', ')})` : '';
+
+                    li.innerHTML = `
+                        <span><strong>${res.series.title}</strong></span>
+                        <span class="matched-chars">${charText}</span>
+                    `;
+
+                    li.addEventListener('click', () => {
+                        selectAndNavigateSeries(res.series);
+                    });
+
+                    autoList.appendChild(li);
+                });
+                autoList.style.display = 'block';
+            } else {
+                autoList.style.display = 'none';
+            }
+        });
+
+        // 엔터키 입력 처리
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                executeSearch();
+            }
+        });
+
+        function executeSearch() {
+            const query = searchInput.value.trim().toLowerCase();
+            if (!query) return;
+
+            const matched = tierSeriesData.find(item => {
+                const titleMatch = item.title.toLowerCase().includes(query);
+                const aliasMatch = item.alias && item.alias.some(a => a.toLowerCase().includes(query));
+                const charMatch = item.characters.some(char => char.toLowerCase().includes(query));
+                return titleMatch || aliasMatch || charMatch;
+            });
+
+            if (matched) {
+                selectAndNavigateSeries(matched);
+            } else {
+                alert("일치하는 시리즈나 캐릭터를 찾을 수 없습니다.");
+            }
+        }
+
+        function selectAndNavigateSeries(series) {
+            searchInput.value = series.title;
+            autoList.style.display = 'none';
+
+            const targetIframe = document.getElementById(series.id);
+            if (targetIframe) {
+                // 해당 아이프레임 위치로 화면 이동
+                targetIframe.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                // 아이프레임 내부의 배너를 토글하여 자동으로 펼치기
+                try {
+                    if (targetIframe.contentWindow && typeof targetIframe.contentWindow.toggleTierList === 'function') {
+                        const content = targetIframe.contentWindow.document.getElementById('tierContent');
+                        if (content && !content.classList.contains('active')) {
+                            targetIframe.contentWindow.toggleTierList();
+                        }
+                    }
+                } catch (e) {
+                    console.log("Iframe cross-origin limitation or function missing", e);
+                }
+            }
+        }
+
+        // 바깥 클릭 시 추천 검색어 드롭다운 닫기
+        document.addEventListener('click', function(e) {
+            if (!searchInput.contains(e.target) && !autoList.contains(e.target)) {
+                autoList.style.display = 'none';
+            }
+        });
 
         // 아이프레임 내부에서 높이 조절 요청이 올 때 실시간으로 크기 늘려주기
         window.addEventListener('message', function(event) {
