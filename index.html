@@ -333,7 +333,7 @@
         <button class="main-tab-btn" id="tierTabBtn" onclick="switchMainTab('tier-section', this)">시리즈별 티어표</button>
     </div>
 
-    <div id="attribute-section" class="main-section">
+    <div id="attribute-section" class="main-section active">
         <iframe src="attribute.html" id="attrFrame" class="tab-frame" style="height: 600px;" scrolling="no"></iframe>
     </div>
 
@@ -354,12 +354,13 @@
     </div>
 
     <!-- [섹션 6] 시리즈별 티어표 탭 -->
-    <div id="tier-section" class="main-section active">
+    <div id="tier-section" class="main-section">
         <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; display: flex; flex-direction: column;">
             
             <div class="tier-search-container">
                 <div class="search-box-wrapper">
-                    <input type="text" id="searchInput" class="search-input" placeholder="시리즈명 또는 캐릭터 검색 (예: 드엠, 테라볼타, 볼)" autocomplete="off">
+                    <!-- 예시 텍스트 변경: 다군, 야옹마 -->
+                    <input type="text" id="searchInput" class="search-input" placeholder="시리즈명 또는 캐릭터 검색 (예: 다군, 야옹마)" autocomplete="off">
                     <button class="search-btn" onclick="executeSearch()">검색</button>
                 </div>
                 <ul id="autocompleteList" class="autocomplete-list"></ul>
@@ -463,7 +464,6 @@
         const autoList = document.getElementById('autocompleteList');
 
         searchInput.addEventListener('input', function() {
-            // 검색 전 최신 캐릭터 목록 동기화
             collectCharactersFromIframes();
 
             const query = this.value.trim().toLowerCase();
@@ -544,6 +544,7 @@
 
             const targetIframe = document.getElementById(series.id);
             if (targetIframe) {
+                // block: 'start'로 설정되어 검색 시 해당 시리즈가 화면 맨 위에 딱 붙음
                 targetIframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
                 try {
