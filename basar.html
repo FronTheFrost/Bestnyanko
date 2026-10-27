@@ -175,12 +175,25 @@
     </div>
 
     <script>
+        function sendHeight() {
+            const currentHeight = document.body.scrollHeight;
+            window.parent.postMessage({ type: 'resizeHeight', id: 'basarFrame', height: currentHeight }, '*');
+        }
+
+        // 페이지 로드 직후 및 이미지 로딩 완료 시점에 높이 자동 보고
+        window.addEventListener('load', function() {
+            sendHeight();
+            setTimeout(sendHeight, 100);
+        });
+        window.addEventListener('resize', sendHeight);
+
         function toggleTierList() {
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
 
-            const currentHeight = document.body.scrollHeight;
-            window.parent.postMessage({ type: 'resizeHeight', id: 'basarFrame', height: currentHeight }, '*');
+            // 토글 애니메이션 전후로 높이 재전송
+            setTimeout(sendHeight, 50);
+            setTimeout(sendHeight, 300);
         }
     </script>
 </body>
