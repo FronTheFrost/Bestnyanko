@@ -20,7 +20,7 @@
             padding: 4px;
             user-select: none;
             -webkit-user-select: none;
-            overflow: visible !important;
+            overflow: hidden;
         }
 
         .tier-banner {
@@ -135,7 +135,7 @@
             <div class="tier-row">
                 <div class="tier-label a">A</div>
                 <div class="tier-cards-area">
-                    <div class="t-card"><img src="dragon/IMG_1540.png"><div class="t-name">천마성용 바벨</div></div>
+                    <div class="t-card"><img src="Dragon/IMG_1540.png"><div class="t-name">천마성용 바벨</div></div>
                 </div>
             </div>
             <!-- B 등급 -->
@@ -172,12 +172,25 @@
     </div>
 
     <script>
+        function sendHeight() {
+            const currentHeight = document.body.scrollHeight;
+            window.parent.postMessage({ type: 'resizeHeight', id: 'dragonFrame', height: currentHeight }, '*');
+        }
+
+        // 페이지 로드 직후 및 이미지 로딩 완료 시점에 높이 자동 보고
+        window.addEventListener('load', function() {
+            sendHeight();
+            setTimeout(sendHeight, 100);
+        });
+        window.addEventListener('resize', sendHeight);
+
         function toggleTierList() {
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
 
-            const currentHeight = document.body.scrollHeight;
-            window.parent.postMessage({ type: 'resizeHeight', id: 'dragonFrame', height: currentHeight }, '*');
+            // 토글 애니메이션 전후로 높이 재전송
+            setTimeout(sendHeight, 50);
+            setTimeout(sendHeight, 300);
         }
     </script>
 </body>
