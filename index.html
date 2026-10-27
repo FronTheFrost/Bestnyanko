@@ -333,7 +333,7 @@
         <button class="main-tab-btn" id="tierTabBtn" onclick="switchMainTab('tier-section', this)">시리즈별 티어표</button>
     </div>
 
-    <div id="attribute-section" class="main-section active">
+    <div id="attribute-section" class="main-section">
         <iframe src="attribute.html" id="attrFrame" class="tab-frame" style="height: 600px;" scrolling="no"></iframe>
     </div>
 
@@ -359,7 +359,6 @@
             
             <div class="tier-search-container">
                 <div class="search-box-wrapper">
-                    <!-- 예시 텍스트 변경: 다군, 야옹마 -->
                     <input type="text" id="searchInput" class="search-input" placeholder="시리즈명 또는 캐릭터 검색 (예: 다군, 야옹마)" autocomplete="off">
                     <button class="search-btn" onclick="executeSearch()">검색</button>
                 </div>
@@ -544,7 +543,6 @@
 
             const targetIframe = document.getElementById(series.id);
             if (targetIframe) {
-                // block: 'start'로 설정되어 검색 시 해당 시리즈가 화면 맨 위에 딱 붙음
                 targetIframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
                 try {
@@ -613,6 +611,14 @@
             document.getElementById('giantEggOverlay').classList.remove('active');
             window.openGlobalEeModal('title', "비 오는 날은 파전이 최고입니다.");
         }
+
+        // 첫 접속 시 무조건 1번 탭(속성별 가이드)이 기본 활성화되도록 강제 보정
+        window.addEventListener('DOMContentLoaded', () => {
+            const firstTabBtn = document.querySelector('.main-tab-btn');
+            if (firstTabBtn) {
+                switchMainTab('attribute-section', firstTabBtn);
+            }
+        });
     </script>
 </body>
 </html>
