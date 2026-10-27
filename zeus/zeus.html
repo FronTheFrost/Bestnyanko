@@ -175,13 +175,49 @@
         </div>
     </div>
 
+    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <div style="display: none;">
+        <div class="t-name">천공신 제우스</div>
+        <div class="t-name">기간트 제우스</div>
+
+        <div class="t-name">수호신 아누비스</div>
+        <div class="t-name">퍼펙트 아누비스</div>
+
+        <div class="t-name">미의 여신 아프로디테</div>
+        <div class="t-name">메가로디테</div>
+
+        <div class="t-name">태양신 아마테라스</div>
+        <div class="t-name">테라 아마테라스</div>
+
+        <div class="t-name">번영신 가네샤</div>
+        <div class="t-name">가네샤 엑샤</div>
+
+        <div class="t-name">해왕신 포세이돈</div>
+        <div class="t-name">포세이도라군</div>
+
+        <div class="t-name">시간의 신 크로노스</div>
+        <div class="t-name">크로노스 트리거</div>
+
+        <div class="t-name">명계신 하데스</div>
+        <div class="t-name">데스 하데스</div>
+
+        <div class="t-name">타락 천신 루시퍼</div>
+        <div class="t-name">그랜드 루시퍼</div>
+
+        <div class="t-name">광익신 이시스</div>
+        <div class="t-name">네페르 이시스</div>
+
+        <div class="t-name">위타천 스칸다</div>
+
+        <div class="t-name">창조신 가이야</div>
+    </div>
+
     <script>
         function sendHeight() {
             const currentHeight = document.body.scrollHeight;
             window.parent.postMessage({ type: 'resizeHeight', id: 'zeusFrame', height: currentHeight }, '*');
         }
 
-        // 페이지 로드 직후 및 이미지 로딩 완료 시점에 높이 자동 보고
         window.addEventListener('load', function() {
             sendHeight();
             setTimeout(sendHeight, 100);
@@ -192,7 +228,6 @@
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
 
-            // 토글 애니메이션 전후로 높이 재전송
             setTimeout(sendHeight, 50);
             setTimeout(sendHeight, 300);
         }
