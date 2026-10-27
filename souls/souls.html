@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>초고대 전설의 용사 울트라 소울즈 티어표</title>
+    <style>
+        :root {
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+            --accent-color: #ffcc00;
+            --border-color: #3d3d3d;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+            background-color: transparent;
+            color: var(--text-color);
+            margin: 0;
+            padding: 4px;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow: hidden;
+        }
+
+        .tier-banner {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            background: #000;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .tier-banner:hover {
+            border-color: var(--accent-color);
+        }
+        .tier-banner img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .tier-content-wrapper {
+            display: none;
+            margin-top: 10px;
+        }
+        .tier-content-wrapper.active {
+            display: block !important;
+        }
+
+        .tier-row {
+            display: flex;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            overflow: hidden;
+            min-height: 48px;
+        }
+        .tier-label {
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 900;
+            padding: 6px 4px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .tier-label.ss { background: #b82323; }
+        .tier-label.s  { background: #b8621b; }
+        .tier-label.a  { background: #b89d1b; color: #121212; }
+        .tier-label.b  { background: #337d33; }
+        .tier-label.c  { background: #236ab8; }
+        .tier-label.d  { background: #555555; }
+
+        .tier-cards-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px;
+            flex: 1;
+            align-items: flex-start;
+        }
+        .t-card {
+            background: #252525;
+            border: 1px solid #444;
+            border-radius: 6px;
+            width: 64px;
+            text-align: center;
+            padding: 4px 2px;
+        }
+        .t-card img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: 4px;
+            background: #000;
+            display: block;
+        }
+        .t-name {
+            font-size: 9.5px;
+            line-height: 1.25;
+            margin-top: 4px;
+            color: #ddd;
+            word-break: keep-all;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 울트라 소울즈 배너 (Raw 절대 주소 적용) -->
+    <div class="tier-banner" onclick="toggleTierList()">
+        <img src="https://raw.githubusercontent.com/FronTheFrost/Bestnyanko/main/IMG_1631.webp" alt="초고대 전설의 용사 울트라 소울즈 배너">
+    </div>
+
+    <div class="tier-content-wrapper" id="tierContent">
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- SS등급 (없음) -->
+            <div class="tier-row">
+                <div class="tier-label ss">SS</div>
+                <div class="tier-cards-area"></div>
+            </div>
+
+            <!-- S등급 (대나무공주, 냥돌이, 엄지동자) -->
+            <div class="tier-row">
+                <div class="tier-label s">S</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1523.png"><div class="t-name">울트라 대나무 공주</div></div>
+                    <div class="t-card"><img src="IMG_1568.png"><div class="t-name">울트라 석공 냥돌이</div></div>
+                    <div class="t-card"><img src="IMG_1517.png"><div class="t-name">귀습전투함 방망-E</div></div>
+                </div>
+            </div>
+
+            <!-- A등급 (없음) -->
+            <div class="tier-row">
+                <div class="tier-label a">A</div>
+                <div class="tier-cards-area"></div>
+            </div>
+
+            <!-- B등급 (코스모, 몽키헤븐) -->
+            <div class="tier-row">
+                <div class="tier-label b">B</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1669.png"><div class="t-name">궁극용사 울트라 코스모</div></div>
+                    <div class="t-card"><img src="IMG_1670.png"><div class="t-name">질주 락밴드 몽키헤븐</div></div>
+                </div>
+            </div>
+
+            <!-- C등급 (긴레인저, 해머) -->
+            <div class="tier-row">
+                <div class="tier-label c">C</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1671.png"><div class="t-name">초총전대 긴레인저</div></div>
+                    <div class="t-card"><img src="IMG_1672.png"><div class="t-name">해머 고양이</div></div>
+                </div>
+            </div>
+
+            <!-- D등급 (피치저스티스, 거북레온, 너굴냥즈, 짹짹, 빅트리) -->
+            <div class="tier-row">
+                <div class="tier-label d">D</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1677.png"><div class="t-name">폭주형제 피치저스티스</div></div>
+                    <div class="t-card"><img src="IMG_1675.png"><div class="t-name">용궁초수 킹거북레온</div></div>
+                    <div class="t-card"><img src="IMG_1676.png"><div class="t-name">화염저격대 너굴냥즈</div></div>
+                    <div class="t-card"><img src="IMG_1673.png"><div class="t-name">대요괴 결사 짹짹</div></div>
+                    <div class="t-card"><img src="IMG_1674.png"><div class="t-name">폭식괴수 빅트리</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendHeight() {
+            const currentHeight = document.body.scrollHeight;
+            window.parent.postMessage({ type: 'resizeHeight', id: 'soulsFrame', height: currentHeight }, '*');
+        }
+
+        // 페이지 로드 직후 및 이미지 로딩 완료 시점에 높이 자동 보고
+        window.addEventListener('load', function() {
+            sendHeight();
+            setTimeout(sendHeight, 100);
+        });
+        window.addEventListener('resize', sendHeight);
+
+        function toggleTierList() {
+            const content = document.getElementById('tierContent');
+            content.classList.toggle('active');
+
+            // 토글 애니메이션 전후로 높이 재전송
+            setTimeout(sendHeight, 50);
+            setTimeout(sendHeight, 300);
+        }
+    </script>
+</body>
+</html>
