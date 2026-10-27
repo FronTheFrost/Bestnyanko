@@ -100,11 +100,16 @@
             transition: height 0.25s ease;
         }
 
-        /* --- 6번 탭 내부 전용 검색창 및 추천 검색어 스타일 --- */
+        /* --- 6번 탭 내부 전용 검색창 및 Stikcy(고정) 스타일 --- */
         .tier-search-container {
-            position: relative;
+            position: sticky;
+            top: 10px; /* 화면 상단에서 10px 떨어져서 고정됨 */
+            z-index: 999; /* 다른 요소들 위에 뜨도록 설정 */
             width: 100%;
             margin-bottom: 20px;
+            background: rgba(18, 18, 18, 0.9); /* 스크롤할 때 뒤에 글자가 비치지 않도록 반투명 배경 추가 */
+            backdrop-filter: blur(5px);
+            padding: 5px 0;
         }
 
         .search-box-wrapper {
@@ -329,7 +334,7 @@
     </div>
 
     <!-- 모든 아이프레임의 scrolling을 no로 설정하여 내부 스크롤 꼬임 원천 차단 -->
-    <div id="attribute-section" class="main-section active">
+    <div id="attribute-section" class="main-section">
         <iframe src="attribute.html" id="attrFrame" class="tab-frame" style="height: 600px;" scrolling="no"></iframe>
     </div>
 
@@ -350,10 +355,10 @@
     </div>
 
     <!-- [섹션 6] 시리즈별 티어표 탭 -->
-    <div id="tier-section" class="main-section">
+    <div id="tier-section" class="main-section active">
         <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; display: flex; flex-direction: column;">
             
-            <!-- 6번 탭 내부 상단 검색창 -->
+            <!-- 6번 탭 내부 상단 검색창 (position: sticky 로 상단 고정 + 반투명 배경) -->
             <div class="tier-search-container">
                 <div class="search-box-wrapper">
                     <input type="text" id="searchInput" class="search-input" placeholder="시리즈명 또는 캐릭터 검색 (예: 드엠, 테라볼타, 볼)" autocomplete="off">
@@ -402,26 +407,26 @@
         const tierSeriesData = [
             {
                 id: "dagunFrame",
-                title: "다이너마이트 군단",
+                title: "전설의 고양이 다군",
                 alias: ["다군"],
                 characters: []
             },
             {
                 id: "basarFrame",
                 title: "바사라즈",
-                alias: ["바사라", "초환수 바사라즈"],
+                alias: ["바사라", "전국무장 바사라즈"],
                 characters: []
             },
             {
                 id: "galaxyFrame",
-                title: "갤럭시걸즈",
-                alias: ["갤걸", "갤러시 걸즈"],
+                title: "갤러시걸즈",
+                alias: ["갤걸", "전뇌학원 갤러시걸즈"],
                 characters: []
             },
             {
                 id: "dragonFrame",
-                title: "드래곤 엠퍼러즈",
-                alias: ["드엠", "드래곤엠퍼러즈"],
+                title: "초파괴전함 드래곤 엠퍼러즈",
+                alias: ["드엠", "드래곤 엠퍼러즈"],
                 characters: ["성룡 메기도라", "지룡 소돔", "신룡 카무쿠라", "용기사 바르스", "용사자 바벨", "해룡달시앙", "패룡 디오람스", "구룡강성 볼네이도"]
             },
             {
@@ -439,13 +444,13 @@
             {
                 id: "zeusFrame",
                 title: "기간트 제우스",
-                alias: ["제우스", "기간트제우스"],
+                alias: ["제우스", "알수없는 기간트 제우스"],
                 characters: []
             },
             {
                 id: "ironFrame",
-                title: "아이언 워즈",
-                alias: ["아이언워즈", "아워"],
+                title: "혁명군 아이언 워스",
+                alias: ["아이언워스", "아워"],
                 characters: []
             },
             {
@@ -462,7 +467,7 @@
             },
             {
                 id: "lugaFrame",
-                title: "루가족",
+                title: "초고대 전설 루가족",
                 alias: ["루가족", "루가"],
                 characters: []
             }
@@ -557,7 +562,8 @@
         }
 
         function selectAndNavigateSeries(series) {
-            searchInput.value = series.title;
+            // 1. 검색창 초기화 및 드롭다운 닫기
+            searchInput.value = '';
             autoList.style.display = 'none';
 
             const targetIframe = document.getElementById(series.id);
