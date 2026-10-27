@@ -174,13 +174,49 @@
         </div>
     </div>
 
+    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <div style="display: none;">
+        <div class="t-name">고양이 루가</div>
+        <div class="t-name">케사란파사란</div>
+
+        <div class="t-name">아시루가</div>
+        <div class="t-name">아시란파사란</div>
+
+        <div class="t-name">쿠비루가</div>
+        <div class="t-name">쿠비란파사란</div>
+
+        <div class="t-name">테코루가</div>
+        <div class="t-name">테사란파사란</div>
+
+        <div class="t-name">바라라가</div>
+        <div class="t-name">바라란파사란</div>
+
+        <div class="t-name">가시루가</div>
+        <div class="t-name">가시란시시가미</div>
+
+        <div class="t-name">노비루가</div>
+        <div class="t-name">노비란 터번</div>
+
+        <div class="t-name">오이루가</div>
+        <div class="t-name">오이란파사란</div>
+
+        <div class="t-name">오코루가</div>
+        <div class="t-name">오코란파사란</div>
+
+        <div class="t-name">카오루가</div>
+        <div class="t-name">카오란타타란</div>
+
+        <div class="t-name">마모루가</div>
+
+        <div class="t-name">레제루가</div>
+    </div>
+
     <script>
         function sendHeight() {
             const currentHeight = document.body.scrollHeight;
             window.parent.postMessage({ type: 'resizeHeight', id: 'lugaFrame', height: currentHeight }, '*');
         }
 
-        // 페이지 로드 직후 및 이미지 로딩 완료 시점에 높이 자동 보고
         window.addEventListener('load', function() {
             sendHeight();
             setTimeout(sendHeight, 100);
@@ -191,7 +227,6 @@
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
 
-            // 토글 애니메이션 전후로 높이 재전송
             setTimeout(sendHeight, 50);
             setTimeout(sendHeight, 300);
         }
