@@ -176,13 +176,52 @@
         </div>
     </div>
 
+    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <div style="display: none;">
+        <div class="t-name">아키라</div>
+        <div class="t-name">쉐도우・아키라</div>
+
+        <div class="t-name">메카소녀 진</div>
+        <div class="t-name">닥터 메카소녀 진</div>
+
+        <div class="t-name">캣맨대디</div>
+        <div class="t-name">캣맨다크</div>
+        <div class="t-name">캣맨라이징</div>
+
+        <div class="t-name">화이트 래빗</div>
+        <div class="t-name">블랙 캣</div>
+        <div class="t-name">그레이 폭스</div>
+
+        <div class="t-name">주술사 데스삐에로</div>
+        <div class="t-name">암흑 상인 바빌</div>
+
+        <div class="t-name">천주 송골매</div>
+        <div class="t-name">마신 송골매</div>
+
+        <div class="t-name">망자탐정 비그라</div>
+        <div class="t-name">마계탐정 그라비</div>
+        <div class="t-name">마신탐정 그라티비</div>
+
+        <div class="t-name">매드슈터 사키</div>
+        <div class="t-name">나이트버스터 사키</div>
+
+        <div class="t-name">백기사 키클롭스</div>
+        <div class="t-name">흑기사 키클롭스</div>
+
+        <div class="t-name">썬더 잭</div>
+        <div class="t-name">블러디 잭</div>
+
+        <div class="t-name">특수기동대 엑셀</div>
+
+        <div class="t-name">천재 과학자 헤븐 박사</div>
+    </div>
+
     <script>
         function sendHeight() {
             const currentHeight = document.body.scrollHeight;
             window.parent.postMessage({ type: 'resizeHeight', id: 'heroesFrame', height: currentHeight }, '*');
         }
 
-        // 페이지 로드 직후 및 이미지 로딩 완료 시점에 높이 자동 보고
         window.addEventListener('load', function() {
             sendHeight();
             setTimeout(sendHeight, 100);
@@ -193,7 +232,6 @@
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
 
-            // 토글 애니메이션 전후로 높이 재전송
             setTimeout(sendHeight, 50);
             setTimeout(sendHeight, 300);
         }
