@@ -58,7 +58,7 @@
             border-radius: 10px;
             margin-bottom: 8px;
             overflow: hidden;
-            min-height: 48px; /* 빈 칸일 때도 행 높이 유지 */
+            min-height: 48px;
         }
         .tier-label {
             width: 60px;
@@ -171,13 +171,52 @@
         </div>
     </div>
 
+    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <div style="display: none;">
+        <div class="t-name">성룡 메기도라</div>
+        <div class="t-name">성룡왕 메기도라</div>
+
+        <div class="t-name">지룡 소돔</div>
+        <div class="t-name">지룡왕 소돔</div>
+
+        <div class="t-name">용기사 바르스</div>
+        <div class="t-name">용기사왕 바르스</div>
+
+        <div class="t-name">신룡 카무쿠라</div>
+        <div class="t-name">신룡왕 카무쿠라</div>
+
+        <div class="t-name">용병기 라이덴</div>
+        <div class="t-name">용병기왕 라이덴</div>
+
+        <div class="t-name">패룡 디오라무스</div>
+        <div class="t-name">패룡왕 디오라무스</div>
+        <div class="t-name">패룡황제 디오라무스</div>
+
+        <div class="t-name">고룡 강글리온</div>
+        <div class="t-name">고룡왕 강글리온</div>
+
+        <div class="t-name">각룡 그라디오스</div>
+        <div class="t-name">각룡왕 그라디오스</div>
+
+        <div class="t-name">사룡 헤비저크</div>
+        <div class="t-name">사룡왕 헤비저크</div>
+
+        <div class="t-name">해룡 다라이어던</div>
+        <div class="t-name">해룡왕 다라이어던</div>
+
+        <div class="t-name">포룡 건듀로스</div>
+        <div class="t-name">폭룡기 볼네이도</div>
+
+        <div class="t-name">천성용 바벨</div>
+        <div class="t-name">마성용 바벨</div>
+    </div>
+
     <script>
         function sendHeight() {
             const currentHeight = document.body.scrollHeight;
             window.parent.postMessage({ type: 'resizeHeight', id: 'dragonFrame', height: currentHeight }, '*');
         }
 
-        // 페이지 로드 직후 및 이미지 로딩 완료 시점에 높이 자동 보고
         window.addEventListener('load', function() {
             sendHeight();
             setTimeout(sendHeight, 100);
@@ -188,7 +227,6 @@
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
 
-            // 토글 애니메이션 전후로 높이 재전송
             setTimeout(sendHeight, 50);
             setTimeout(sendHeight, 300);
         }
