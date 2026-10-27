@@ -72,12 +72,13 @@
             color: #fff;
             flex-shrink: 0;
         }
-        .tier-label.ss { background: #b82323; }
-        .tier-label.s  { background: #b8621b; }
-        .tier-label.a  { background: #b89d1b; color: #121212; }
-        .tier-label.b  { background: #337d33; }
-        .tier-label.c  { background: #236ab8; }
-        .tier-label.d  { background: #555555; }
+        .tier-label.sss { background: #6c5ce7; }
+        .tier-label.ss  { background: #b82323; }
+        .tier-label.s   { background: #b8621b; }
+        .tier-label.a   { background: #b89d1b; color: #121212; }
+        .tier-label.b   { background: #337d33; }
+        .tier-label.c   { background: #236ab8; }
+        .tier-label.d   { background: #555555; }
 
         .tier-cards-area {
             display: flex;
@@ -121,34 +122,34 @@
 
     <div class="tier-content-wrapper" id="tierContent">
         <div style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- SSS 등급 (빈 칸 유지) -->
+            <div class="tier-row">
+                <div class="tier-label sss">SSS</div>
+                <div class="tier-cards-area"></div>
+            </div>
             <!-- SS 등급 (빈 칸 유지) -->
             <div class="tier-row">
                 <div class="tier-label ss">SS</div>
                 <div class="tier-cards-area"></div>
             </div>
-            <!-- S 등급 (빈 칸 유지) -->
+            <!-- S 등급 (바벨) -->
             <div class="tier-row">
                 <div class="tier-label s">S</div>
-                <div class="tier-cards-area"></div>
-            </div>
-            <!-- A 등급 -->
-            <div class="tier-row">
-                <div class="tier-label a">A</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1540.png"><div class="t-name">천마성용 바벨</div></div>
                 </div>
             </div>
-            <!-- B 등급 -->
+            <!-- A 등급 (바르스, 볼네이도) -->
             <div class="tier-row">
-                <div class="tier-label b">B</div>
+                <div class="tier-label a">A</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1640.png"><div class="t-name">용기사황제 바르스</div></div>
                     <div class="t-card"><img src="IMG_1649.png"><div class="t-name">폭룡기왕 볼네이도</div></div>
                 </div>
             </div>
-            <!-- C 등급 -->
+            <!-- B 등급 (메기도라, 그라디오스, 헤비저크, 다라이어던) -->
             <div class="tier-row">
-                <div class="tier-label c">C</div>
+                <div class="tier-label b">B</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1638.png"><div class="t-name">성룡황제 메기도라</div></div>
                     <div class="t-card"><img src="IMG_1645.png"><div class="t-name">각룡황제 그라디오스</div></div>
@@ -156,11 +157,10 @@
                     <div class="t-card"><img src="IMG_1647.png"><div class="t-name">해룡황제 다라이어던</div></div>
                 </div>
             </div>
-            <!-- D 등급 -->
+            <!-- C 등급 (신룡, 라이덴, 디오라무스, 강글리온, 건듀로스) -->
             <div class="tier-row">
-                <div class="tier-label d">D</div>
+                <div class="tier-label c">C</div>
                 <div class="tier-cards-area">
-                    <div class="t-card"><img src="IMG_1639.png"><div class="t-name">지룡황제 소돔</div></div>
                     <div class="t-card"><img src="IMG_1641.png"><div class="t-name">신룡황제 카무쿠라</div></div>
                     <div class="t-card"><img src="IMG_1642.png"><div class="t-name">용병기황제 라이덴</div></div>
                     <div class="t-card"><img src="IMG_1643.png"><div class="t-name">패룡대제 디오라무스</div></div>
@@ -168,10 +168,17 @@
                     <div class="t-card"><img src="IMG_1648.png"><div class="t-name">포룡왕 건듀로스</div></div>
                 </div>
             </div>
+            <!-- D 등급 (소돔) -->
+            <div class="tier-row">
+                <div class="tier-label d">D</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1639.png"><div class="t-name">지룡황제 소돔</div></div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <!-- 검색 전용 숨김 키워드 리스트 -->
     <div style="display: none;">
         <div class="t-name">성룡 메기도라</div>
         <div class="t-name">성룡왕 메기도라</div>
@@ -233,3 +240,4 @@
     </script>
 </body>
 </html>
+
