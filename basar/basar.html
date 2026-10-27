@@ -174,13 +174,54 @@
         </div>
     </div>
 
+    <!-- 검색 전용 숨김 키워드 리스트 (최종 진화 외 형태 이름) -->
+    <div style="display: none;">
+        <div class="t-name">그리폰</div>
+        <div class="t-name">분노의 그리폰</div>
+
+        <div class="t-name">백호</div>
+        <div class="t-name">분노의 백호</div>
+
+        <div class="t-name">하데스</div>
+        <div class="t-name">분노의 하데스</div>
+        <div class="t-name">천마의 하데스</div>
+
+        <div class="t-name">오딘</div>
+        <div class="t-name">분노의 오딘</div>
+
+        <div class="t-name">아수라</div>
+        <div class="t-name">분노의 아수라</div>
+
+        <div class="t-name">사라만다</div>
+        <div class="t-name">분노의 사라만다</div>
+        <div class="t-name">격노의 사라만다</div>
+
+        <div class="t-name">누아다</div>
+        <div class="t-name">분노의 누아다</div>
+
+        <div class="t-name">미네르바</div>
+        <div class="t-name">분노의 미네르바</div>
+        <div class="t-name">호염의 미네르바</div>
+
+        <div class="t-name">아레스</div>
+        <div class="t-name">마신 아레스</div>
+
+        <div class="t-name">흑표</div>
+        <div class="t-name">분노의 흑표</div>
+
+        <div class="t-name">알리칸토</div>
+        <div class="t-name">분노의 알리칸토</div>
+
+        <div class="t-name">타니와</div>
+        <div class="t-name">분노의 타니와</div>
+    </div>
+
     <script>
         function sendHeight() {
             const currentHeight = document.body.scrollHeight;
             window.parent.postMessage({ type: 'resizeHeight', id: 'basarFrame', height: currentHeight }, '*');
         }
 
-        // 페이지 로드 직후 및 이미지 로딩 완료 시점에 높이 자동 보고
         window.addEventListener('load', function() {
             sendHeight();
             setTimeout(sendHeight, 100);
@@ -191,7 +232,6 @@
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
 
-            // 토글 애니메이션 전후로 높이 재전송
             setTimeout(sendHeight, 50);
             setTimeout(sendHeight, 300);
         }
