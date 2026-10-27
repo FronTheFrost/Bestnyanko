@@ -175,13 +175,42 @@
         </div>
     </div>
 
+    <!-- 검색 기능을 위해 화면에 숨겨진 형태로 모든 진화 단계의 이름을 추가 (화면엔 안 보임) -->
+    <div style="display: none;">
+        <div class="t-name">고양이 아이스</div>
+        <div class="t-name">고양이 아이스퀸</div>
+        <div class="t-name">고양이 머신</div>
+        <div class="t-name">고양이 머신・파</div>
+        <div class="t-name">도깨비 야옹마</div>
+        <div class="t-name">도깨비신 야옹마</div>
+        <div class="t-name">고양이 슈발리에</div>
+        <div class="t-name">고양이 베르세르크</div>
+        <div class="t-name">고양이 베이비</div>
+        <div class="t-name">고양이 베이비즈</div>
+        <div class="t-name">고양이 베이비카트</div>
+        <div class="t-name">고양이 간호사</div>
+        <div class="t-name">고양이 나이팅게일</div>
+        <div class="t-name">고양이 퀘스트</div>
+        <div class="t-name">고양이 퀘스트XI</div>
+        <div class="t-name">고양이 퀘스트XI-2</div>
+        <div class="t-name">라스트 보스</div>
+        <div class="t-name">파이널 라스트 보스</div>
+        <div class="t-name">소환소년 사토루</div>
+        <div class="t-name">악마 소환소년 사토루</div>
+        <div class="t-name">고양이 텐구</div>
+        <div class="t-name">대요괴 고양이 텐구</div>
+        <div class="t-name">고양이 다이너사우루스</div>
+        <div class="t-name">변신소녀 단</div>
+        <div class="t-name">원더 모모코</div>
+        <div class="t-name">큐티 모모코</div>
+    </div>
+
     <script>
         function sendHeight() {
             const currentHeight = document.body.scrollHeight;
             window.parent.postMessage({ type: 'resizeHeight', id: 'dagunFrame', height: currentHeight }, '*');
         }
 
-        // 페이지 로드 직후 및 이미지 로딩 완료 시점에 높이 자동 보고
         window.addEventListener('load', function() {
             sendHeight();
             setTimeout(sendHeight, 100);
@@ -192,7 +221,6 @@
             const content = document.getElementById('tierContent');
             content.classList.toggle('active');
 
-            // 토글 애니메이션 전후로 높이 재전송
             setTimeout(sendHeight, 50);
             setTimeout(sendHeight, 300);
         }
