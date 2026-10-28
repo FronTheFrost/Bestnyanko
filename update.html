@@ -115,15 +115,29 @@
             border-radius: 6px;
             white-space: nowrap;
         }
+        
+        /* 티어별 색상 정의 (울소/제우스 등급표와 일치) */
+        .t-sss { background: #6c5ce7; color: #fff; }
+        .t-ss  { background: #b82323; color: #fff; }
+        .t-s   { background: #b8621b; color: #fff; }
+        .t-a   { background: #b89d1b; color: #121212; }
+
         /* 등급 이동 변경 내역 뱃지 스타일 */
         .patch-badge.change {
             background: #333;
             color: #ccc;
             border: 1px solid #555;
             font-size: 9.5px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 6px;
         }
-        .patch-badge.change span {
-            color: #ffcc00;
+        .patch-badge.change .tier-tag {
+            font-size: 9.5px;
+            font-weight: 900;
+            padding: 2px 5px;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -141,7 +155,7 @@
                     </div>
                     <span class="patch-desc">울트라 소울즈 신규 캐릭터 추가</span>
                 </div>
-                <div class="patch-badge">A등급 추가</div>
+                <div class="patch-badge t-s">S</div>
             </div>
 
             <!-- 기간트 제우스 하데스 티어 조정 내역 -->
@@ -153,7 +167,11 @@
                     </div>
                     <span class="patch-desc">기간트 제우스 티어 재조정</span>
                 </div>
-                <div class="patch-badge change">SSS ➔ <span>SS</span></div>
+                <div class="patch-badge change">
+                    <span class="tier-tag t-sss">SSS</span>
+                    <span>➔</span>
+                    <span class="tier-tag t-ss">SS</span>
+                </div>
             </div>
         </div>
     </div>
