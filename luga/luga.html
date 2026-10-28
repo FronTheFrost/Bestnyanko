@@ -72,12 +72,13 @@
             color: #fff;
             flex-shrink: 0;
         }
-        .tier-label.ss { background: #b82323; }
-        .tier-label.s  { background: #b8621b; }
-        .tier-label.a  { background: #b89d1b; color: #121212; }
-        .tier-label.b  { background: #337d33; }
-        .tier-label.c  { background: #236ab8; }
-        .tier-label.d  { background: #555555; }
+        .tier-label.sss { background: #6c5ce7; }
+        .tier-label.ss  { background: #b82323; }
+        .tier-label.s   { background: #b8621b; }
+        .tier-label.a   { background: #b89d1b; color: #121212; }
+        .tier-label.b   { background: #337d33; }
+        .tier-label.c   { background: #236ab8; }
+        .tier-label.d   { background: #555555; }
 
         .tier-cards-area {
             display: flex;
@@ -121,18 +122,24 @@
 
     <div class="tier-content-wrapper" id="tierContent">
         <div style="display: flex; flex-direction: column; gap: 8px;">
-            <!-- SS등급 (없음) -->
+            <!-- SSS등급 (없음) -->
             <div class="tier-row">
-                <div class="tier-label ss">SS</div>
+                <div class="tier-label sss">SSS</div>
                 <div class="tier-cards-area"></div>
             </div>
 
-            <!-- S등급 (카오란타타란) -->
+            <!-- SS등급 (카오란타타란) -->
             <div class="tier-row">
-                <div class="tier-label s">S</div>
+                <div class="tier-label ss">SS</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1731.png"><div class="t-name">카오란타타란</div></div>
                 </div>
+            </div>
+
+            <!-- S등급 (없음) -->
+            <div class="tier-row">
+                <div class="tier-label s">S</div>
+                <div class="tier-cards-area"></div>
             </div>
 
             <!-- A등급 (없음) -->
@@ -141,30 +148,31 @@
                 <div class="tier-cards-area"></div>
             </div>
 
-            <!-- B등급 (없음) -->
+            <!-- B등급 (쿠비란, 테사란, 극대노) -->
             <div class="tier-row">
                 <div class="tier-label b">B</div>
-                <div class="tier-cards-area"></div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1724.png"><div class="t-name">E・쿠비란파사란</div></div>
+                    <div class="t-card"><img src="IMG_1725.png"><div class="t-name">밀짚모자 테사란</div></div>
+                    <div class="t-card"><img src="IMG_1730.png"><div class="t-name">극대노 파사란</div></div>
+                </div>
             </div>
 
-            <!-- C등급 (아타타타아시란, E·쿠비란파사란, 피카란바라란, 밀짚모자 테사란, 극대노 파사란, 레제란 파사란) -->
+            <!-- C등급 (케사란, 아시란, 바라란, 레제란) -->
             <div class="tier-row">
                 <div class="tier-label c">C</div>
                 <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1722.png"><div class="t-name">울트라 케사란</div></div>
                     <div class="t-card"><img src="IMG_1723.png"><div class="t-name">아타타타아시란</div></div>
-                    <div class="t-card"><img src="IMG_1724.png"><div class="t-name">E・쿠비란파사란</div></div>
                     <div class="t-card"><img src="IMG_1733.png"><div class="t-name">피카란바라란</div></div>
-                    <div class="t-card"><img src="IMG_1725.png"><div class="t-name">밀짚모자 테사란</div></div>
-                    <div class="t-card"><img src="IMG_1730.png"><div class="t-name">극대노 파사란</div></div>
                     <div class="t-card"><img src="IMG_1728.png"><div class="t-name">레제란 파사란</div></div>
                 </div>
             </div>
 
-            <!-- D등급 (울트라 케사란, 가시란시시가미, 노비란 터번, 스케란카쿠란, 마모란파사란) -->
+            <!-- D등급 (가시란, 노비란, 스케란, 마모란) -->
             <div class="tier-row">
                 <div class="tier-label d">D</div>
                 <div class="tier-cards-area">
-                    <div class="t-card"><img src="IMG_1722.png"><div class="t-name">울트라 케사란</div></div>
                     <div class="t-card"><img src="IMG_1726.png"><div class="t-name">가시란시시가미</div></div>
                     <div class="t-card"><img src="IMG_1727.png"><div class="t-name">노비란 터번</div></div>
                     <div class="t-card"><img src="IMG_1729.png"><div class="t-name">스케란카쿠란</div></div>
@@ -174,7 +182,7 @@
         </div>
     </div>
 
-    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <!-- 검색 전용 숨김 키워드 리스트 -->
     <div style="display: none;">
         <div class="t-name">고양이 루가</div>
         <div class="t-name">케사란파사란</div>
