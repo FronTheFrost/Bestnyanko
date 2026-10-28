@@ -72,12 +72,13 @@
             color: #fff;
             flex-shrink: 0;
         }
-        .tier-label.ss { background: #b82323; }
-        .tier-label.s  { background: #b8621b; }
-        .tier-label.a  { background: #b89d1b; color: #121212; }
-        .tier-label.b  { background: #337d33; }
-        .tier-label.c  { background: #236ab8; }
-        .tier-label.d  { background: #555555; }
+        .tier-label.sss { background: #6c5ce7; }
+        .tier-label.ss  { background: #b82323; }
+        .tier-label.s   { background: #b8621b; }
+        .tier-label.a   { background: #b89d1b; color: #121212; }
+        .tier-label.b   { background: #337d33; }
+        .tier-label.c   { background: #236ab8; }
+        .tier-label.d   { background: #555555; }
 
         .tier-cards-area {
             display: flex;
@@ -121,6 +122,12 @@
 
     <div class="tier-content-wrapper" id="tierContent">
         <div style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- SSS등급 (없음) -->
+            <div class="tier-row">
+                <div class="tier-label sss">SSS</div>
+                <div class="tier-cards-area"></div>
+            </div>
+
             <!-- SS등급 (없음) -->
             <div class="tier-row">
                 <div class="tier-label ss">SS</div>
@@ -133,24 +140,18 @@
                 <div class="tier-cards-area"></div>
             </div>
 
-            <!-- A등급 (없음) -->
+            <!-- A등급 (볼트, 야미슈발츠) -->
             <div class="tier-row">
                 <div class="tier-label a">A</div>
-                <div class="tier-cards-area"></div>
-            </div>
-
-            <!-- B등급 (볼트,야미슈발츠) -->
-            <div class="tier-row">
-                <div class="tier-label b">B</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1707.png"><div class="t-name">벼락의 대정령 테라볼타</div></div>
                     <div class="t-card"><img src="IMG_1706.png"><div class="t-name">암흑의 정령왕 야미슈발츠</div></div>
                 </div>
             </div>
 
-            <!-- C등급 (메라피닉스, 마리나데, 스톤헨지, 루미나리아) -->
+            <!-- B등급 (메라피닉스, 마리나데, 스톤헨지, 루미나리아) -->
             <div class="tier-row">
-                <div class="tier-label c">C</div>
+                <div class="tier-label b">B</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1708.png"><div class="t-name">불꽃의 대정령 메라피닉스</div></div>
                     <div class="t-card"><img src="IMG_1709.png"><div class="t-name">유수의 대정령 마리나데</div></div>
@@ -159,20 +160,27 @@
                 </div>
             </div>
 
-            <!-- D등급 (에어리얼, 블리자레나, 파워메탈, 모리린) -->
+            <!-- C등급 (에어리얼, 블리자레나, 파워메탈) -->
             <div class="tier-row">
-                <div class="tier-label d">D</div>
+                <div class="tier-label c">C</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1714.png"><div class="t-name">폭풍의 대정령 에어리얼</div></div>
                     <div class="t-card"><img src="IMG_1715.png"><div class="t-name">빙결의 정령왕 블리자레나</div></div>
                     <div class="t-card"><img src="IMG_1712.png"><div class="t-name">강철의 정령왕 파워메탈</div></div>
+                </div>
+            </div>
+
+            <!-- D등급 (모리린) -->
+            <div class="tier-row">
+                <div class="tier-label d">D</div>
+                <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1713.png"><div class="t-name">수목의 정령 모리린</div></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <!-- 검색 전용 숨김 키워드 리스트 -->
     <div style="display: none;">
         <div class="t-name">불의 정령 메라라</div>
         <div class="t-name">불꽃의 정령 메라란</div>
