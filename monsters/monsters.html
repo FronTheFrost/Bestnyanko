@@ -72,12 +72,13 @@
             color: #fff;
             flex-shrink: 0;
         }
-        .tier-label.ss { background: #b82323; }
-        .tier-label.s  { background: #b8621b; }
-        .tier-label.a  { background: #b89d1b; color: #121212; }
-        .tier-label.b  { background: #337d33; }
-        .tier-label.c  { background: #236ab8; }
-        .tier-label.d  { background: #555555; }
+        .tier-label.sss { background: #6c5ce7; }
+        .tier-label.ss  { background: #b82323; }
+        .tier-label.s   { background: #b8621b; }
+        .tier-label.a   { background: #b89d1b; color: #121212; }
+        .tier-label.b   { background: #337d33; }
+        .tier-label.c   { background: #236ab8; }
+        .tier-label.d   { background: #555555; }
 
         .tier-cards-area {
             display: flex;
@@ -121,49 +122,49 @@
 
     <div class="tier-content-wrapper" id="tierContent">
         <div style="display: flex; flex-direction: column; gap: 8px;">
-            <!-- SS등급 (없음) -->
+            <!-- SSS등급 (없음) -->
             <div class="tier-row">
-                <div class="tier-label ss">SS</div>
+                <div class="tier-label sss">SSS</div>
                 <div class="tier-cards-area"></div>
             </div>
 
-            <!-- S등급 (칸나, 나나호) -->
+            <!-- SS등급 (칸나, 나나호) -->
             <div class="tier-row">
-                <div class="tier-label s">S</div>
+                <div class="tier-label ss">SS</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1546.png"><div class="t-name">전설의 모험 소녀 칸나</div></div>
                     <div class="t-card"><img src="IMG_1524.png"><div class="t-name">신검의 나나호</div></div>
                 </div>
             </div>
 
-            <!-- A등급 (레이카) -->
+            <!-- S등급 (하늘나리, 레이카) -->
             <div class="tier-row">
-                <div class="tier-label a">A</div>
+                <div class="tier-label s">S</div>
                 <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1717.png"><div class="t-name">풍요의 여우공주 하늘나리</div></div>
                     <div class="t-card"><img src="IMG_1554.png"><div class="t-name">황금의 미라공주 레이카</div></div>
                 </div>
             </div>
 
-            <!-- B등급 (하늘나리, 루리) -->
+            <!-- A등급 (루리) -->
             <div class="tier-row">
-                <div class="tier-label b">B</div>
+                <div class="tier-label a">A</div>
                 <div class="tier-cards-area">
-                    <div class="t-card"><img src="IMG_1717.png"><div class="t-name">풍요의 여우공주 하늘나리</div></div>
                     <div class="t-card"><img src="IMG_1539.png"><div class="t-name">용궁의 인어공주 루리</div></div>
                 </div>
             </div>
 
-            <!-- C등급 (버베나) -->
+            <!-- B등급 (버베나) -->
             <div class="tier-row">
-                <div class="tier-label c">C</div>
+                <div class="tier-label b">B</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1566.png"><div class="t-name">행복한 신부 버베나</div></div>
                 </div>
             </div>
 
-            <!-- D등급 (딜, 베가, 토모에, 시드미) -->
+            <!-- C등급 (딜, 베가, 토모에, 시드미) -->
             <div class="tier-row">
-                <div class="tier-label d">D</div>
+                <div class="tier-label c">C</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1720.png"><div class="t-name">도화의 늑대공주 딜</div></div>
                     <div class="t-card"><img src="IMG_1718.png"><div class="t-name">허영의 가호여신 베가</div></div>
@@ -171,10 +172,16 @@
                     <div class="t-card"><img src="IMG_1719.png"><div class="t-name">불꽃의 대마도사 시드미</div></div>
                 </div>
             </div>
+
+            <!-- D등급 (없음) -->
+            <div class="tier-row">
+                <div class="tier-label d">D</div>
+                <div class="tier-cards-area"></div>
+            </div>
         </div>
     </div>
 
-    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <!-- 검색 전용 숨김 키워드 리스트 -->
     <div style="display: none;">
         <div class="t-name">여우아가씨 하늘나리</div>
         <div class="t-name">구미호공주 하늘나리</div>
