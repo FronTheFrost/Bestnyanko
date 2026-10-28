@@ -72,12 +72,13 @@
             color: #fff;
             flex-shrink: 0;
         }
-        .tier-label.ss { background: #b82323; }
-        .tier-label.s  { background: #b8621b; }
-        .tier-label.a  { background: #b89d1b; color: #121212; }
-        .tier-label.b  { background: #337d33; }
-        .tier-label.c  { background: #236ab8; }
-        .tier-label.d  { background: #555555; }
+        .tier-label.sss { background: #6c5ce7; }
+        .tier-label.ss  { background: #b82323; }
+        .tier-label.s   { background: #b8621b; }
+        .tier-label.a   { background: #b89d1b; color: #121212; }
+        .tier-label.b   { background: #337d33; }
+        .tier-label.c   { background: #236ab8; }
+        .tier-label.d   { background: #555555; }
 
         .tier-cards-area {
             display: flex;
@@ -121,61 +122,69 @@
 
     <div class="tier-content-wrapper" id="tierContent">
         <div style="display: flex; flex-direction: column; gap: 8px;">
-            <!-- SS등급 (하데스) -->
+            <!-- SSS등급 (하데스) -->
             <div class="tier-row">
-                <div class="tier-label ss">SS</div>
+                <div class="tier-label sss">SSS</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1491.png"><div class="t-name">G데스 하데스</div></div>
                 </div>
             </div>
 
-            <!-- S등급 (없음) -->
+            <!-- SS등급 (크로노스) -->
             <div class="tier-row">
-                <div class="tier-label s">S</div>
-                <div class="tier-cards-area"></div>
+                <div class="tier-label ss">SS</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1685.png"><div class="t-name">G크로노스 트리거</div></div>
+                </div>
             </div>
 
-            <!-- A등급 (디테, 크로노스, 스칸다) -->
+            <!-- S등급 (디테, 스칸다) -->
             <div class="tier-row">
-                <div class="tier-label a">A</div>
+                <div class="tier-label s">S</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1587.png"><div class="t-name">G메가로디테</div></div>
-                    <div class="t-card"><img src="IMG_1685.png"><div class="t-name">G크로노스 트리거</div></div>
                     <div class="t-card"><img src="IMG_1520.png"><div class="t-name">스칸다 제타</div></div>
                 </div>
             </div>
 
-            <!-- B등급 (아누비스, 가네샤) -->
+            <!-- A등급 (아누비스, 가네샤) -->
             <div class="tier-row">
-                <div class="tier-label b">B</div>
+                <div class="tier-label a">A</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1687.png"><div class="t-name">G퍼펙트 아누비스</div></div>
                     <div class="t-card"><img src="IMG_1686.png"><div class="t-name">G가네샤 엑샤</div></div>
                 </div>
             </div>
 
-            <!-- C등급 (포세이돈, 가이야) -->
+            <!-- B등급 (포세이돈, 가이야) -->
             <div class="tier-row">
-                <div class="tier-label c">C</div>
+                <div class="tier-label b">B</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1689.png"><div class="t-name">G포세이도라군</div></div>
                     <div class="t-card"><img src="IMG_1688.png"><div class="t-name">창세주 가이야</div></div>
                 </div>
             </div>
 
-            <!-- D등급 (제우스, 아마테라스, 루시퍼) -->
+            <!-- C등급 (제우스, 아마테라스, 루시퍼, 이시스) -->
             <div class="tier-row">
-                <div class="tier-label d">D</div>
+                <div class="tier-label c">C</div>
                 <div class="tier-cards-area">
                     <div class="t-card"><img src="IMG_1691.png"><div class="t-name">G기간트 제우스</div></div>
                     <div class="t-card"><img src="IMG_1692.png"><div class="t-name">G테라 아마테라스</div></div>
                     <div class="t-card"><img src="IMG_1693.png"><div class="t-name">G그랜드 루시퍼</div></div>
+                    <div class="t-card"><img src="IMG_1690.png"><div class="t-name">G네페르 이시스</div></div>
                 </div>
+            </div>
+
+            <!-- D등급 (없음) -->
+            <div class="tier-row">
+                <div class="tier-label d">D</div>
+                <div class="tier-cards-area"></div>
             </div>
         </div>
     </div>
 
-    <!-- 검색 전용 숨김 키워드 리스트 (네가 준 순서와 명칭 그대로 반영) -->
+    <!-- 검색 전용 숨김 키워드 리스트 -->
     <div style="display: none;">
         <div class="t-name">천공신 제우스</div>
         <div class="t-name">기간트 제우스</div>
