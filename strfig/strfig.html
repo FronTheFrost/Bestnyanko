@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스트리트 파이터 티어표</title>
+    <style>
+        :root {
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+            --accent-color: #ffcc00;
+            --border-color: #3d3d3d;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+            background-color: transparent;
+            color: var(--text-color);
+            margin: 0;
+            padding: 4px;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow: hidden;
+        }
+
+        .tier-banner {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            background: #000;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .tier-banner:hover {
+            border-color: var(--accent-color);
+        }
+        .tier-banner img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .tier-content-wrapper {
+            display: none;
+            margin-top: 10px;
+        }
+        .tier-content-wrapper.active {
+            display: block !important;
+        }
+
+        .tier-row {
+            display: flex;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+        .tier-label {
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 900;
+            padding: 6px 4px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .tier-label.sss { background: #6c5ce7; }
+        .tier-label.ss  { background: #b82323; }
+        .tier-label.s   { background: #b8621b; }
+        .tier-label.a   { background: #b89d1b; color: #121212; }
+        .tier-label.b   { background: #337d33; }
+        .tier-label.c   { background: #236ab8; }
+        .tier-label.d   { background: #555555; }
+
+        .tier-cards-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px;
+            flex: 1;
+            align-items: flex-start;
+        }
+        .t-card {
+            background: #252525;
+            border: 1px solid #444;
+            border-radius: 6px;
+            width: 64px;
+            text-align: center;
+            padding: 4px 2px;
+        }
+        .t-card img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: 4px;
+            background: #000;
+            display: block;
+        }
+        .t-name {
+            font-size: 9.5px;
+            line-height: 1.25;
+            margin-top: 4px;
+            color: #ddd;
+            word-break: keep-all;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tier-banner" onclick="toggleTierList()">
+        <img src="IMG_1881.jpeg" alt="스트리트 파이터 콜라보 배너">
+    </div>
+
+    <div class="tier-content-wrapper" id="tierContent">
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- SSS등급 -->
+            <div class="tier-row">
+                <div class="tier-label sss">SSS</div>
+                <div class="tier-cards-area"></div>
+            </div>
+
+            <!-- SS등급 -->
+            <div class="tier-row">
+                <div class="tier-label ss">SS</div>
+                <div class="tier-cards-area"></div>
+            </div>
+
+            <!-- S등급 (블랑카, 주리) -->
+            <div class="tier-row">
+                <div class="tier-label s">S</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1521.png"><div class="t-name">블랑카CC</div></div>
+                    <div class="t-card"><img src="IMG_1879.png"><div class="t-name">주리CC</div></div>
+                </div>
+            </div>
+
+            <!-- A등급 (켄, 발로그) -->
+            <div class="tier-row">
+                <div class="tier-label a">A</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1870.png"><div class="t-name">홍련의 격투왕 켄</div></div>
+                    <div class="t-card"><img src="IMG_1547.png"><div class="t-name">발로그CC</div></div>
+                </div>
+            </div>
+
+            <!-- B등급 (춘리, 바이슨, 캐미, 고우키) -->
+            <div class="tier-row">
+                <div class="tier-label b">B</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1865.png"><div class="t-name">춘리CC</div></div>
+                    <div class="t-card"><img src="IMG_1872.png"><div class="t-name">바이슨CC</div></div>
+                    <div class="t-card"><img src="IMG_1878.png"><div class="t-name">캐미CC</div></div>
+                    <div class="t-card"><img src="IMG_1880.png"><div class="t-name">고우키CC</div></div>
+                </div>
+            </div>
+
+            <!-- C등급 (혼다, 사가트, 베가, 사쿠라, 루크) -->
+            <div class="tier-row">
+                <div class="tier-label c">C</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1871.png"><div class="t-name">E. Honda CC</div></div>
+                    <div class="t-card"><img src="IMG_1874.png"><div class="t-name">사가트CC</div></div>
+                    <div class="t-card"><img src="IMG_1875.png"><div class="t-name">베가CC</div></div>
+                    <div class="t-card"><img src="IMG_1876.png"><div class="t-name">카스가노 사쿠라 CC</div></div>
+                    <div class="t-card"><img src="IMG_1877.png"><div class="t-name">루크CC</div></div>
+                </div>
+            </div>
+
+            <!-- D등급 (류, 가일, 장기에프, 달심) -->
+            <div class="tier-row">
+                <div class="tier-label d">D</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1864.png"><div class="t-name">카게나루모노</div></div>
+                    <div class="t-card"><img src="IMG_1866.png"><div class="t-name">가일CC</div></div>
+                    <div class="t-card"><img src="IMG_1867.png"><div class="t-name">장기에프CC</div></div>
+                    <div class="t-card"><img src="IMG_1869.png"><div class="t-name">달심CC</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 검색 전용 숨김 키워드 리스트 -->
+    <div style="display: none;">
+        <!-- 류 -->
+        <div class="t-name">류</div>
+        <div class="t-name">류CC</div>
+        <div class="t-name">카게나루모노</div>
+
+        <!-- 춘리 -->
+        <div class="t-name">춘리</div>
+        <div class="t-name">춘리CC</div>
+
+        <!-- 가일 -->
+        <div class="t-name">가일</div>
+        <div class="t-name">가일CC</div>
+
+        <!-- 장기에프 -->
+        <div class="t-name">장기에프</div>
+        <div class="t-name">장기에프CC</div>
+
+        <!-- 블랑카 -->
+        <div class="t-name">블랑카</div>
+        <div class="t-name">블랑카CC</div>
+
+        <!-- 달심 -->
+        <div class="t-name">달심</div>
+        <div class="t-name">달심CC</div>
+
+        <!-- 켄 -->
+        <div class="t-name">켄</div>
+        <div class="t-name">켄CC</div>
+        <div class="t-name">홍련의 격투왕 켄</div>
+
+        <!-- E. Honda -->
+        <div class="t-name">E. Honda</div>
+        <div class="t-name">E. Honda CC</div>
+
+        <!-- 바이슨 -->
+        <div class="t-name">바이슨</div>
+        <div class="t-name">바이슨CC</div>
+
+        <!-- 발로그 -->
+        <div class="t-name">발로그</div>
+        <div class="t-name">발로그CC</div>
+
+        <!-- 사가트 -->
+        <div class="t-name">사가트</div>
+        <div class="t-name">사가트CC</div>
+
+        <!-- 베가 -->
+        <div class="t-name">베가</div>
+        <div class="t-name">베가CC</div>
+
+        <!-- 카스가노 사쿠라 -->
+        <div class="t-name">카스가노 사쿠라</div>
+        <div class="t-name">카스가노 사쿠라 CC</div>
+
+        <!-- 루크 -->
+        <div class="t-name">루크</div>
+        <div class="t-name">루크CC</div>
+
+        <!-- 캐미 -->
+        <div class="t-name">캐미</div>
+        <div class="t-name">캐미CC</div>
+
+        <!-- 주리 -->
+        <div class="t-name">주리</div>
+        <div class="t-name">주리CC</div>
+
+        <!-- 고우키 -->
+        <div class="t-name">고우키</div>
+        <div class="t-name">고우키CC</div>
+    </div>
+
+    <script>
+        function sendHeight() {
+            const currentHeight = document.body.scrollHeight;
+            window.parent.postMessage({ type: 'resizeHeight', id: 'strfigFrame', height: currentHeight }, '*');
+        }
+
+        window.addEventListener('load', function() {
+            sendHeight();
+            setTimeout(sendHeight, 100);
+        });
+        window.addEventListener('resize', sendHeight);
+
+        function toggleTierList() {
+            const content = document.getElementById('tierContent');
+            content.classList.toggle('active');
+
+            setTimeout(sendHeight, 50);
+            setTimeout(sendHeight, 300);
+        }
+    </script>
+</body>
+</html>
