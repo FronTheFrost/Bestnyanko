@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>에반게리온 티어표</title>
+    <style>
+        :root {
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+            --accent-color: #ffcc00;
+            --border-color: #3d3d3d;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+            background-color: transparent;
+            color: var(--text-color);
+            margin: 0;
+            padding: 4px;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow: hidden;
+        }
+
+        .tier-banner {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            background: #000;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .tier-banner:hover {
+            border-color: var(--accent-color);
+        }
+        .tier-banner img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .tier-content-wrapper {
+            display: none;
+            margin-top: 10px;
+        }
+        .tier-content-wrapper.active {
+            display: block !important;
+        }
+
+        .tier-row {
+            display: flex;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+        .tier-label {
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 900;
+            padding: 6px 4px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .tier-label.sss { background: #6c5ce7; }
+        .tier-label.ss  { background: #b82323; }
+        .tier-label.s   { background: #b8621b; }
+        .tier-label.a   { background: #b89d1b; color: #121212; }
+        .tier-label.b   { background: #337d33; }
+        .tier-label.c   { background: #236ab8; }
+        .tier-label.d   { background: #555555; }
+
+        .tier-cards-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px;
+            flex: 1;
+            align-items: flex-start;
+        }
+        .t-card {
+            background: #252525;
+            border: 1px solid #444;
+            border-radius: 6px;
+            width: 64px;
+            text-align: center;
+            padding: 4px 2px;
+        }
+        .t-card img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: 4px;
+            background: #000;
+            display: block;
+        }
+        .t-name {
+            font-size: 9.5px;
+            line-height: 1.25;
+            margin-top: 4px;
+            color: #ddd;
+            word-break: keep-all;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tier-banner" onclick="toggleTierList()">
+        <img src="IMG_1838.jpeg" alt="에반게리온 콜라보 배너">
+    </div>
+
+    <div class="tier-content-wrapper" id="tierContent">
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- SSS등급 -->
+            <div class="tier-row">
+                <div class="tier-label sss">SSS</div>
+                <div class="tier-cards-area"></div>
+            </div>
+
+            <!-- SS등급 -->
+            <div class="tier-row">
+                <div class="tier-label ss">SS</div>
+                <div class="tier-cards-area"></div>
+            </div>
+
+            <!-- S등급 -->
+            <div class="tier-row">
+                <div class="tier-label s">S</div>
+                <div class="tier-cards-area"></div>
+            </div>
+
+            <!-- A등급 (2호기, 분더, 아스카) -->
+            <div class="tier-row">
+                <div class="tier-label a">A</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1535.png"><div class="t-name">에바 개 2호기 코드777</div></div>
+                    <div class="t-card"><img src="IMG_1590.png"><div class="t-name">살신의 선함 NNN 고양이 분더</div></div>
+                    <div class="t-card"><img src="IMG_1848.png"><div class="t-name">푸른 눈의 마녀 아스카</div></div>
+                </div>
+            </div>
+
+            <!-- B등급 (영호기, 초호기, 9사도) -->
+            <div class="tier-row">
+                <div class="tier-label b">B</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1839.png"><div class="t-name">에바 영호기&고양이</div></div>
+                    <div class="t-card"><img src="IMG_1840.png"><div class="t-name">결의의 에바 초호기&고양이</div></div>
+                    <div class="t-card"><img src="IMG_1851.png"><div class="t-name">제9사도 고양이</div></div>
+                </div>
+            </div>
+
+            <!-- C등급 (8호기, 레이, 6사도, 양산기, 카오루) -->
+            <div class="tier-row">
+                <div class="tier-label c">C</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1842.png"><div class="t-name">에바 8호기 & 고양이</div></div>
+                    <div class="t-card"><img src="IMG_1847.png"><div class="t-name">백천 공주 레이</div></div>
+                    <div class="t-card"><img src="IMG_1850.png"><div class="t-name">제6사도 고양이</div></div>
+                    <div class="t-card"><img src="IMG_1853.png"><div class="t-name">에바 고양이 양산기</div></div>
+                    <div class="t-card"><img src="IMG_1854.png"><div class="t-name">낙월의 사자 카오루</div></div>
+                </div>
+            </div>
+
+            <!-- D등급 (13호기, 신지, 퍼스트문, 4사도, 10사도) -->
+            <div class="tier-row">
+                <div class="tier-label d">D</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1843.png"><div class="t-name">에바 13호기&고양이</div></div>
+                    <div class="t-card"><img src="IMG_1844.png"><div class="t-name">고양이 토우지&켄스케</div></div>
+                    <div class="t-card"><img src="IMG_1845.png"><div class="t-name">퍼스트문 NERV</div></div>
+                    <div class="t-card"><img src="IMG_1849.png"><div class="t-name">제4사도 고양이</div></div>
+                    <div class="t-card"><img src="IMG_1852.png"><div class="t-name">제10사도 고양이</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 검색 전용 숨김 키워드 리스트 -->
+    <div style="display: none;">
+        <!-- 에바 영호기 -->
+        <div class="t-name">에바 영호기</div>
+        <div class="t-name">에바 영호기&고양이</div>
+
+        <!-- 에바 초호기 -->
+        <div class="t-name">에바 초호기</div>
+        <div class="t-name">에바 초호기&고양이</div>
+        <div class="t-name">결의의 에바 초호기&고양이</div>
+
+        <!-- 에바 2호기 -->
+        <div class="t-name">에바 2호기</div>
+        <div class="t-name">에바 2호기&고양이</div>
+        <div class="t-name">에바 개 2호기 코드777</div>
+
+        <!-- 에바 8호기 -->
+        <div class="t-name">에바 8호기</div>
+        <div class="t-name">에바 8호기 & 고양이</div>
+
+        <!-- 에바 13호기 -->
+        <div class="t-name">에바 13호기</div>
+        <div class="t-name">에바 13호기&고양이</div>
+
+        <!-- 신지 / 토우지 & 켄스케 -->
+        <div class="t-name">고양이 신지</div>
+        <div class="t-name">고양이 토우지&켄스케</div>
+
+        <!-- 오퍼레이터즈 / NERV -->
+        <div class="t-name">제로문 오퍼레이터즈</div>
+        <div class="t-name">퍼스트문 NERV</div>
+
+        <!-- 고양이 분더 -->
+        <div class="t-name">공중 전함 고양이 분더</div>
+        <div class="t-name">희망의 선함 NNN 고양이 분더</div>
+        <div class="t-name">살신의 선함 NNN 고양이 분더</div>
+
+        <!-- 백야 공주 레이 -->
+        <div class="t-name">백야 공주 레이</div>
+        <div class="t-name">백천 공주 레이</div>
+
+        <!-- 외눈의 소녀 아스카 -->
+        <div class="t-name">외눈의 소녀 아스카</div>
+        <div class="t-name">푸른 눈의 마녀 아스카</div>
+
+        <!-- 제4사도 -->
+        <div class="t-name">제4사도</div>
+        <div class="t-name">제4사도 고양이</div>
+
+        <!-- 제6사도 -->
+        <div class="t-name">제6사도</div>
+        <div class="t-name">제6사도 고양이</div>
+
+        <!-- 제9사도 -->
+        <div class="t-name">제9사도</div>
+        <div class="t-name">제9사도 고양이</div>
+
+        <!-- 제10사도 -->
+        <div class="t-name">제10사도</div>
+        <div class="t-name">제10사도 고양이</div>
+
+        <!-- 에바 양산기 -->
+        <div class="t-name">에바 양산기</div>
+        <div class="t-name">에바 고양이 양산기</div>
+
+        <!-- 카오루 -->
+        <div class="t-name">월영의 소년 카오루</div>
+        <div class="t-name">낙월의 사자 카오루</div>
+    </div>
+
+    <script>
+        function sendHeight() {
+            const currentHeight = document.body.scrollHeight;
+            window.parent.postMessage({ type: 'resizeHeight', id: 'evanFrame', height: currentHeight }, '*');
+        }
+
+        window.addEventListener('load', function() {
+            sendHeight();
+            setTimeout(sendHeight, 100);
+        });
+        window.addEventListener('resize', sendHeight);
+
+        function toggleTierList() {
+            const content = document.getElementById('tierContent');
+            content.classList.toggle('active');
+
+            setTimeout(sendHeight, 50);
+            setTimeout(sendHeight, 300);
+        }
+    </script>
+</body>
+</html>
