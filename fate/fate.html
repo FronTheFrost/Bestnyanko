@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fate/stay night 티어표</title>
+    <style>
+        :root {
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+            --accent-color: #ffcc00;
+            --border-color: #3d3d3d;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+            background-color: transparent;
+            color: var(--text-color);
+            margin: 0;
+            padding: 4px;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow: hidden;
+        }
+
+        .tier-banner {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            background: #000;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .tier-banner:hover {
+            border-color: var(--accent-color);
+        }
+        .tier-banner img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .tier-content-wrapper {
+            display: none;
+            margin-top: 10px;
+        }
+        .tier-content-wrapper.active {
+            display: block !important;
+        }
+
+        .tier-row {
+            display: flex;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+        .tier-label {
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 900;
+            padding: 6px 4px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .tier-label.sss { background: #6c5ce7; }
+        .tier-label.ss  { background: #b82323; }
+        .tier-label.s   { background: #b8621b; }
+        .tier-label.a   { background: #b89d1b; color: #121212; }
+        .tier-label.b   { background: #337d33; }
+        .tier-label.c   { background: #236ab8; }
+        .tier-label.d   { background: #555555; }
+
+        .tier-cards-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px;
+            flex: 1;
+            align-items: flex-start;
+        }
+        .t-card {
+            background: #252525;
+            border: 1px solid #444;
+            border-radius: 6px;
+            width: 64px;
+            text-align: center;
+            padding: 4px 2px;
+        }
+        .t-card img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: 4px;
+            background: #000;
+            display: block;
+        }
+        .t-name {
+            font-size: 9.5px;
+            line-height: 1.25;
+            margin-top: 4px;
+            color: #ddd;
+            word-break: keep-all;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tier-banner" onclick="toggleTierList()">
+        <img src="IMG_1832.jpeg" alt="Fate 콜라보 배너">
+    </div>
+
+    <div class="tier-content-wrapper" id="tierContent">
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- SSS등급 -->
+            <div class="tier-row">
+                <div class="tier-label sss">SSS</div>
+                <div class="tier-cards-area"></div>
+            </div>
+
+            <!-- SS등급 -->
+            <div class="tier-row">
+                <div class="tier-label ss">SS</div>
+                <div class="tier-cards-area"></div>
+            </div>
+
+            <!-- S등급 (세이버) -->
+            <div class="tier-row">
+                <div class="tier-label s">S</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1530.png"><div class="t-name">세이버 얼터CC</div></div>
+                </div>
+            </div>
+
+            <!-- A등급 (사쿠라, 어새신) -->
+            <div class="tier-row">
+                <div class="tier-label a">A</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1544.png"><div class="t-name">흑화 사쿠라CC</div></div>
+                    <div class="t-card"><img src="IMG_1825.png"><div class="t-name">진 어새신CC</div></div>
+                </div>
+            </div>
+
+            <!-- B등급 (라이더) -->
+            <div class="tier-row">
+                <div class="tier-label b">B</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1821.png"><div class="t-name">라이더CC</div></div>
+                </div>
+            </div>
+
+            <!-- C등급 (시로) -->
+            <div class="tier-row">
+                <div class="tier-label c">C</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1824.png"><div class="t-name">에미야 시로CC</div></div>
+                </div>
+            </div>
+
+            <!-- D등급 (린, 이리야, 아처, 랜서, 길가메시) -->
+            <div class="tier-row">
+                <div class="tier-label d">D</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1817.png"><div class="t-name">토오사카 린CC</div></div>
+                    <div class="t-card"><img src="IMG_1818.png"><div class="t-name">이리야스필CC</div></div>
+                    <div class="t-card"><img src="IMG_1819.png"><div class="t-name">아처CC</div></div>
+                    <div class="t-card"><img src="IMG_1820.png"><div class="t-name">랜서CC</div></div>
+                    <div class="t-card"><img src="IMG_1822.png"><div class="t-name">길가메시CC</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 검색 전용 숨김 키워드 리스트 -->
+    <div style="display: none;">
+        <!-- 세이버 -->
+        <div>세이버</div>
+        <div>세이버 CC</div>
+        <div>세이버 얼터CC</div>
+
+        <!-- 린 -->
+        <div>토오사카 린</div>
+        <div>토오사카 린CC</div>
+
+        <!-- 이리야 -->
+        <div>이라야스필</div>
+        <div>이리야스필CC</div>
+
+        <!-- 아처 -->
+        <div>아처</div>
+        <div>아처CC</div>
+
+        <!-- 랜서 -->
+        <div>랜서</div>
+        <div>랜서CC</div>
+
+        <!-- 라이더 -->
+        <div>라이더</div>
+        <div>라이더CC</div>
+
+        <!-- 길가메시 -->
+        <div>길가메시</div>
+        <div>길가메시CC</div>
+
+        <!-- 사쿠라 -->
+        <div>마토 사쿠라</div>
+        <div>마토 사쿠라CC</div>
+        <div>흑화 사쿠라CC</div>
+
+        <!-- 시로 -->
+        <div>에미야 시로</div>
+        <div>에미야 시로CC</div>
+
+        <!-- 어새신 -->
+        <div>진 어새신</div>
+        <div>진 어새신CC</div>
+    </div>
+
+    <script>
+        function sendHeight() {
+            const currentHeight = document.body.scrollHeight;
+            window.parent.postMessage({ type: 'resizeHeight', id: 'fateFrame', height: currentHeight }, '*');
+        }
+
+        window.addEventListener('load', function() {
+            sendHeight();
+            setTimeout(sendHeight, 100);
+        });
+        window.addEventListener('resize', sendHeight);
+
+        function toggleTierList() {
+            const content = document.getElementById('tierContent');
+            content.classList.toggle('active');
+
+            setTimeout(sendHeight, 50);
+            setTimeout(sendHeight, 300);
+        }
+    </script>
+</body>
+</html>
