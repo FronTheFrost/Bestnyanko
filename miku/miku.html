@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>하츠네 미쿠 티어표</title>
+    <style>
+        :root {
+            --card-bg: #1e1e1e;
+            --text-color: #ffffff;
+            --accent-color: #ffcc00;
+            --border-color: #3d3d3d;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
+            background-color: transparent;
+            color: var(--text-color);
+            margin: 0;
+            padding: 4px;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow: hidden;
+        }
+
+        .tier-banner {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            background: #000;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .tier-banner:hover {
+            border-color: var(--accent-color);
+        }
+        .tier-banner img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .tier-content-wrapper {
+            display: none;
+            margin-top: 10px;
+        }
+        .tier-content-wrapper.active {
+            display: block !important;
+        }
+
+        .tier-row {
+            display: flex;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+        .tier-label {
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 900;
+            padding: 6px 4px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .tier-label.sss { background: #6c5ce7; }
+        .tier-label.ss  { background: #b82323; }
+        .tier-label.s   { background: #b8621b; }
+        .tier-label.a   { background: #b89d1b; color: #121212; }
+        .tier-label.b   { background: #337d33; }
+        .tier-label.c   { background: #236ab8; }
+        .tier-label.d   { background: #555555; }
+
+        .tier-cards-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 8px;
+            flex: 1;
+            align-items: flex-start;
+        }
+        .t-card {
+            background: #252525;
+            border: 1px solid #444;
+            border-radius: 6px;
+            width: 64px;
+            text-align: center;
+            padding: 4px 2px;
+        }
+        .t-card img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: 4px;
+            background: #000;
+            display: block;
+        }
+        .t-name {
+            font-size: 9.5px;
+            line-height: 1.25;
+            margin-top: 4px;
+            color: #ddd;
+            word-break: keep-all;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tier-banner" onclick="toggleTierList()">
+        <img src="IMG_1890.jpeg" alt="하츠네 미쿠 콜라보 배너">
+    </div>
+
+    <div class="tier-content-wrapper" id="tierContent">
+        <div style="display: flex; flex-direction: column; gap: 8px;">
+            <!-- SSS등급 -->
+            <div class="tier-row">
+                <div class="tier-label sss">SSS</div>
+                <div class="tier-cards-area"></div>
+            </div>
+
+            <!-- SS등급 -->
+            <div class="tier-row">
+                <div class="tier-label ss">SS</div>
+                <div class="tier-cards-area"></div>
+            </div>
+
+            <!-- S등급 -->
+            <div class="tier-row">
+                <div class="tier-label s">S</div>
+                <div class="tier-cards-area"></div>
+            </div>
+
+            <!-- A등급 -->
+            <div class="tier-row">
+                <div class="tier-label a">A</div>
+                <div class="tier-cards-area"></div>
+            </div>
+
+            <!-- B등급 (오사카, 도쿄) -->
+            <div class="tier-row">
+                <div class="tier-label b">B</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1886.png"><div class="t-name">하츠네 미쿠CC MAGICAL MIRAI 2020 오사카</div></div>
+                    <div class="t-card"><img src="IMG_1887.png"><div class="t-name">하츠네 미쿠CC MAGICAL MIRAI 2020 도쿄</div></div>
+                </div>
+            </div>
+
+            <!-- C등급 (루카, 유키 미쿠, 16th) -->
+            <div class="tier-row">
+                <div class="tier-label c">C</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1885.png"><div class="t-name">메구리네 루카CC</div></div>
+                    <div class="t-card"><img src="IMG_1888.png"><div class="t-name">유키 미쿠CC 2021</div></div>
+                    <div class="t-card"><img src="IMG_1889.png"><div class="t-name">하츠네 미쿠CC 16th</div></div>
+                </div>
+            </div>
+
+            <!-- D등급 (미쿠, 사쿠라 미쿠, 린&렌) -->
+            <div class="tier-row">
+                <div class="tier-label d">D</div>
+                <div class="tier-cards-area">
+                    <div class="t-card"><img src="IMG_1882.png"><div class="t-name">하츠네 미쿠CC</div></div>
+                    <div class="t-card"><img src="IMG_1883.png"><div class="t-name">사쿠라 미쿠CC</div></div>
+                    <div class="t-card"><img src="IMG_1884.png"><div class="t-name">카가미네 린&렌CC</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 검색 전용 숨김 키워드 리스트 -->
+    <div style="display: none;">
+        <!-- 하츠네 미쿠 -->
+        <div class="t-name">하츠네 미쿠</div>
+        <div class="t-name">하츠네 미쿠CC</div>
+
+        <!-- 사쿠라 미쿠 -->
+        <div class="t-name">사쿠라 미쿠</div>
+        <div class="t-name">사쿠라 미쿠CC</div>
+
+        <!-- 카가미네 린&렌 -->
+        <div class="t-name">카가미네 린&렌</div>
+        <div class="t-name">카가미네 린&렌CC</div>
+
+        <!-- 메구리네 루카 -->
+        <div class="t-name">메구리네 루카</div>
+        <div class="t-name">메구리네 루카CC</div>
+
+        <!-- 미쿠 MAGICAL MIRAI 2020 오사카 -->
+        <div class="t-name">하츠네 미쿠 MAGICAL MIRAI 2020 오사카</div>
+        <div class="t-name">하츠네 미쿠CC MAGICAL MIRAI 2020 오사카</div>
+
+        <!-- 미쿠 MAGICAL MIRAI 2020 도쿄 -->
+        <div class="t-name">하츠네 미쿠 MAGICAL MIRAI 2020 도쿄</div>
+        <div class="t-name">하츠네 미쿠CC MAGICAL MIRAI 2020 도쿄</div>
+
+        <!-- 유키 미쿠 2021 -->
+        <div class="t-name">유키 미쿠 2021</div>
+        <div class="t-name">유키 미쿠CC 2021</div>
+
+        <!-- 하츠네 미쿠 16th -->
+        <div class="t-name">하츠네 미쿠 16th</div>
+        <div class="t-name">하츠네 미쿠CC 16th</div>
+    </div>
+
+    <script>
+        function sendHeight() {
+            const currentHeight = document.body.scrollHeight;
+            window.parent.postMessage({ type: 'resizeHeight', id: 'mikuFrame', height: currentHeight }, '*');
+        }
+
+        window.addEventListener('load', function() {
+            sendHeight();
+            setTimeout(sendHeight, 100);
+        });
+        window.addEventListener('resize', sendHeight);
+
+        function toggleTierList() {
+            const content = document.getElementById('tierContent');
+            content.classList.toggle('active');
+
+            setTimeout(sendHeight, 50);
+            setTimeout(sendHeight, 300);
+        }
+    </script>
+</body>
+</html>
