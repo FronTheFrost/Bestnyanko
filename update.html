@@ -116,11 +116,13 @@
             white-space: nowrap;
         }
         
-        /* 티어별 색상 정의 (울소/제우스 등급표와 일치) */
+        /* 티어별 색상 정의 */
         .t-sss { background: #6c5ce7; color: #fff; }
         .t-ss  { background: #b82323; color: #fff; }
         .t-s   { background: #b8621b; color: #fff; }
         .t-a   { background: #b89d1b; color: #121212; }
+        .t-b   { background: #337d33; color: #fff; }
+        .t-c   { background: #236ab8; color: #fff; }
 
         /* 등급 이동 변경 내역 뱃지 스타일 */
         .patch-badge.change {
@@ -158,19 +160,51 @@
                 <div class="patch-badge t-s">S</div>
             </div>
 
-            <!-- 기간트 제우스 하데스 티어 조정 내역 -->
+            <!-- 천마성용 바벨 티어 변경 내역 -->
             <div class="patch-row">
                 <div class="patch-char-info">
                     <div class="p-card">
-                        <img src="zeus/IMG_1491.png" alt="G데스 하데스" onclick="goToZeusTier()">
-                        <div class="p-name">G데스 하데스</div>
+                        <img src="IMG_1540.png" alt="천마성용 바벨" onclick="goToDragonTier()">
+                        <div class="p-name">천마성용 바벨</div>
                     </div>
-                    <span class="patch-desc">기간트 제우스 티어 재조정</span>
+                    <span class="patch-desc">천마성용 바벨 티어 변경</span>
                 </div>
                 <div class="patch-badge change">
-                    <span class="tier-tag t-sss">SSS</span>
+                    <span class="tier-tag t-s">S</span>
                     <span>➔</span>
-                    <span class="tier-tag t-ss">SS</span>
+                    <span class="tier-tag t-a">A</span>
+                </div>
+            </div>
+
+            <!-- 성룡황제 메기도라 티어 변경 내역 -->
+            <div class="patch-row">
+                <div class="patch-char-info">
+                    <div class="p-card">
+                        <img src="IMG_1638.png" alt="성룡황제 메기도라" onclick="goToDragonTier()">
+                        <div class="p-name">성룡황제 메기도라</div>
+                    </div>
+                    <span class="patch-desc">성룡황제 메기도라 티어 변경</span>
+                </div>
+                <div class="patch-badge change">
+                    <span class="tier-tag t-b">B</span>
+                    <span>➔</span>
+                    <span class="tier-tag t-c">C</span>
+                </div>
+            </div>
+
+            <!-- 각룡황제 그라디오스 티어 변경 내역 -->
+            <div class="patch-row">
+                <div class="patch-char-info">
+                    <div class="p-card">
+                        <img src="IMG_1645.png" alt="각룡황제 그라디오스" onclick="goToDragonTier()">
+                        <div class="p-name">각룡황제 그라디오스</div>
+                    </div>
+                    <span class="patch-desc">각룡황제 그라디오스 티어 변경</span>
+                </div>
+                <div class="patch-badge change">
+                    <span class="tier-tag t-b">B</span>
+                    <span>➔</span>
+                    <span class="tier-tag t-c">C</span>
                 </div>
             </div>
         </div>
@@ -192,12 +226,12 @@
             }
         }
 
-        function goToZeusTier() {
+        function goToDragonTier() {
             if (window.parent && typeof window.parent.selectAndNavigateSeries === 'function') {
                 window.parent.selectAndNavigateSeries({
-                    id: "zeusFrame",
-                    title: "궁극강림 기간트 제우스",
-                    alias: ["제우스", "갓즈"]
+                    id: "dragonFrame",
+                    title: "초파괴 대제 드래곤 엠퍼러스",
+                    alias: ["드엠", "드래곤엠퍼러스"]
                 });
             }
         }
