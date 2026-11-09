@@ -54,15 +54,16 @@
     const SUPABASE_ANON_KEY = 'sb_publishable_pcyr0OE4Tlaaa2Bh9BS_rg_7hpBwdmd';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    // 브라우저의 스크롤 기억 기능 차단 후 강제 맨 위 이동
+    // 💡 1. 브라우저가 이전 스크롤 위치를 복원하는 기능을 수동(manual)으로 전환하여 차단
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
 
     window.onload = function() {
+        // 💡 2. 진입 시 무조건 최상단(0,0)으로 강제 이동
         window.scrollTo(0, 0);
-        setTimeout(() => window.scrollTo(0, 0), 50); // 렌더링 직후 한 번 더 강제 초기화
-        
+        setTimeout(() => window.scrollTo(0, 0), 50); // 렌더링 직후 한 번 더 확실하게 고정
+
         fetchReviews();
         if(localStorage.getItem('isAdminAuth') === 'true') {
             enableAdminUI();
@@ -136,7 +137,20 @@
                 </div>
             `;
         });
+
+        // 💡 3. 리뷰 아이템들이 화면에 다 그려진 직후에도 최상단으로 리셋
+        window.scrollTo(0, 0);
+        sendHeight();
     }
+
+    // 💡 부모 창(index.html)으로 높이 변화 전송
+    function sendHeight() {
+        const currentHeight = document.body.scrollHeight;
+        window.parent.postMessage({ type: 'resizeHeight', id: 'reviewFrame', height: currentHeight }, '*');
+    }
+
+    const observer = new ResizeObserver(() => { sendHeight(); });
+    observer.observe(document.body);
 </script>
 
 </body>
