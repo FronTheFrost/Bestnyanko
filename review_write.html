@@ -23,7 +23,7 @@
         .ql-container.ql-snow { background: #0f172a; border-color: #475569 !important; color: #fff; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; font-size: 15px; }
         .ql-editor { min-height: 300px; color: #fff; }
 
-        /* 💡 이미지가 크기만 줄어들고, 정렬(좌·중·우)은 사용자가 선택한 대로 따르도록 설정 */
+        /* 이미지는 크기만 조절되고 사용자가 선택한 정렬(좌·중·우)을 따름 */
         .ql-editor img {
             max-width: 60% !important;
             height: auto !important;
@@ -49,7 +49,7 @@
     <input type="text" id="review-author" placeholder="작성자" value="관리자">
     
     <div class="helper-text">
-        💡 <strong>사진 첨부 요령:</strong> 본문 중간에 커서를 두고 그림 아이콘을 누르면 사진이 들어갑니다. <strong>상단 정렬 버튼(좌우중앙)</strong>으로 사진 위치를 바꿀 수 있어요!
+        💡 <strong>사진 첨부 요령:</strong> 본문 중간에 커서를 두고 그림 아이콘을 누르면 사진이 들어갑니다. 상단 정렬 버튼으로 위치를 조절할 수 있어요!
     </div>
     
     <div id="editor-container" style="margin-bottom: 20px;"></div>
@@ -72,6 +72,8 @@
     const reviewId = Number(urlParams.get('id'));
 
     window.onload = async function() {
+        window.scrollTo(0, 0); // 작성 페이지 진입 시 맨 위로 스크롤 고정
+
         if (localStorage.getItem('isAdminAuth') !== 'true') {
             alert('관리자 전용 페이지입니다.');
             location.href = 'review.html';
@@ -84,7 +86,7 @@
                 toolbar: [
                     [{ header: [1, 2, false] }],
                     ['bold', 'italic', 'underline', 'strike'],
-                    [{ align: [] }], // 💡 여기에 정렬 기능(좌, 중앙, 우, 양쪽) 추가 완료!
+                    [{ align: [] }], // 정렬 버튼 (좌, 중앙, 우, 양쪽)
                     ['blockquote', 'code-block'],
                     [{ list: 'ordered' }, { list: 'bullet' }],
                     ['link', 'image', 'video'],
@@ -175,7 +177,7 @@
 
     async function submitReview() {
         const title = document.getElementById('review-title').value.trim();
-        const author = document.getElementById('review-author',).value;
+        const author = document.getElementById('review-author').value;
         const content = quill.root.innerHTML;
         
         const textLength = quill.getText().trim().length;
