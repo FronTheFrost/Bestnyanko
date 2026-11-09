@@ -3,290 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>유저 리뷰 게시판</title>
-    <!-- Supabase JS SDK 불러오기 -->
+    <title>유저 리뷰</title>
+    <!-- Supabase JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --box-bg: #282828;
-            --text-color: #ffffff;
-            --accent-color: #ffcc00;
-            --border-color: #3d3d3d;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Malgun Gothic', sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { font-size: 24px; margin-bottom: 20px; text-align: center; color: #38bdf8; }
+        
+        /* 리뷰 작성 영역 (기본 숨김) */
+        #admin-panel { background: #1e293b; padding: 20px; border-radius: 12px; margin-bottom: 30px; display: none; border: 1px solid #334155; }
+        #login-box { background: #1e293b; padding: 20px; border-radius: 12px; margin-bottom: 30px; text-align: center; border: 1px solid #334155; }
+        
+        input, textarea { width: 100%; padding: 10px; margin-bottom: 12px; background: #0f172a; border: 1px solid #475569; color: #fff; border-radius: 6px; }
+        button { background: #38bdf8; color: #0f172a; border: none; padding: 10px 20px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        button:hover { background: #0ea5e9; }
+        .logout-btn { background: #ef4444; color: #fff; float: right; margin-bottom: 10px; }
+        .logout-btn:hover { background: #dc2626; }
 
-        * { box-sizing: border-box; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px 12px;
-            max-width: 650px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        h1 {
-            text-align: center;
-            color: var(--accent-color);
-            margin-top: 10px;
-            margin-bottom: 20px;
-            font-size: 22px;
-            font-weight: 800;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        .card h3 {
-            margin-top: 0;
-            color: var(--accent-color);
-            font-size: 16px;
-        }
-
-        .form-group {
-            margin-bottom: 12px;
-        }
-
-        label {
-            display: block;
-            font-size: 12px;
-            color: #aaa;
-            margin-bottom: 4px;
-        }
-
-        input, textarea {
-            width: 100%;
-            background-color: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 10px;
-            padding: 10px 14px;
-            color: #fff;
-            font-size: 13px;
-            outline: none;
-            transition: border-color 0.2s ease;
-            box-sizing: border-box;
-        }
-
-        input:focus, textarea:focus {
-            border-color: var(--accent-color);
-        }
-
-        button {
-            background-color: var(--accent-color);
-            color: #121212;
-            border: none;
-            border-radius: 10px;
-            padding: 12px;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.2s ease;
-        }
-
-        button:hover {
-            background-color: #e6b800;
-        }
-
-        .media-container img, .media-container video {
-            max-width: 100%;
-            border-radius: 8px;
-            margin-top: 10px;
-            border: 1px solid var(--border-color);
-        }
-
-        #admin-section {
-            background-color: var(--box-bg);
-            border: 2px dashed var(--accent-color);
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-        }
-
-        hr {
-            border: 0;
-            height: 1px;
-            background: var(--border-color);
-            margin: 25px 0;
-        }
-
-        .loading, .empty {
-            text-align: center;
-            color: #888;
-            font-size: 13px;
-            padding: 20px;
-        }
+        /* 리뷰 카드 스타일 */
+        .review-card { background: #1e293b; padding: 20px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #334155; }
+        .review-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; color: #94a3b8; }
+        .review-title { font-size: 18px; font-weight: bold; margin-bottom: 8px; color: #f1f5f9; }
+        .review-content { font-size: 15px; line-height: 1.5; margin-bottom: 12px; white-space: pre-wrap; }
+        .review-img { max-width: 100%; height: auto; border-radius: 8px; margin-top: 10px; max-height: 300px; }
+        
+        /* 관리자 로그인 버튼 토글용 스타일 */
+        .admin-trigger { text-align: right; margin-bottom: 15px; }
+        .admin-trigger button { background: transparent; color: #64748b; font-size: 12px; padding: 5px; }
+        .admin-trigger button:hover { color: #f8fafc; }
     </style>
 </head>
 <body>
 
-    <h1>유저 리뷰 게시판</h1>
-
-    <!-- 관리자 인증 후 글을 쓸 수 있는 업로드 폼 -->
-    <div id="admin-section">
-        <h3>관리자 전용 글쓰기</h3>
-        <div class="form-group">
-            <label>관리자 비밀번호</label>
-            <input type="password" id="adminPassword" placeholder="관리자 비밀번호 입력">
-        </div>
-        <div class="form-group">
-            <label>제목</label>
-            <input type="text" id="reviewTitle" placeholder="제목을 입력하세요">
-        </div>
-        <div class="form-group">
-            <label>작성자</label>
-            <input type="text" id="reviewAuthor" value="관리자" readonly>
-        </div>
-        <div class="form-group">
-            <label>내용</label>
-            <textarea id="reviewContent" rows="4" placeholder="내용을 입력하세요"></textarea>
-        </div>
-        <div class="form-group">
-            <label>사진 / 영상 첨부 (갤러리에서 직접 선택)</label>
-            <input type="file" id="mediaFile" accept="image/*,video/*" style="padding: 6px;">
-        </div>
-        <button onclick="uploadReview()">리뷰 등록하기</button>
+<div class="container">
+    <div class="admin-trigger">
+        <button onclick="toggleLogin()">관리자 로그인</button>
     </div>
 
-    <hr>
+    <!-- 관리자 로그인 박스 -->
+    <div id="login-box" style="display:none;">
+        <h3>관리자 인증</h3>
+        <p style="font-size:13px; color:#94a3b8; margin: 8px 0;">글 작성 및 업로드는 관리자만 가능합니다.</p>
+        <input type="password" id="admin-pw" placeholder="관리자 비밀번호 입력" style="max-width: 250px; display: inline-block;">
+        <button onclick="checkAdmin()">확인</button>
+    </div>
 
-    <h2 style="font-size: 18px; color: #fff; margin-bottom: 15px;">리뷰 목록 (방문객 구경 전용)</h2>
-    <div id="reviewsList" class="loading">리뷰를 불러오는 중...</div>
+    <!-- 리뷰 작성 패널 (관리자 전용) -->
+    <div id="admin-panel">
+        <button class="logout-btn" onclick="logoutAdmin()">로그아웃</button>
+        <h3>새 리뷰 작성 (관리자 전용)</h3>
+        <input type="text" id="review-title" placeholder="제목">
+        <input type="text" id="review-author" placeholder="작성자 (예: 관리자)">
+        <textarea id="review-text" rows="4" placeholder="내용을 입력하세요..."></textarea>
+        <input type="file" id="review-image-file" accept="image/*">
+        <button onclick="submitReview()">리뷰 등록하기</button>
+    </div>
 
-    <script>
-        // 본인의 Supabase 정보 입력
-        const SUPABASE_URL = 'YOUR_SUPABASE_URL';
-        const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-        const ADMIN_SECRET_KEY = '내관리자비번1234'; // 본인만 아는 관리자 비밀번호 설정
+    <h1>유저 리뷰 목록</h1>
+    <div id="reviews-container">
+        <p style="text-align: center; color: #94a3b8;">리뷰를 불러오는 중...</p>
+    </div>
+</div>
 
-        const { createClient } = supabase;
-        const _supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+<script>
+    // 본인의 Supabase 정보 및 관리자 비밀번호 세팅 완료
+    const SUPABASE_URL = 'https://vvbqjwbvqpppkmhnntlw.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_pcyr0OE4Tlaaa2Bh9BS_rg_7hpBwdmd';
+    const ADMIN_SECRET_KEY = '0101'; // 윈터 생일
 
-        // 페이지 켜지자마자 리뷰 불러오기
-        window.onload = function() {
-            fetchReviews();
-        };
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-        async function fetchReviews() {
-            const listDiv = document.getElementById('reviewsList');
+    // 페이지 로드 시 리뷰 불러오기
+    window.onload = function() {
+        fetchReviews();
+        if(localStorage.getItem('isAdmin') === 'true') {
+            showAdminPanel();
+        }
+    };
 
-            const { data, error } = await _supabase
-                .from('reviews')
-                .select('*')
-                .order('created_at', { ascending: false });
+    function toggleLogin() {
+        const box = document.getElementById('login-box');
+        box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
 
-            if (error) {
-                listDiv.innerHTML = '리뷰를 불러오는 중 에러가 발생했습니다.';
-                console.error(error);
-                return;
-            }
+    function checkAdmin() {
+        const pw = document.getElementById('admin-pw').value;
+        if(pw === ADMIN_SECRET_KEY) {
+            localStorage.setItem('isAdmin', 'true');
+            alert('관리자로 로그인되었습니다!');
+            document.getElementById('admin-pw').value = '';
+            document.getElementById('login-box').style.display = 'none';
+            showAdminPanel();
+        } else {
+            alert('비밀번호가 틀렸습니다.');
+        }
+    }
 
-            if (!data || data.length === 0) {
-                listDiv.innerHTML = '<div class="empty">등록된 리뷰가 없습니다.</div>';
-                return;
-            }
+    function showAdminPanel() {
+        document.getElementById('admin-panel').style.display = 'block';
+        document.querySelector('.admin-trigger').style.display = 'none';
+    }
 
-            let html = '';
-            data.forEach(review => {
-                let mediaHtml = '';
-                if (review.image_url) {
-                    if (review.image_url.match(/\.(mp4|mov|webm)$/i)) {
-                        mediaHtml = `<div class="media-container"><video src="${review.image_url}" controls width="100%"></video></div>`;
-                    } else {
-                        mediaHtml = `<div class="media-container"><img src="${review.image_url}" alt="첨부이미지"></div>`;
-                    }
-                }
+    function logoutAdmin() {
+        localStorage.removeItem('isAdmin');
+        document.getElementById('admin-panel').style.display = 'none';
+        document.querySelector('.admin-trigger').style.display = 'block';
+        alert('로그아웃되었습니다.');
+    }
 
-                html += `
-                    <div class="card">
-                        <h3>${escapeHtml(review.title)}</h3>
-                        <p style="font-size: 11px; color: #888; margin: 4px 0 10px 0;">작성자: ${escapeHtml(review.author)}</p>
-                        <p style="font-size: 13px; line-height: 1.5; word-break: break-all;">${escapeHtml(review.content).replace(/\n/g, '<br>')}</p>
-                        ${mediaHtml}
+    // 리뷰 목록 불러오기 (방문객 누구나 가능)
+    async function fetchReviews() {
+        const container = document.getElementById('reviews-container');
+        const { data, error } = await supabaseClient
+            .from('reviews')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            container.innerHTML = '<p style="text-align:center; color:#ef4444;">리뷰를 불러오지 못했습니다.</p>';
+            return;
+        }
+
+        if (data.length === 0) {
+            container.innerHTML = '<p style="text-align:center; color:#94a3b8;">등록된 리뷰가 없습니다.</p>';
+            return;
+        }
+
+        container.innerHTML = '';
+        data.forEach(review => {
+            let imageHtml = review.image_url ? `<img src="${review.image_url}" class="review-img">` : '';
+            container.innerHTML += `
+                <div class="review-card">
+                    <div class="review-header">
+                        <span>작성자: ${review.author}</span>
+                        <span>${new Date(review.created_at).toLocaleDateString()}</span>
                     </div>
-                `;
-            });
+                    <div class="review-title">${review.title}</div>
+                    <div class="review-content">${review.content}</div>
+                    ${imageHtml}
+                </div>
+            `;
+        });
+    }
 
-            listDiv.innerHTML = html;
+    // 리뷰 등록 (관리자만 가능)
+    async function submitReview() {
+        if(localStorage.getItem('isAdmin') !== 'true') {
+            alert('권한이 없습니다.');
+            return;
         }
 
-        async function uploadReview() {
-            const pwd = document.getElementById('adminPassword').value;
-            if (pwd !== ADMIN_SECRET_KEY) {
-                alert('관리자 비밀번호가 틀렸습니다!');
+        const title = document.getElementById('review-title').value;
+        const author = document.getElementById('review-author').value;
+        const content = document.getElementById('review-text').value;
+        const imageFile = document.getElementById('review-image-file').files[0];
+
+        if(!title || !content) {
+            alert('제목과 내용을 입력해주세요.');
+            return;
+        }
+
+        let imageUrl = '';
+
+        // 이미지 파일이 있으면 Storage에 업로드
+        if(imageFile) {
+            const fileName = `${Date.now()}_${imageFile.name}`;
+            const { data: uploadData, error: uploadError } = await supabaseClient.storage
+                .from('review-images')
+                .upload(fileName, imageFile);
+
+            if(uploadError) {
+                alert('이미지 업로드 실패: ' + uploadError.message);
                 return;
             }
 
-            const title = document.getElementById('reviewTitle').value.trim();
-            const author = document.getElementById('reviewAuthor').value.trim();
-            const content = document.getElementById('reviewContent').value.trim();
-            const fileInput = document.getElementById('mediaFile');
-
-            if (!title || !content) {
-                alert('제목과 내용을 모두 입력해주세요.');
-                return;
-            }
-
-            let publicUrl = null;
-
-            // 갤러리에서 고른 파일이 있다면 Storage에 업로드
-            if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                const fileExt = file.name.split('.').pop();
-                const fileName = `${Date.now()}_${Math.random().toString(36).substring(2)}.${fileExt}`;
-                const filePath = `${fileName}`;
-
-                const { data: uploadData, error: uploadError } = await _supabase.storage
-                    .from('review-images')
-                    .upload(filePath, file);
-
-                if (uploadError) {
-                    alert('파일 업로드 실패: ' + uploadError.message);
-                    return;
-                }
-
-                // 업로드된 파일의 public URL 가져오기
-                const { data: publicURLData } = _supabase.storage
-                    .from('review-images')
-                    .getPublicUrl(filePath);
-
-                publicUrl = publicURLData.publicUrl;
-            }
-
-            // DB에 리뷰 데이터 저장
-            const { error: insertError } = await _supabase
-                .from('reviews')
-                .insert([{ title, author, content, image_url: publicUrl }]);
-
-            if (insertError) {
-                alert('리뷰 저장 실패: ' + insertError.message);
-                return;
-            }
-
-            alert('리뷰가 성공적으로 등록되었습니다!');
-            location.reload();
+            // 공개 URL 가져오기
+            const { data: publicUrlData } = supabaseClient.storage
+                .from('review-images')
+                .getPublicUrl(fileName);
+            
+            imageUrl = publicUrlData.publicUrl;
         }
 
-        // HTML 특수문자 이스케이프 (보안 처리)
-        function escapeHtml(text) {
-            if (!text) return '';
-            return text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+        // DB에 리뷰 저장
+        const { error: insertError } = await supabaseClient
+            .from('reviews')
+            .insert([{ title, author: author || '관리자', content, image_url: imageUrl }]);
+
+        if(insertError) {
+            alert('리뷰 등록 실패: ' + insertError.message);
+            return;
         }
-    </script>
+
+        alert('리뷰가 등록되었습니다!');
+        document.getElementById('review-title').value = '';
+        document.getElementById('review-author').value = '';
+        document.getElementById('review-text').value = '';
+        document.getElementById('review-image-file').value = '';
+        
+        fetchReviews();
+    }
+</script>
+
 </body>
 </html>
