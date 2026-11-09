@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리뷰 상세 보기</title>
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Malgun Gothic', sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        
+        /* 상단 네비게이션 */
+        .nav-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; background: #1e293b; padding: 12px 20px; border-radius: 10px; border: 1px solid #334155; }
+        
+        button { background: #38bdf8; color: #0f172a; border: none; padding: 8px 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        button:hover { background: #0ea5e9; }
+        
+        /* 상세 내용 박스 */
+        .detail-card { background: #1e293b; padding: 30px; border-radius: 12px; border: 1px solid #334155; }
+        .detail-header { border-bottom: 1px solid #334155; padding-bottom: 15px; margin-bottom: 20px; }
+        .detail-title { font-size: 22px; font-weight: bold; color: #f1f5f9; margin-bottom: 10px; }
+        .detail-meta { font-size: 14px; color: #94a3b8; display: flex; gap: 20px; }
+        
+        .detail-content { font-size: 16px; line-height: 1.8; word-break: break-all; min-height: 200px; }
+        .detail-content img, .detail-content video { max-width: 100%; height: auto; border-radius: 8px; margin: 15px 0; display: block; }
+        
+        /* 관리자 액션 버튼 */
+        .card-actions { margin-top: 30px; text-align: right; border-top: 1px solid #334155; padding-top: 15px; display: none; }
+        .card-actions button { padding: 8px 16px; font-size: 14px; margin-left: 8px; }
+        .edit-btn { background: #eab308; color: #0f172a; }
+        .delete-btn { background: #ef4444; color: #fff; }
+        .delete-btn:hover { background: #dc2626; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="nav-bar">
+        <button onclick="location.href='review.html'">← 목록으로 돌아가기</button>
+        <span id="admin-status" style="font-size: 13px; color: #94a3b8;"></span>
+    </div>
+
+    <div class="detail-card">
+        <div id="loading" style="text-align: center; color: #94a3b8; padding: 40px;">리뷰를 불러오는 중...</div>
+        
+        <div id="review-wrap" style="display: none;">
+            <div class="detail-header">
+                <div class="detail-title" id="r-title"></div>
+                <div class="detail-meta">
+                    <span id="r-author"></span>
+                    <span id="r-date"></span>
+                </div>
+            </div>
+            <div class="detail-content" id="r-content"></div>
+            
+            <div class="card-actions" id="admin-actions">
+                <button class="edit-btn" id="edit-btn">수정</button>
+                <button class="delete-btn" onclick="deleteReview()">삭제</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const SUPABASE_URL = 'https://vvbqjwbvqpppkmhnntlw.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_pcyr0OE4Tlaaa2Bh9BS_rg_7hpBwdmd';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // URL 파라미터에서 글 ID 가져오기 (예: review_detail.html?id=3)
+    const urlParams = new URLSearchParams(window.location.search);
+    const reviewId = Number(urlParams.get('id'));
+
+    window.onload = function() {
+        if (!reviewId) {
+            alert('잘못된 접근입니다.');
+            location.href = 'review.html';
+            return;
+        }
+
+        fetchReviewDetail();
+
+        if (localStorage.getItem('isAdminAuth') === 'true') {
+            document.getElementById('admin-status').innerText = '관리자 모드 활성화됨';
+            document.getElementById('admin-actions').style.display = 'block';
+        }
+    };
+
+    async function fetchReviewDetail() {
+        const { data, error } = await supabaseClient
+            .from('reviews')
+            .select('*')
+            .eq('id', reviewId)
+            .single();
+
+        document.getElementById('loading').style.display = 'none';
+
+        if (error || !data) {
+            alert('존재하지 않거나 삭제된 리뷰입니다.');
+            location.href = 'review.html';
+            return;
+        }
+
+        document.getElementById('review-wrap').style.display = 'block';
+        document.getElementById('r-title').innerText = data.title;
+        document.getElementById('r-author').innerText = `작성자: ${data.author}`;
+        document.getElementById('r-date').innerText = new Date(data.created_at).toLocaleDateString();
+        document.getElementById('r-content').innerHTML = data.content;
+
+        // 수정 버튼 연결 (나중에 만들 글쓰기/수정 페이지로 이동하도록 설정)
+        document.getElementById('edit-btn').onclick = function() {
+            location.href = `review_write.html?mode=edit&id=${reviewId}`;
+        };
+    }
+
+    async function deleteReview() {
+        if (localStorage.getItem('isAdminAuth') !== 'true') {
+            alert('권한이 없습니다.');
+            return;
+        }
+
+        if (!confirm('정말 이 리뷰를 삭제하시겠습니까?')) return;
+
+        const { error } = await supabaseClient
+            .from('reviews')
+            .delete()
+            .eq('id', reviewId);
+
+        if (error) {
+            alert('삭제 실패: ' + error.message);
+            return;
+        }
+
+        alert('리뷰가 삭제되었습니다.');
+        location.href = 'review.html';
+    }
+</script>
+
+</body>
+</html>
