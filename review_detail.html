@@ -8,7 +8,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Malgun Gothic', sans-serif; }
-        body { background-color: #0f172a; color: #f8fafc; padding: 20px; }
+        
+        /* 💡 페이지 전체에 넉넉한 하단 여백을 주어 스크롤이 맨 아래 버튼까지 확실히 내려가도록 보장 */
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; padding-bottom: 100px; overflow-y: auto; }
+        
         .container { max-width: 800px; margin: 0 auto; }
         
         .nav-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; background: #1e293b; padding: 12px 20px; border-radius: 10px; border: 1px solid #334155; }
@@ -16,32 +19,34 @@
         button { background: #38bdf8; color: #0f172a; border: none; padding: 8px 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; }
         button:hover { background: #0ea5e9; }
         
-        .detail-card { background: #1e293b; padding: 30px; border-radius: 12px; border: 1px solid #334155; }
+        /* 💡 상세 카드 내부에도 하단 여백을 주어 내용과 버튼이 겹치지 않게 함 */
+        .detail-card { background: #1e293b; padding: 30px; border-radius: 12px; border: 1px solid #334155; margin-bottom: 40px; }
+        
         .detail-header { border-bottom: 1px solid #334155; padding-bottom: 15px; margin-bottom: 20px; }
-        .detail-title { font-size: 22px; font-weight: bold; color: #f1f5f9; margin-bottom: 10px; }
+        .detail-title { font-size: 22px; font-weight: bold; color: #f1f5f9; margin-bottom: 10px; word-break: break-all; }
         .detail-meta { font-size: 14px; color: #94a3b8; display: flex; gap: 20px; }
         
         .detail-content { font-size: 16px; line-height: 1.8; word-break: break-all; min-height: 200px; }
         
-        /* 💡 이미지 크기만 줄이고, 사용자가 에디터에서 선택한 좌·중·우 정렬(클래스/스타일)을 그대로 따르도록 강제 중앙 정렬 제거 */
+        /* 이미지 크기 제한 및 정렬 유지 */
         .detail-content img { 
             max-width: 60% !important; 
             height: auto !important; 
             max-height: 400px; 
             object-fit: contain;
             border-radius: 8px; 
-            margin: 10px 0; /* 강제 중앙(auto)을 빼고 기본 정렬 유지 */
+            margin: 10px 0; 
             display: inline-block; 
         }
-        /* Quill 에디터 정렬 클래스 대응 */
         .detail-content .ql-align-center { text-align: center; }
         .detail-content .ql-align-right { text-align: right; }
         .detail-content .ql-align-justify { text-align: justify; }
 
         .detail-content video { max-width: 100%; height: auto; border-radius: 8px; margin: 15px 0; display: block; }
         
-        .card-actions { margin-top: 30px; text-align: right; border-top: 1px solid #334155; padding-top: 15px; display: none; }
-        .card-actions button { padding: 8px 16px; font-size: 14px; margin-left: 8px; }
+        /* 💡 수정/삭제 버튼 영역이 길어진 글 아래에 안전하게 안착되도록 여백 및 상단 테두리 정리 */
+        .card-actions { margin-top: 40px; text-align: right; border-top: 1px solid #334155; padding-top: 20px; display: none; }
+        .card-actions button { padding: 10px 20px; font-size: 14px; margin-left: 8px; }
         .edit-btn { background: #eab308; color: #0f172a; }
         .delete-btn { background: #ef4444; color: #fff; }
         .delete-btn:hover { background: #dc2626; }
