@@ -41,7 +41,7 @@
         .review-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; color: #94a3b8; }
         .review-title { font-size: 18px; font-weight: bold; margin-bottom: 8px; color: #f1f5f9; }
         
-        /* 본문 내 이미지 크기 조절 및 깔끔한 출력 */
+        /* 본문 내 이미지 출력 스타일 */
         .review-content { font-size: 15px; line-height: 1.6; margin-bottom: 12px; word-break: break-all; }
         .review-content img, .review-content video { max-width: 100%; height: auto; border-radius: 8px; margin: 10px 0; display: block; }
         
@@ -88,7 +88,7 @@
         <input type="text" id="review-author" placeholder="작성자" value="관리자">
         
         <div class="helper-text">
-            💡 <strong>에디터 사용법:</strong> 툴바의 그림 아이콘을 눌러 사진을 첨부하거나, 이미지를 마우스로 드래그해서 원하는 텍스트 사이에 쏙 집어넣을 수 있습니다!
+            💡 <strong>사진 여러 장 첨부 방법:</strong> 에디터 툴바의 그림 아이콘을 누르면 <strong>사진을 여러 장 동시에 선택</strong>할 수 있습니다. 선택한 사진들이 현재 커서 위치에 순서대로 쏙 들어갑니다!
         </div>
         
         <!-- Quill 에디터가 생성될 영역 -->
@@ -110,7 +110,6 @@
     let currentMode = 'create';
 
     window.onload = function() {
-        // Quill 에디터 초기화 (이미지 업로드 버튼 커스텀 포함)
         quill = new Quill('#editor-container', {
             theme: 'snow',
             modules: {
@@ -125,9 +124,9 @@
             }
         });
 
-        // 에디터 내 이미지 버튼 클릭 시 Supabase Storage에 업로드되도록 핸들러 가로채기
+        // 이미지 버튼 클릭 시 '다중 선택'이 가능하도록 커스텀 핸들러 연결
         const toolbar = quill.getModule('toolbar');
-        toolbar.addHandler('image', selectLocalImage);
+        toolbar.addHandler('image', selectMultipleImages);
 
         fetchReviews();
         if(localStorage.getItem('isAdminAuth') === 'true') {
@@ -135,37 +134,46 @@
         }
     };
 
-    // 로컬 이미지를 선택하여 Supabase에 업로드 후 에디터에 삽입하는 함수
-    function selectLocalImage() {
+    // 사진 여러 장을 한 번에 선택해서 순서대로 업로드하는 함수
+    function selectMultipleImages() {
         const input = document.createElement('input');
         input.setAttribute('type', 'file');
         input.setAttribute('accept', 'image/*');
+        input.setAttribute('multiple', 'true'); // 핵심: 여러 장 선택 허용
         input.click();
 
         input.onchange = async () => {
-            const file = input.files[0];
-            if (!file) return;
+            const files = input.files;
+            if (!files || files.length === 0) return;
 
-            const fileName = `${Date.now()}_${file.name}`;
-            const { data, error } = await supabaseClient.storage
-                .from('review-images')
-                .upload(fileName, file);
+            // 현재 커서 위치 파악
+            let range = quill.getSelection(true);
+            let cursorIndex = range ? range.index : quill.getLength();
 
-            if (error) {
-                alert('이미지 업로드 실패: ' + error.message);
-                return;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const fileName = `${Date.now()}_${i}_${file.name}`;
+                
+                const { data, error } = await supabaseClient.storage
+                    .from('review-images')
+                    .upload(fileName, file);
+
+                if (error) {
+                    alert(`이미지(${file.name}) 업로드 실패: ` + error.message);
+                    continue;
+                }
+
+                const { data: publicUrlData } = supabaseClient.storage
+                    .from('review-images')
+                    .getPublicUrl(fileName);
+
+                const imageUrl = publicUrlData.publicUrl;
+
+                // 순서대로 에디터에 이미지 삽입
+                quill.insertEmbed(cursorIndex, 'image', imageUrl);
+                cursorIndex += 1; // 커서 위치 한 칸씩 뒤로 밀어주기
             }
-
-            const { data: publicUrlData } = supabaseClient.storage
-                .from('review-images')
-                .getPublicUrl(fileName);
-
-            const imageUrl = publicUrlData.publicUrl;
-
-            // 현재 커서 위치에 이미지 삽입
-            const range = quill.getSelection(true);
-            quill.insertEmbed(range.index, 'image', imageUrl);
-            quill.setSelection(range.index + 1);
+            quill.setSelection(cursorIndex);
         };
     }
 
@@ -226,7 +234,7 @@
             document.getElementById('edit-review-id').value = reviewData.id;
             document.getElementById('review-title').value = reviewData.title;
             document.getElementById('review-author').value = reviewData.author;
-            quill.root.innerHTML = reviewData.content || ''; // 저장된 HTML 본문 그대로 로드
+            quill.root.innerHTML = reviewData.content || '';
         }
     }
 
@@ -283,9 +291,9 @@
         const reviewId = document.getElementById('edit-review-id').value;
         const title = document.getElementById('review-title').value;
         const author = document.getElementById('review-author').value;
-        const content = quill.root.innerHTML; // 에디터 내부의 HTML 코드를 통째로 가져옴 (이미지 위치 포함)
+        const content = quill.root.innerHTML;
 
-        if(!title || quill.getText().trim.length === 0) {
+        if(!title || quill.getText().trim().length === 0) {
             alert('제목과 내용을 입력해주세요.');
             return;
         }
