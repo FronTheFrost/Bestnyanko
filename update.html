@@ -148,63 +148,63 @@
     <div class="patch-notes-box">
         <div class="patch-header">최근 변경 사항</div>
         <div class="patch-content">
-            <!-- 울트라 소울즈 신규 캐릭터 추가 내역 -->
+            <!-- 인기 축제 신규 캐릭터 에타니스 추가 내역 -->
             <div class="patch-row">
                 <div class="patch-char-info">
                     <div class="p-card">
-                        <img src="souls/IMG_1773.png" alt="메가 샤크 VS 흰 토끼" onclick="goToSoulsTier()">
-                        <div class="p-name">메가 샤크 VS 흰 토끼</div>
+                        <img src="festival/IMG_1966.png" alt="真理の探究者エターニス" onclick="goToFestivalTier()">
+                        <div class="p-name">真理の探究者エターニス</div>
                     </div>
-                    <span class="patch-desc">울트라 소울즈 신규 캐릭터 추가</span>
+                    <span class="patch-desc">인기 축제 신규 캐릭터 추가</span>
                 </div>
                 <div class="patch-badge t-s">S</div>
             </div>
 
-            <!-- 천마성용 바벨 티어 변경 내역 -->
+            <!-- 걸즈 몬스터즈 버베나 티어 변경 내역 -->
             <div class="patch-row">
                 <div class="patch-char-info">
                     <div class="p-card">
-                        <img src="IMG_1540.png" alt="천마성용 바벨" onclick="goToDragonTier()">
-                        <div class="p-name">천마성용 바벨</div>
+                        <img src="IMG_1566.png" alt="행복한 신부 버베나" onclick="goToMonstersTier()">
+                        <div class="p-name">행복한 신부 버베나</div>
                     </div>
-                    <span class="patch-desc">천마성용 바벨 티어 변경</span>
+                    <span class="patch-desc">행복한 신부 버베나 티어 변경</span>
+                </div>
+                <div class="patch-badge change">
+                    <span class="tier-tag t-b">B</span>
+                    <span>➔</span>
+                    <span class="tier-tag t-sss">SSS</span>
+                </div>
+            </div>
+
+            <!-- 갤럭시 걸즈 칼리파 티어 변경 내역 -->
+            <div class="patch-row">
+                <div class="patch-char-info">
+                    <div class="p-card">
+                        <img src="IMG_1967.png" alt="アルティメットＸＸカリファ" onclick="goToGalaxyTier()">
+                        <div class="p-name">アルティメットＸＸカリファ</div>
+                    </div>
+                    <span class="patch-desc">アルティメットＸＸカリファ 티어 변경</span>
                 </div>
                 <div class="patch-badge change">
                     <span class="tier-tag t-s">S</span>
                     <span>➔</span>
-                    <span class="tier-tag t-a">A</span>
+                    <span class="tier-tag t-ss">SS</span>
                 </div>
             </div>
 
-            <!-- 성룡황제 메기도라 티어 변경 내역 -->
+            <!-- 갤럭시 걸즈 카이 티어 변경 내역 -->
             <div class="patch-row">
                 <div class="patch-char-info">
                     <div class="p-card">
-                        <img src="dragon/IMG_1638.png" alt="성룡황제 메기도라" onclick="goToDragonTier()">
-                        <div class="p-name">성룡황제 메기도라</div>
+                        <img src="IMG_1514.png" alt="슈퍼 카이μ" onclick="goToGalaxyTier()">
+                        <div class="p-name">슈퍼 카이μ</div>
                     </div>
-                    <span class="patch-desc">성룡황제 메기도라 티어 변경</span>
+                    <span class="patch-desc">슈퍼 카이μ 티어 변경</span>
                 </div>
                 <div class="patch-badge change">
-                    <span class="tier-tag t-b">B</span>
+                    <span class="tier-tag t-ss">SS</span>
                     <span>➔</span>
-                    <span class="tier-tag t-c">C</span>
-                </div>
-            </div>
-
-            <!-- 각룡황제 그라디오스 티어 변경 내역 -->
-            <div class="patch-row">
-                <div class="patch-char-info">
-                    <div class="p-card">
-                        <img src="dragon/IMG_1645.png" alt="각룡황제 그라디오스" onclick="goToDragonTier()">
-                        <div class="p-name">각룡황제 그라디오스</div>
-                    </div>
-                    <span class="patch-desc">각룡황제 그라디오스 티어 변경</span>
-                </div>
-                <div class="patch-badge change">
-                    <span class="tier-tag t-b">B</span>
-                    <span>➔</span>
-                    <span class="tier-tag t-c">C</span>
+                    <span class="tier-tag t-s">S</span>
                 </div>
             </div>
         </div>
@@ -216,22 +216,32 @@
             window.parent.postMessage({ type: 'resizeHeight', id: 'updateFrame', height: currentHeight }, '*');
         }
 
-        function goToSoulsTier() {
+        function goToFestivalTier() {
             if (window.parent && typeof window.parent.selectAndNavigateSeries === 'function') {
                 window.parent.selectAndNavigateSeries({
-                    id: "soulsFrame",
-                    title: "초고대 전설의 용사 울트라 소울즈",
-                    alias: ["울소", "울트라소울즈"]
+                    id: "festivalFrame",
+                    title: "인기 축제",
+                    alias: ["축제", "인기축제"]
                 });
             }
         }
 
-        function goToDragonTier() {
+        function goToMonstersTier() {
             if (window.parent && typeof window.parent.selectAndNavigateSeries === 'function') {
                 window.parent.selectAndNavigateSeries({
-                    id: "dragonFrame",
-                    title: "초파괴 대제 드래곤 엠퍼러스",
-                    alias: ["드엠", "드래곤엠퍼러스"]
+                    id: "monstersFrame",
+                    title: "절명 미소녀 걸즈 몬스터즈",
+                    alias: ["걸즈몬스터즈", "몬스터즈"]
+                });
+            }
+        }
+
+        function goToGalaxyTier() {
+            if (window.parent && typeof window.parent.selectAndNavigateSeries === 'function') {
+                window.parent.selectAndNavigateSeries({
+                    id: "galaxyFrame",
+                    title: "사이버 학원 갤럭시 걸즈",
+                    alias: ["갤럭시걸즈", "갤럭시"]
                 });
             }
         }
