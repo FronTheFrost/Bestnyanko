@@ -271,13 +271,14 @@
 
         container.innerHTML = '';
         data.forEach(review => {
-            // 따옴표나 특수문자 깨짐 방지를 위해 인자를 각각 안전하게 넘기도록 수정
             const safeTitle = (review.title || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
             const safeAuthor = (review.author || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
             const safeContent = (review.content || '').replace(/'/g, "\\'").replace(/\n/g, ' ');
 
+            const reviewId = Number(review.id);
+
             container.innerHTML += `
-                <div class="review-card" id="card-${review.id}">
+                <div class="review-card" id="card-${reviewId}">
                     <div class="review-header">
                         <span>작성자: ${review.author}</span>
                         <span>${new Date(review.created_at).toLocaleDateString()}</span>
@@ -285,8 +286,8 @@
                     <div class="review-title">${review.title}</div>
                     <div class="review-content">${review.content}</div>
                     <div class="card-actions" style="display: ${isAdmin ? 'block' : 'none'};">
-                        <button class="edit-btn" onclick='openWriteModal("edit", "${review.id}", "${safeTitle}", "${safeAuthor}", "${safeContent}")'>수정</button>
-                        <button class="delete-btn" onclick="deleteReview('${review.id}')">삭제</button>
+                        <button class="edit-btn" onclick='openWriteModal("edit", "${reviewId}", "${safeTitle}", "${safeAuthor}", "${safeContent}")'>수정</button>
+                        <button class="delete-btn" onclick="deleteReview(${reviewId})">삭제</button>
                     </div>
                 </div>
             `;
@@ -323,7 +324,6 @@
             }
             alert('리뷰가 등록되었습니다!');
         } else {
-            // id를 숫자형으로 변환하여 안전하게 수정 요청
             const { error: updateError } = await supabaseClient
                 .from('reviews')
                 .update({ title, author: author || '관리자', content })
@@ -348,7 +348,6 @@
 
         if(!confirm('정말 이 리뷰를 삭제하시겠습니까?')) return;
 
-        // id를 숫자형(Number)으로 확실히 변환해서 삭제 요청
         const { error } = await supabaseClient
             .from('reviews')
             .delete()
