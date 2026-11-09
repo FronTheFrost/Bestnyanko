@@ -55,6 +55,7 @@
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     window.onload = function() {
+        window.scrollTo(0, 0); // 목록 진입 시 맨 위로 스크롤 고정
         fetchReviews();
         if(localStorage.getItem('isAdminAuth') === 'true') {
             enableAdminUI();
