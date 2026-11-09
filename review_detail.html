@@ -23,7 +23,7 @@
         
         .detail-content { font-size: 16px; line-height: 1.8; word-break: break-all; min-height: 200px; }
         
-        /* 💡 이미지 크기 강제 축소 및 스크롤 방해 방지 */
+        /* 이미지 크기 제한 및 스크롤 방해 방지 */
         .detail-content img { 
             max-width: 70% !important; 
             height: auto !important; 
@@ -81,6 +81,8 @@
     const reviewId = rawId ? Number(rawId) : 0;
 
     window.onload = function() {
+        window.scrollTo(0, 0); // 상세 페이지 진입 시 맨 위로 스크롤 고정
+
         if (!reviewId || isNaN(reviewId)) {
             alert('잘못된 접근이거나 존재하지 않는 글 번호입니다.');
             location.href = 'review.html';
