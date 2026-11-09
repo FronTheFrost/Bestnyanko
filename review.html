@@ -54,8 +54,15 @@
     const SUPABASE_ANON_KEY = 'sb_publishable_pcyr0OE4Tlaaa2Bh9BS_rg_7hpBwdmd';
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    // 브라우저의 스크롤 기억 기능 차단 후 강제 맨 위 이동
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
     window.onload = function() {
-        window.scrollTo(0, 0); // 목록 진입 시 맨 위로 스크롤 고정
+        window.scrollTo(0, 0);
+        setTimeout(() => window.scrollTo(0, 0), 50); // 렌더링 직후 한 번 더 강제 초기화
+        
         fetchReviews();
         if(localStorage.getItem('isAdminAuth') === 'true') {
             enableAdminUI();
