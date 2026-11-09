@@ -19,9 +19,11 @@
         button { background: #38bdf8; color: #0f172a; border: none; padding: 12px 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; width: 100%; font-size: 15px; }
         button:hover { background: #0ea5e9; }
         
-        /* Quill 에디터 스타일 커스텀 */
+        /* Quill 에디터 스타일 및 모바일 터치 개선 */
         .ql-toolbar.ql-snow { background: #1e293b; border-color: #475569 !important; border-top-left-radius: 6px; border-top-right-radius: 6px; }
-        .ql-container.ql-snow { background: #0f172a; border-color: #475569 !important; color: #fff; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; min-height: 300px; font-size: 15px; }
+        .ql-container.ql-snow { background: #0f172a; border-color: #475569 !important; color: #fff; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; font-size: 15px; }
+        .ql-editor { min-height: 300px; color: #fff; }
+        
         .ql-snow .ql-stroke { stroke: #cbd5e1; }
         .ql-snow .ql-fill { fill: #cbd5e1; }
         .ql-snow .ql-picker { color: #cbd5e1; }
@@ -59,13 +61,11 @@
     let quill;
     let savedRange = null;
 
-    // URL 파라미터 확인 (수정 모드인지 체크)
     const urlParams = new URLSearchParams(window.location.search);
-    const mode = urlParams.get('mode'); // 'edit' 이면 수정 모드
+    const mode = urlParams.get('mode');
     const reviewId = Number(urlParams.get('id'));
 
     window.onload = async function() {
-        // 관리자 권한 체크
         if (localStorage.getItem('isAdminAuth') !== 'true') {
             alert('관리자 전용 페이지입니다.');
             location.href = 'review.html';
@@ -95,7 +95,6 @@
         const toolbar = quill.getModule('toolbar');
         toolbar.addHandler('image', selectMultipleImages);
 
-        // 수정 모드일 경우 기존 데이터 불러오기
         if (mode === 'edit' && reviewId) {
             document.getElementById('page-heading').innerText = '리뷰 수정하기';
             document.getElementById('submit-btn').innerText = '수정 완료하기';
@@ -103,7 +102,6 @@
         }
     };
 
-    // 다중 이미지 업로드 및 커서 위치 유지 함수
     function selectMultipleImages() {
         let range = quill.getSelection();
         if (range) {
@@ -150,7 +148,6 @@
         };
     }
 
-    // 수정 시 기존 글 내용 불러오기
     async function loadExistingData(id) {
         const { data, error } = await supabaseClient
             .from('reviews')
@@ -169,7 +166,6 @@
         quill.root.innerHTML = data.content;
     }
 
-    // 등록 또는 수정 처리
     async function submitReview() {
         const title = document.getElementById('review-title').value.trim();
         const author = document.getElementById('review-author').value;
@@ -184,7 +180,6 @@
         }
 
         if (mode === 'edit' && reviewId) {
-            // 수정 저장
             const { error } = await supabaseClient
                 .from('reviews')
                 .update({ title, author: author || '관리자', content })
@@ -197,7 +192,6 @@
             alert('리뷰가 성공적으로 수정되었습니다!');
             location.href = `review_detail.html?id=${reviewId}`;
         } else {
-            // 새글 등록
             const { error } = await supabaseClient
                 .from('reviews')
                 .insert([{ title, author: author || '관리자', content }]);
