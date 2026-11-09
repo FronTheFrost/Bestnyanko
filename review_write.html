@@ -19,10 +19,17 @@
         button { background: #38bdf8; color: #0f172a; border: none; padding: 12px 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; width: 100%; font-size: 15px; }
         button:hover { background: #0ea5e9; }
         
-        /* Quill 에디터 스타일 및 모바일 터치 개선 */
         .ql-toolbar.ql-snow { background: #1e293b; border-color: #475569 !important; border-top-left-radius: 6px; border-top-right-radius: 6px; }
         .ql-container.ql-snow { background: #0f172a; border-color: #475569 !important; color: #fff; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; font-size: 15px; }
         .ql-editor { min-height: 300px; color: #fff; }
+
+        /* 💡 에디터 작성 중에도 이미지가 거대해지지 않도록 제한 */
+        .ql-editor img {
+            max-width: 60% !important;
+            height: auto !important;
+            display: block;
+            margin: 10px auto;
+        }
         
         .ql-snow .ql-stroke { stroke: #cbd5e1; }
         .ql-snow .ql-fill { fill: #cbd5e1; }
