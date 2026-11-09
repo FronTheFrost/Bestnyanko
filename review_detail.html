@@ -23,16 +23,21 @@
         
         .detail-content { font-size: 16px; line-height: 1.8; word-break: break-all; min-height: 200px; }
         
-        /* 이미지 크기 제한 및 스크롤 방해 방지 */
+        /* 💡 이미지 크기만 줄이고, 사용자가 에디터에서 선택한 좌·중·우 정렬(클래스/스타일)을 그대로 따르도록 강제 중앙 정렬 제거 */
         .detail-content img { 
-            max-width: 70% !important; 
+            max-width: 60% !important; 
             height: auto !important; 
             max-height: 400px; 
             object-fit: contain;
             border-radius: 8px; 
-            margin: 15px auto; 
-            display: block; 
+            margin: 10px 0; /* 강제 중앙(auto)을 빼고 기본 정렬 유지 */
+            display: inline-block; 
         }
+        /* Quill 에디터 정렬 클래스 대응 */
+        .detail-content .ql-align-center { text-align: center; }
+        .detail-content .ql-align-right { text-align: right; }
+        .detail-content .ql-align-justify { text-align: justify; }
+
         .detail-content video { max-width: 100%; height: auto; border-radius: 8px; margin: 15px 0; display: block; }
         
         .card-actions { margin-top: 30px; text-align: right; border-top: 1px solid #334155; padding-top: 15px; display: none; }
@@ -80,8 +85,13 @@
     const rawId = urlParams.get('id');
     const reviewId = rawId ? Number(rawId) : 0;
 
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+
     window.onload = function() {
-        window.scrollTo(0, 0); // 상세 페이지 진입 시 맨 위로 스크롤 고정
+        window.scrollTo(0, 0);
+        setTimeout(() => window.scrollTo(0, 0), 50);
 
         if (!reviewId || isNaN(reviewId)) {
             alert('잘못된 접근이거나 존재하지 않는 글 번호입니다.');
