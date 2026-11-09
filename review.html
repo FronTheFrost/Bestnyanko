@@ -29,7 +29,7 @@
         .close-modal { position: absolute; top: 15px; right: 20px; background: transparent; color: #94a3b8; font-size: 20px; cursor: pointer; }
         .close-modal:hover { color: #fff; }
 
-        /* Quill 에디터 스타일 커스텀 (다크모드 맞춤) */
+        /* Quill 에디터 스타일 커스텀 */
         .ql-toolbar.ql-snow { background: #1e293b; border-color: #475569 !important; border-top-left-radius: 6px; border-top-right-radius: 6px; }
         .ql-container.ql-snow { background: #0f172a; border-color: #475569 !important; color: #fff; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; min-height: 250px; font-size: 15px; }
         .ql-snow .ql-stroke { stroke: #cbd5e1; }
@@ -41,11 +41,9 @@
         .review-header { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 14px; color: #94a3b8; }
         .review-title { font-size: 18px; font-weight: bold; margin-bottom: 8px; color: #f1f5f9; }
         
-        /* 본문 내 이미지 출력 스타일 */
         .review-content { font-size: 15px; line-height: 1.6; margin-bottom: 12px; word-break: break-all; }
         .review-content img, .review-content video { max-width: 100%; height: auto; border-radius: 8px; margin: 10px 0; display: block; }
         
-        /* 관리자 전용 카드 제어 버튼 */
         .card-actions { margin-top: 15px; text-align: right; border-top: 1px solid #334155; padding-top: 10px; display: none; }
         .card-actions button { padding: 5px 12px; font-size: 12px; margin-left: 5px; }
         .edit-btn { background: #eab308; color: #0f172a; }
@@ -91,7 +89,6 @@
             💡 <strong>사진 첨부 요령:</strong> 본문 중간에 <strong>마우스나 터치로 커서를 두고</strong> 그림 아이콘을 누르면, 그 위치에 사진이 쏙 들어갑니다!
         </div>
         
-        <!-- Quill 에디터가 생성될 영역 -->
         <div id="editor-container" style="margin-bottom: 15px;"></div>
         
         <button onclick="submitReview()" style="width: 100%; padding: 12px;" id="submit-btn">리뷰 등록하기</button>
@@ -108,7 +105,7 @@
 
     let quill;
     let currentMode = 'create';
-    let savedRange = null; // 커서 위치를 안전하게 저장할 변수
+    let savedRange = null;
 
     window.onload = function() {
         quill = new Quill('#editor-container', {
@@ -125,7 +122,6 @@
             }
         });
 
-        // 에디터에서 커서가 바뀔 때마다 위치 기억하기
         quill.on('selection-change', function(range) {
             if (range) {
                 savedRange = range;
@@ -142,7 +138,6 @@
     };
 
     function selectMultipleImages() {
-        // 이미지를 고르기 직전의 커서 위치를 확실하게 백업
         let range = quill.getSelection();
         if (range) {
             savedRange = range;
@@ -158,7 +153,6 @@
             const files = input.files;
             if (!files || files.length === 0) return;
 
-            // 삽입할 기준 위치 선정 (저장된 커서 위치가 없으면 맨 뒤)
             let cursorIndex = savedRange ? savedRange.index : quill.getLength();
 
             for (let i = 0; i < files.length; i++) {
@@ -180,12 +174,10 @@
 
                 const imageUrl = publicUrlData.publicUrl;
 
-                // 정확히 지정된 커서 위치에 이미지 삽입
                 quill.insertEmbed(cursorIndex, 'image', imageUrl);
-                cursorIndex += 1; // 다음 이미지를 위해 커서 한 칸 뒤로 이동
+                cursorIndex += 1;
             }
             
-            // 삽입이 모두 끝난 후 에디터 포커스와 커서 위치 재설정
             quill.setSelection(cursorIndex);
             savedRange = { index: cursorIndex, length: 0 };
         };
@@ -231,7 +223,7 @@
         alert('로그아웃되었습니다.');
     }
 
-    function openWriteModal(mode, reviewData = null) {
+    function openWriteModal(mode, reviewId = '', reviewTitle = '', reviewAuthor = '관리자', reviewContent = '') {
         currentMode = mode;
         const modal = document.getElementById('write-modal');
         modal.style.display = 'flex';
@@ -243,13 +235,13 @@
             document.getElementById('review-title').value = '';
             quill.root.innerHTML = '';
             savedRange = null;
-        } else if(mode === 'edit' && reviewData) {
+        } else if(mode === 'edit') {
             document.getElementById('modal-heading').innerText = '리뷰 수정하기';
             document.getElementById('submit-btn').innerText = '수정 완료하기';
-            document.getElementById('edit-review-id').value = reviewData.id;
-            document.getElementById('review-title').value = reviewData.title;
-            document.getElementById('review-author').value = reviewData.author;
-            quill.root.innerHTML = reviewData.content || '';
+            document.getElementById('edit-review-id').value = reviewId;
+            document.getElementById('review-title').value = reviewTitle;
+            document.getElementById('review-author').value = reviewAuthor;
+            quill.root.innerHTML = reviewContent;
             savedRange = null;
         }
     }
@@ -279,7 +271,10 @@
 
         container.innerHTML = '';
         data.forEach(review => {
-            const escapedReview = JSON.stringify(review).replace(/"/g, '&quot;');
+            // 따옴표나 특수문자 깨짐 방지를 위해 인자를 각각 안전하게 넘기도록 수정
+            const safeTitle = (review.title || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            const safeAuthor = (review.author || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+            const safeContent = (review.content || '').replace(/'/g, "\\'").replace(/\n/g, ' ');
 
             container.innerHTML += `
                 <div class="review-card" id="card-${review.id}">
@@ -290,7 +285,7 @@
                     <div class="review-title">${review.title}</div>
                     <div class="review-content">${review.content}</div>
                     <div class="card-actions" style="display: ${isAdmin ? 'block' : 'none'};">
-                        <button class="edit-btn" onclick='openWriteModal("edit", ${escapedReview})'>수정</button>
+                        <button class="edit-btn" onclick='openWriteModal("edit", "${review.id}", "${safeTitle}", "${safeAuthor}", "${safeContent}")'>수정</button>
                         <button class="delete-btn" onclick="deleteReview('${review.id}')">삭제</button>
                     </div>
                 </div>
@@ -328,10 +323,11 @@
             }
             alert('리뷰가 등록되었습니다!');
         } else {
+            // id를 숫자형으로 변환하여 안전하게 수정 요청
             const { error: updateError } = await supabaseClient
                 .from('reviews')
                 .update({ title, author: author || '관리자', content })
-                .eq('id', reviewId);
+                .eq('id', Number(reviewId));
 
             if(updateError) {
                 alert('리뷰 수정 실패: ' + updateError.message);
@@ -352,10 +348,11 @@
 
         if(!confirm('정말 이 리뷰를 삭제하시겠습니까?')) return;
 
+        // id를 숫자형(Number)으로 확실히 변환해서 삭제 요청
         const { error } = await supabaseClient
             .from('reviews')
             .delete()
-            .eq('id', id);
+            .eq('id', Number(id));
 
         if(error) {
             alert('삭제 실패: ' + error.message);
