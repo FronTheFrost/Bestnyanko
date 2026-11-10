@@ -37,48 +37,86 @@
             font-size: 22px;
             font-weight: 800;
             letter-spacing: -0.5px;
-            cursor: pointer;
-            transition: transform 0.1s ease;
             display: inline-block;
             width: 100%;
         }
 
-        h1:active { transform: scale(0.95); }
-
+        /* 냥코DB 스타일 상단 네비게이션 바 */
         .main-tab-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
-            max-width: 500px;
-            margin: 0 auto 20px auto;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            max-width: 650px;
+            margin: 0 auto 24px auto;
+            background-color: #1a1a1a;
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            padding: 10px 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            overflow-x: auto;
         }
 
         .main-tab-btn {
-            background-color: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 10px 4px;
+            background: transparent;
+            border: none;
+            padding: 6px 10px;
             cursor: pointer;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
             font-size: 12px;
             font-weight: bold;
-            color: #aaa;
+            color: #888;
             transition: all 0.15s ease;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             -webkit-tap-highlight-color: transparent;
+            white-space: nowrap;
+        }
+
+        .main-tab-btn img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+            opacity: 0.5;
+            transition: opacity 0.15s ease, transform 0.15s ease;
+        }
+
+        .main-tab-btn span {
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        .main-tab-btn span::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.2s ease;
         }
 
         .main-tab-btn:hover {
-            border-color: #666;
-            color: #fff;
-            background-color: #252525;
+            color: #ccc;
+        }
+
+        .main-tab-btn:hover img {
+            opacity: 0.8;
         }
 
         .main-tab-btn.active {
-            border-color: var(--accent-color);
-            background-color: #2a2a24;
             color: var(--accent-color);
-            box-shadow: 0 0 10px rgba(255, 204, 0, 0.25);
+        }
+
+        .main-tab-btn.active img {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .main-tab-btn.active span::after {
+            width: 100%;
         }
 
         .main-section { display: none; }
@@ -100,7 +138,7 @@
             transition: height 0.25s ease;
         }
 
-        /* --- 6번 탭 상단 검색창 (Sticky) --- */
+        /* --- 검색창 (Sticky) --- */
         .tier-search-container {
             position: sticky;
             top: 10px;
@@ -196,166 +234,38 @@
             text-overflow: ellipsis;
             max-width: 180px;
         }
-
-        .ee-modal-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .ee-modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .ee-modal-content {
-            background: #1e1e1e;
-            color: #ffffff;
-            border: 2px solid #ffcc00;
-            border-radius: 14px;
-            padding: 24px;
-            max-width: 360px;
-            width: 85%;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(255, 204, 0, 0.25);
-            transform: scale(0.85);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .ee-modal-overlay.active .ee-modal-content { transform: scale(1); }
-
-        .ee-modal-title {
-            font-size: 1.05rem;
-            font-weight: 800;
-            color: #ffcc00;
-            margin-bottom: 12px;
-        }
-
-        .ee-modal-body {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #ddd;
-            margin-bottom: 20px;
-            word-break: keep-all;
-        }
-
-        .ee-modal-btn {
-            background: #ffcc00;
-            color: #121212;
-            border: none;
-            padding: 8px 24px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .giant-egg-overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.95);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .giant-egg-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .giant-egg-box {
-            text-align: center;
-            transform: scale(0.4);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 90%;
-            max-width: 480px;
-            padding: 10px;
-        }
-
-        .giant-egg-overlay.active .giant-egg-box { transform: scale(1); }
-
-        .giant-egg-img {
-            width: 100%;
-            max-width: 380px;
-            aspect-ratio: 4 / 3;
-            object-fit: cover;
-            border-radius: 20px;
-            border: 6px solid #ffcc00;
-            box-shadow: 0 0 70px rgba(255, 204, 0, 0.7);
-            margin-bottom: 25px;
-        }
-
-        .giant-egg-text {
-            font-size: 26px;
-            font-weight: 900;
-            color: #ffcc00;
-            margin-bottom: 30px;
-            text-shadow: 0 2px 15px rgba(0,0,0,0.9);
-        }
-
-        .giant-egg-close-btn {
-            background: #ffcc00;
-            color: #121212;
-            border: none;
-            padding: 14px 44px;
-            border-radius: 14px;
-            font-weight: 900;
-            font-size: 1.1rem;
-            cursor: pointer;
-            box-shadow: 0 6px 20px rgba(255, 204, 0, 0.5);
-        }
     </style>
 </head>
 <body>
 
-    <h1 id="mainTitle" onclick="handleTitleClick()">냥코대전쟁 캐릭터 가이드</h1>
+    <h1>냥코대전쟁 캐릭터 가이드</h1>
 
+    <!-- 상단 네비게이션 바 (5개 카테고리 순서) -->
     <div class="main-tab-container">
-        <button class="main-tab-btn active" onclick="switchMainTab('attribute-section', this)">속성별 가이드</button>
-        <button class="main-tab-btn" onclick="switchMainTab('rush-section', this)">속공 및 범용</button>
-        <button class="main-tab-btn" onclick="switchMainTab('growth-section', this)">추천 4진/초본</button>
-        <button class="main-tab-btn" onclick="switchMainTab('deck-section', this)">범용 편성 모음</button>
-        <button class="main-tab-btn" onclick="switchMainTab('combo-section', this)">냥콤보 best 9</button>
-        <button class="main-tab-btn" id="tierTabBtn" onclick="switchMainTab('tier-section', this)">시리즈별 티어표</button>
-        <button class="main-tab-btn" onclick="switchMainTab('review-section', this)">유저 리뷰</button>
+        <button class="main-tab-btn active" onclick="switchMainTab('tier-section', this)">
+            <img src="사진" alt="티어리스트">
+            <span>티어리스트</span>
+        </button>
+        <button class="main-tab-btn" onclick="switchMainTab('growth-section', this)">
+            <img src="사진" alt="육성가이드">
+            <span>육성가이드</span>
+        </button>
+        <button class="main-tab-btn" onclick="switchMainTab('deck-section', this)">
+            <img src="사진" alt="범용덱">
+            <span>범용덱</span>
+        </button>
+        <button class="main-tab-btn" onclick="switchMainTab('other-section', this)">
+            <img src="사진" alt="기타순위표">
+            <span>기타순위표</span>
+        </button>
+        <button class="main-tab-btn" onclick="switchMainTab('review-section', this)">
+            <img src="사진" alt="리뷰">
+            <span>리뷰</span>
+        </button>
     </div>
 
-    <div id="attribute-section" class="main-section">
-        <iframe src="attribute.html" id="attrFrame" class="tab-frame" style="height: 600px;" scrolling="no"></iframe>
-    </div>
-
-    <div id="rush-section" class="main-section">
-        <iframe src="rush.html" id="rushFrame" class="tab-frame" style="height: 1200px;" scrolling="no"></iframe>
-    </div>
-
-    <div id="growth-section" class="main-section">
-        <iframe src="growth.html" id="growthFrame" class="tab-frame" style="height: 500px;" scrolling="no"></iframe>
-    </div>
-
-    <div id="deck-section" class="main-section">
-        <iframe src="deck.html" id="deckFrame" class="tab-frame" style="height: 850px;" scrolling="no"></iframe>
-    </div>
-
-    <div id="combo-section" class="main-section">
-        <iframe src="combo.html" id="comboFrame" class="tab-frame" style="height: 1300px;" scrolling="no"></iframe>
-    </div>
-
-    <!-- [섹션 6] 시리즈별 티어표 탭 -->
-    <div id="tier-section" class="main-section">
+    <!-- [섹션 1] 티어리스트 -->
+    <div id="tier-section" class="main-section active">
         <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; display: flex; flex-direction: column; padding-bottom: 80vh;">
             
             <iframe src="update.html" id="updateFrame" class="tab-frame" style="height: 140px; margin-bottom: 10px;" scrolling="no"></iframe>
@@ -379,7 +289,6 @@
                 <iframe src="iron/iron.html" id="ironFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
                 <iframe src="pixies/pixies.html" id="pixiesFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
 
-                <!-- 각 콜라보 폴더 경로 매핑 -->
                 <iframe src="sweet/sweet.html" id="sweetFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
                 <iframe src="merc/merc.html" id="mercFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
                 <iframe src="mambo/mambo.html" id="mamboFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
@@ -413,33 +322,37 @@
         </div>
     </div>
 
-    <!-- [유저 리뷰 탭 섹션] -->
+    <!-- [섹션 2] 육성가이드 -->
+    <div id="growth-section" class="main-section">
+        <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; display: flex; flex-direction: column; gap: 15px;">
+            <iframe src="growth.html" id="growthFrame" class="tab-frame" style="height: 500px;" scrolling="no"></iframe>
+            <iframe src="combo.html" id="comboFrame" class="tab-frame" style="height: 1300px;" scrolling="no"></iframe>
+        </div>
+    </div>
+
+    <!-- [섹션 3] 범용덱 -->
+    <div id="deck-section" class="main-section">
+        <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto;">
+            <iframe src="deck.html" id="deckFrame" class="tab-frame" style="height: 850px;" scrolling="no"></iframe>
+        </div>
+    </div>
+
+    <!-- [섹션 4] 기타순위표 -->
+    <div id="other-section" class="main-section">
+        <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; display: flex; flex-direction: column; gap: 15px;">
+            <iframe src="attribute.html" id="attrFrame" class="tab-frame" style="height: 600px;" scrolling="no"></iframe>
+            <iframe src="rush.html" id="rushFrame" class="tab-frame" style="height: 1200px;" scrolling="no"></iframe>
+        </div>
+    </div>
+
+    <!-- [섹션 5] 리뷰 -->
     <div id="review-section" class="main-section">
         <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto;">
             <iframe src="review.html" id="reviewFrame" class="tab-frame" style="height: 900px;" scrolling="no"></iframe>
         </div>
     </div>
 
-    <div class="ee-modal-overlay" id="eeModalOverlay" onclick="closeEeModal(event)">
-        <div class="ee-modal-content" onclick="event.stopPropagation()">
-            <div class="ee-modal-title" id="eeModalTitle">[숨겨진 이스터에그 발견]</div>
-            <div class="ee-modal-body" id="eeModalBody">내용</div>
-            <button class="ee-modal-btn" onclick="closeEeModal()">확인</button>
-        </div>
-    </div>
-
-    <div class="giant-egg-overlay" id="giantEggOverlay" onclick="closeGiantEgg()">
-        <div class="giant-egg-box" onclick="event.stopPropagation()">
-            <img src="IMG_1593.png" class="giant-egg-img">
-            <div class="giant-egg-text">고양이 에그</div>
-            <button class="giant-egg-close-btn" onclick="closeGiantEgg()">닫기</button>
-        </div>
-    </div>
-
     <script>
-        let titleClickCount = 0;
-        window.foundEggOrder = [];
-
         const tierSeriesData = [
             { id: "dagunFrame", title: "다이너마이트 군단", alias: ["다군"], characters: [] },
             { id: "basarFrame", title: "초환수 바사라즈", alias: ["바사라", "바사라즈"], characters: [] },
@@ -602,6 +515,9 @@
             searchInput.value = '';
             autoList.style.display = 'none';
 
+            const tierBtn = document.querySelector('.main-tab-btn');
+            switchMainTab('tier-section', tierBtn);
+
             const targetIframe = document.getElementById(series.id);
             if (targetIframe) {
                 targetIframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -632,49 +548,10 @@
             }
         });
 
-        window.registerEggAndGetIndex = function(eggKey) {
-            if (!window.foundEggOrder.includes(eggKey)) {
-                window.foundEggOrder.push(eggKey);
-            }
-            return window.foundEggOrder.indexOf(eggKey) + 1;
-        };
-
-        window.openGlobalEeModal = function(eggKey, tmiText) {
-            const indexNum = window.registerEggAndGetIndex(eggKey);
-            document.getElementById('eeModalTitle').innerText = `[숨겨진 이스터에그 발견 (${indexNum}/3)]`;
-            document.getElementById('eeModalBody').innerText = tmiText;
-            document.getElementById('eeModalOverlay').classList.add('active');
-        };
-
-        function closeEeModal(event) {
-            if (event) event.stopPropagation();
-            document.getElementById('eeModalOverlay').classList.remove('active');
-        }
-
-        function handleTitleClick() {
-            const titleEl = document.getElementById('mainTitle');
-            titleClickCount++;
-
-            let currentScale = 1 + (titleClickCount * 0.07);
-            if (currentScale > 1.35) currentScale = 1.35;
-            titleEl.style.transform = `scale(${currentScale})`;
-
-            if (titleClickCount >= 5) {
-                document.getElementById('giantEggOverlay').classList.add('active');
-                titleEl.innerText = "고양이 에그";
-                titleEl.style.transform = "scale(1)";
-            }
-        }
-
-        function closeGiantEgg() {
-            document.getElementById('giantEggOverlay').classList.remove('active');
-            window.openGlobalEeModal('title', "비 오는 날은 파전이 최고입니다.");
-        }
-
         window.addEventListener('DOMContentLoaded', () => {
             const firstTabBtn = document.querySelector('.main-tab-btn');
             if (firstTabBtn) {
-                switchMainTab('attribute-section', firstTabBtn);
+                switchMainTab('tier-section', firstTabBtn);
             }
         });
     </script>
