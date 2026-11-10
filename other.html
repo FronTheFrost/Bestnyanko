@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>기타 순위표</title>
+    <title>기타 순위표 및 속성별 가이드</title>
     <style>
         :root {
             --bg-color: #121212;
@@ -12,7 +12,6 @@
             --text-color: #ffffff;
             --accent-color: #ffcc00;
             --border-color: #3d3d3d;
-            --empty-slot-bg: #181818;
         }
         * { box-sizing: border-box; }
         body {
@@ -42,9 +41,85 @@
             color: #aaa;
         }
 
+        /* 속성 선택 버튼 영역 */
+        .attribute-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto 20px auto;
+        }
+
+        .attr-btn {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+            transition: transform 0.08s ease, border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .attr-btn:hover { border-color: #666; background-color: #252525; }
+        .attr-btn:active { transform: scale(0.92); }
+        .attr-btn.selected {
+            border-color: var(--accent-color);
+            background-color: #2a2a24;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.25);
+        }
+
+        .attr-icon {
+            width: 100%;
+            max-width: 85px;
+            aspect-ratio: 1 / 1;
+            object-fit: contain;
+            pointer-events: none;
+        }
+
+        .content-box {
+            max-width: 650px;
+            width: 100%;
+            margin: 0 auto 20px auto;
+            background-color: var(--box-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px 12px;
+            display: none;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+
+        .content-box.active {
+            display: block;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .attr-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 8px 14px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .attr-header img { width: 32px; height: 32px; object-fit: contain; }
+        .attr-header .attr-title-text { font-size: 15px; font-weight: bold; color: var(--accent-color); }
+
         .box-container {
             max-width: 650px;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 30px auto;
             background-color: var(--box-bg);
             border: 2px solid var(--border-color);
             border-radius: 16px;
@@ -68,10 +143,13 @@
             grid-template-columns: repeat(5, 1fr);
             gap: 6px;
             width: 100%;
-            margin-bottom: 14px;
         }
-        .character-row:last-child {
-            margin-bottom: 0;
+
+        .character-row-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+            width: 100%;
         }
 
         .character-card {
@@ -98,6 +176,19 @@
             padding: 2px 5px;
             border-radius: 4px;
             border: 1px solid var(--border-color);
+            z-index: 1;
+        }
+
+        .attr-mini-badge {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            background: rgba(0,0,0,0.8);
+            border-radius: 3px;
+            padding: 1px;
             z-index: 1;
         }
 
@@ -130,6 +221,89 @@
             border-bottom: 2px solid var(--accent-color);
             padding-bottom: 6px;
         }
+
+        .link-btn-container {
+            display: flex;
+            gap: 12px;
+            max-width: 650px;
+            margin: 0 auto 15px auto;
+        }
+
+        .link-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .youtube-btn {
+            background: linear-gradient(135deg, #e60000 0%, #990000 100%);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 15px rgba(230, 0, 0, 0.25);
+        }
+
+        .kakao-btn {
+            background: linear-gradient(135deg, #ffe812 0%, #f7c600 100%);
+            color: #222222;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(254, 229, 0, 0.2);
+        }
+
+        /* 이스터에그 트랩 영역 */
+        .infinite-scroll-trap {
+            height: 2000px; 
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 60px;
+        }
+
+        .hidden-bottom-egg {
+            background: #1a1915;
+            border: 2px solid #ffcc00;
+            border-radius: 12px;
+            padding: 10px 16px;
+            text-align: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(60px) scale(0.8);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
+        }
+        .hidden-bottom-egg.reveal {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+        .hidden-bottom-egg img {
+            width: 70px;
+            height: 52px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        .hidden-bottom-egg .egg-label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #ffcc00;
+            margin-top: 5px;
+        }
+
+        .flash-effect { animation: flashGold 0.4s ease-in-out; }
+        @keyframes flashGold {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(2.5); }
+            100% { filter: brightness(1); }
+        }
     </style>
 </head>
 <body>
@@ -139,98 +313,253 @@
         <div class="tab-main-desc">속성별 추천 딜러 및 속공, 범용 캐릭터 순위표입니다.</div>
     </div>
 
-    <!-- 속성별 딜러 가이드 -->
-    <div class="box-container">
-        <div class="section-title" style="margin-top: 0;">속성별 추천 딜러</div>
-        
-        <div style="font-size: 12px; font-weight: bold; color: #ffcc00; margin: 10px 0 6px 2px;">빨간 적</div>
-        <div class="character-row">
-            <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">2위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">3위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">5위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-        </div>
+    <!-- 속성 선택 버튼 영역 -->
+    <div class="attribute-container">
+        <button class="attr-btn" onclick="toggleTab('red')"><img src="IMG_1478.png" class="attr-icon"></button>
+        <button class="attr-btn" onclick="toggleTab('floating')"><img src="IMG_1479.png" class="attr-icon"></button>
+        <button class="attr-btn" onclick="toggleTab('black')"><img src="IMG_1480.png" class="attr-icon"></button>
+        <button class="attr-btn" onclick="toggleTab('metal')"><img src="IMG_1481.png" class="attr-icon"></button>
+        <button class="attr-btn" onclick="toggleTab('angel')"><img src="IMG_1476.png" class="attr-icon"></button>
+        <button class="attr-btn" onclick="toggleTab('alien')"><img src="IMG_1483.png" class="attr-icon"></button>
+        <button class="attr-btn" onclick="toggleTab('zombie')"><img src="IMG_1484.png" class="attr-icon"></button>
+        <button class="attr-btn" onclick="toggleTab('relic')"><img src="IMG_1485.png" class="attr-icon"></button>
+        <button class="attr-btn" onclick="toggleTab('aku')"><img src="IMG_1486.png" class="attr-icon"></button>
+        <button class="attr-btn" onclick="toggleTab('white')"><img src="IMG_1487.png" class="attr-icon"></button>
+    </div>
 
-        <div style="font-size: 12px; font-weight: bold; color: #ffcc00; margin: 14px 0 6px 2px;">검은 적</div>
+    <!-- 1. 빨간 적 -->
+    <div id="red" class="content-box">
+        <div class="attr-header"><img src="IMG_1478.png"><span class="attr-title-text">빨간 적</span></div>
+        <div class="section-title" style="margin-top: 0;">딜러 Top 5</div>
         <div class="character-row">
-            <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">2위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">3위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">5위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-        </div>
-
-        <div style="font-size: 12px; font-weight: bold; color: #ffcc00; margin: 14px 0 6px 2px;">메탈 적</div>
-        <div class="character-row">
-            <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">2위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">3위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">5위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-        </div>
-
-        <div style="font-size: 12px; font-weight: bold; color: #ffcc00; margin: 14px 0 6px 2px;">천사</div>
-        <div class="character-row">
-            <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">2위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">3위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">5위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-        </div>
-
-        <div style="font-size: 12px; font-weight: bold; color: #ffcc00; margin: 14px 0 6px 2px;">에이리언</div>
-        <div class="character-row">
-            <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">2위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">3위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">5위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-        </div>
-
-        <div style="font-size: 12px; font-weight: bold; color: #ffcc00; margin: 14px 0 6px 2px;">고대 종</div>
-        <div class="character-row">
-            <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">2위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">3위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">5위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-        </div>
-
-        <div style="font-size: 12px; font-weight: bold; color: #ffcc00; margin: 14px 0 6px 2px;">악마</div>
-        <div class="character-row">
-            <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">2위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">3위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">5위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
+            <div class="character-card"><img src="IMG_1533.png" class="char-img"><div class="char-name">얼티밋・산디아β</div></div>
+            <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
+            <div class="character-card"><img src="IMG_1535.png" class="char-img"><div class="char-name">에바 개 2호기 코드777</div></div>
+            <div class="character-card"><img src="IMG_1536.png" class="char-img"><div class="char-name">묘권왕 파이파이DX</div></div>
+            <div class="character-card"><img src="IMG_1537.png" class="char-img"><div class="char-name">신성회장 잔다르크ψ</div></div>
         </div>
     </div>
 
-    <!-- 속공 및 범용 캐릭터 순위 -->
+    <!-- 2. 떠있는 적 -->
+    <div id="floating" class="content-box">
+        <div class="attr-header"><img src="IMG_1479.png"><span class="attr-title-text">떠있는 적</span></div>
+        <div class="section-title" style="margin-top: 0;">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1530.png" class="char-img"><div class="char-name">세이버 얼터CC</div></div>
+            <div class="character-card"><img src="IMG_1555.png" class="char-img"><div class="char-name">比古清十郎CC</div></div>
+            <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
+            <div class="character-card"><img src="IMG_1531.png" class="char-img"><div class="char-name">절영의 흑표</div></div>
+            <div class="character-card"><img src="IMG_1532.png" class="char-img"><div class="char-name">얼티밋・윈디α</div></div>
+        </div>
+    </div>
+
+    <!-- 3. 검은 적 -->
+    <div id="black" class="content-box">
+        <div class="attr-header"><img src="IMG_1480.png"><span class="attr-title-text">검은 적</span></div>
+        <div class="section-title" style="margin-top: 0;">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
+            <div class="character-card"><img src="IMG_1545.png" class="char-img"><div class="char-name">쌍둥이별 시시루와 코마리Φ</div></div>
+            <div class="character-card"><img src="IMG_1546.png" class="char-img"><div class="char-name">전설의 모험 소녀 칸나</div></div>
+            <div class="character-card"><img src="IMG_1519.png" class="char-img"><div class="char-name">비약의 무신・그리폰</div></div>
+            <div class="character-card"><img src="IMG_1531.png" class="char-img"><div class="char-name">절영의 흑표</div></div>
+        </div>
+    </div>
+
+    <!-- 4. 메탈 적 -->
+    <div id="metal" class="content-box">
+        <div class="attr-header"><img src="IMG_1481.png"><span class="attr-title-text">메탈 적</span></div>
+        <div class="section-title" style="margin-top: 0;">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1522.png" class="char-img"><div class="char-name">블레이드 마스터 스탈</div></div>
+            <div class="character-card"><img src="IMG_1523.png" class="char-img"><div class="char-name">울트라 대나무 공주</div></div>
+            <div class="character-card"><img src="IMG_1524.png" class="char-img"><div class="char-name">신검의 나나호</div></div>
+            <div class="character-card"><img src="IMG_1526.png" class="char-img"><div class="char-name">고양이 파라딘</div></div>
+            <div class="character-card"><img src="IMG_1566.png" class="char-img"><div class="char-name">행복한 신부 버베나</div></div>
+        </div>
+    </div>
+
+    <!-- 5. 천사 -->
+    <div id="angel" class="content-box">
+        <div class="attr-header"><img src="IMG_1476.png"><span class="attr-title-text">천사</span></div>
+        <div class="section-title" style="margin-top: 0;">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="galaxy/IMG_1967.png" class="char-img"><div class="char-name">アルティメットＸＸカリファ</div></div>
+            <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
+            <div class="character-card"><img src="IMG_1493.png" class="char-img"><div class="char-name">마미&고양이</div></div>
+            <div class="character-card"><img src="IMG_1494.png" class="char-img"><div class="char-name">카마도 탄지로CC</div></div>
+            <div class="character-card"><img src="IMG_1590.png" class="char-img"><div class="char-name">살신의 선함 NNN 고양이 분더</div></div>
+        </div>
+    </div>
+
+    <!-- 6. 에이리언 -->
+    <div id="alien" class="content-box">
+        <div class="attr-header"><img src="IMG_1483.png"><span class="attr-title-text">에이리언</span></div>
+        <div class="section-title" style="margin-top: 0;">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
+            <div class="character-card"><img src="IMG_1545.png" class="char-img"><div class="char-name">쌍둥이별 시시루와 코마리Φ</div></div>
+            <div class="character-card"><img src="IMG_1495.png" class="char-img"><div class="char-name">캣맨포에버</div></div>
+            <div class="character-card"><img src="IMG_1555.png" class="char-img"><div class="char-name">比古清十郎CC</div></div>
+            <div class="character-card"><img src="IMG_1587.png" class="char-img"><div class="char-name">G메가로디테</div></div>
+        </div>
+    </div>
+
+    <!-- 7. 좀비 -->
+    <div id="zombie" class="content-box">
+        <div class="attr-header"><img src="IMG_1484.png"><span class="attr-title-text">좀비</span></div>
+        <div class="section-title" style="margin-top: 0;">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
+            <div class="character-card"><img src="IMG_1554.png" class="char-img"><div class="char-name">황금의 미라공주 레이카</div></div>
+            <div class="character-card"><img src="IMG_1496.png" class="char-img"><div class="char-name">섬멸 송골매</div></div>
+            <div class="character-card"><img src="IMG_1522.png" class="char-img"><div class="char-name">블레이드 마스터 스탈</div></div>
+            <div class="character-card"><img src="IMG_1557.png" class="char-img"><div class="char-name">섀도우&고양이CC</div></div>
+        </div>
+    </div>
+
+    <!-- 8. 고대종 -->
+    <div id="relic" class="content-box">
+        <div class="attr-header"><img src="IMG_1485.png"><span class="attr-title-text">고대종</span></div>
+        <div class="section-title" style="margin-top: 0;">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1530.png" class="char-img"><div class="char-name">세이버 얼터CC</div></div>
+            <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
+            <div class="character-card"><img src="IMG_1554.png" class="char-img"><div class="char-name">황금의 미라공주 레이카</div></div>
+            <div class="character-card"><img src="IMG_1495.png" class="char-img"><div class="char-name">캣맨포에버</div></div>
+            <div class="character-card"><img src="IMG_1589.png" class="char-img"><div class="char-name">배드 블래스터 사키</div></div>
+        </div>
+    </div>
+
+    <!-- 9. 악마 -->
+    <div id="aku" class="content-box">
+        <div class="attr-header"><img src="IMG_1486.png"><span class="attr-title-text">악마</span></div>
+        <div class="section-title" style="margin-top: 0;">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1496.png" class="char-img"><div class="char-name">섬멸 송골매</div></div>
+            <div class="character-card"><img src="IMG_1497.png" class="char-img"><div class="char-name">사이토 하지메CC</div></div>
+            <div class="character-card"><img src="IMG_1492.png" class="char-img"><div class="char-name">여명의 이자나기</div></div>
+            <div class="character-card"><img src="IMG_1522.png" class="char-img"><div class="char-name">블레이드 마스터 스탈</div></div>
+            <div class="character-card"><img src="IMG_1559.png" class="char-img"><div class="char-name">不殺の流浪人・緋村剣心</div></div>
+        </div>
+    </div>
+
+    <!-- 10. 속성이 없는 적 -->
+    <div id="white" class="content-box">
+        <div class="attr-header"><img src="IMG_1487.png"><span class="attr-title-text">속성이 없는 적</span></div>
+        <div class="section-title" style="margin-top: 0;">딜러 Top 5</div>
+        <div class="character-row">
+            <div class="character-card"><img src="IMG_1561.png" class="char-img"><div class="char-name">흑걸 달타냥</div></div>
+            <div class="character-card"><img src="IMG_1563.png" class="char-img"><div class="char-name">암차신자 블랙 제우스</div></div>
+            <div class="character-card"><img src="IMG_1559.png" class="char-img"><div class="char-name">不殺の流浪人・緋村剣心</div></div>
+            <div class="character-card"><img src="IMG_1562.png" class="char-img"><div class="char-name">과학자 클레이G</div></div>
+            <div class="character-card"><img src="IMG_1588.png" class="char-img"><div class="char-name">황수 다크 가오우</div></div>
+        </div>
+    </div>
+
+    <!-- 속공 및 범용 캐릭터 순위 영역 -->
     <div class="category-divider">속공 및 범용 캐릭터 순위</div>
 
     <div class="box-container">
-        <div class="section-title" style="margin-top: 0;">속공 양산 딜러 Top 5</div>
-        <div class="character-row" style="margin-bottom: 20px;">
-            <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">2위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">3위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">5위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
+        <div class="section-title" style="margin-top: 0;">⚡ 속공 캐릭터 랭킹 Top 8</div>
+        <div class="character-row-4" style="margin-bottom: 20px;">
+            <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1500.png" class="char-img"><div class="char-name">각성의 고양이 무트</div></div>
+            <div class="character-card"><div class="rank-badge">2위</div><img src="IMG_1516.png" class="char-img"><div class="char-name">대광란의 고양이 라이온</div></div>
+            <div class="character-card"><div class="rank-badge">3위</div><img src="IMG_1517.png" class="char-img"><div class="char-name">귀습전투함 방망-E</div></div>
+            <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1520.png" class="char-img"><div class="char-name">스칸다 제타</div></div>
+            <div class="character-card"><div class="rank-badge">5위</div><img src="IMG_1518.png" class="char-img"><div class="char-name">냥코 익스프레스</div></div>
+            <div class="character-card"><div class="rank-badge">6위</div><img src="IMG_1519.png" class="char-img"><div class="char-name">비약의 무신・그리폰</div></div>
+            <div class="character-card"><div class="rank-badge">7위</div><img src="IMG_1497.png" class="char-img"><div class="char-name">사이토 하지메CC</div></div>
+            <div class="character-card"><div class="rank-badge">8위</div><img src="IMG_1521.png" class="char-img"><div class="char-name">블랑카CC</div></div>
         </div>
 
-        <div class="section-title">범용 고기방패 Top 5</div>
+        <div class="section-title">🔥 범용 양산딜러 Top 4</div>
+        <div class="character-row-4" style="margin-bottom: 20px;">
+            <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1568.png" class="char-img"><div class="char-name">울트라 석공 냥돌이</div></div>
+            <div class="character-card"><div class="rank-badge">2위</div><img src="IMG_1582.png" class="char-img"><div class="char-name">고양이 캉캉</div></div>
+            <div class="character-card"><div class="rank-badge">3위</div><img src="IMG_1569.png" class="char-img"><div class="char-name">배달 고양이</div></div>
+            <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1583.png" class="char-img"><div class="char-name">고양이 젤리만쥬</div></div>
+        </div>
+
+        <div class="section-title">🛡️ 범용 고기방패 Top 4</div>
+        <div class="character-row-4" style="margin-bottom: 25px;">
+            <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1570.png" class="char-img"><div class="char-name">메탈 고양이 빌더</div></div>
+            <div class="character-card"><div class="rank-badge">2위</div><img src="IMG_1571.png" class="char-img"><div class="char-name">고양이 강시</div></div>
+            <div class="character-card"><div class="rank-badge">3위</div><img src="IMG_1573.png" class="char-img"><div class="char-name">고양이 라면의 길</div></div>
+            <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1579.png" class="char-img"><div class="char-name">대광란의 고무 고양이</div></div>
+        </div>
+
+        <div class="section-title">🎯 속성별 추천 고기방패 (10종)</div>
         <div class="character-row">
-            <div class="character-card"><div class="rank-badge">1위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">2위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">3위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">4위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
-            <div class="character-card"><div class="rank-badge">5위</div><img src="IMG_1498.png" class="char-img"><div class="char-name">캐릭터명</div></div>
+            <div class="character-card"><img src="IMG_1478.png" class="attr-mini-badge"><img src="IMG_1578.png" class="char-img"><div class="char-name">고양이 래퍼</div></div>
+            <div class="character-card"><img src="IMG_1479.png" class="attr-mini-badge"><img src="IMG_1578.png" class="char-img"><div class="char-name">고양이 래퍼</div></div>
+            <div class="character-card"><img src="IMG_1480.png" class="attr-mini-badge"><img src="IMG_1577.png" class="char-img"><div class="char-name">크리스탈 꼬꼬마 가우</div></div>
+            <div class="character-card"><img src="IMG_1481.png" class="attr-mini-badge"><img src="IMG_1576.png" class="char-img"><div class="char-name">미래 고양이</div></div>
+            <div class="character-card"><img src="IMG_1476.png" class="attr-mini-badge"><img src="IMG_1573.png" class="char-img"><div class="char-name">고양이 라면의 길</div></div>
+            <div class="character-card"><img src="IMG_1483.png" class="attr-mini-badge"><img src="IMG_1580.png" class="char-img"><div class="char-name">고양이 위성</div></div>
+            <div class="character-card"><img src="IMG_1484.png" class="attr-mini-badge"><img src="IMG_1574.png" class="char-img"><div class="char-name">고양이 마스터</div></div>
+            <div class="character-card"><img src="IMG_1485.png" class="attr-mini-badge"><img src="IMG_1575.png" class="char-img"><div class="char-name">냥코콘</div></div>
+            <div class="character-card"><img src="IMG_1486.png" class="attr-mini-badge"><img src="IMG_1575.png" class="char-img"><div class="char-name">냥코콘</div></div>
+            <div class="character-card"><img src="IMG_1487.png" class="attr-mini-badge"><img src="IMG_1581.png" class="char-img"><div class="char-name">세뇌된 고무 고양이</div></div>
+        </div>
+    </div>
+
+    <div class="link-btn-container">
+        <a href="https://www.youtube.com/@미사카미코토" target="_blank" class="link-btn youtube-btn">▶ 디디잇 유튜브 구독</a>
+        <a href="https://open.kakao.com/o/pHG8yJOi" target="_blank" class="link-btn kakao-btn">💬 냥코 연구소 오픈채팅방</a>
+    </div>
+
+    <div class="infinite-scroll-trap">
+        <div class="hidden-bottom-egg" id="bottomEggCard" onclick="triggerEasterEgg2(this)">
+            <img src="IMG_1593.png">
+            <div class="egg-label">고양이 에그</div>
         </div>
     </div>
 
     <script>
+        let currentTargetId = null;
+
+        function toggleTab(targetId) {
+            const boxes = document.querySelectorAll('.content-box');
+            const buttons = document.querySelectorAll('.attr-btn');
+            const targetBox = document.getElementById(targetId);
+
+            if (currentTargetId === targetId) {
+                targetBox.classList.remove('active');
+                buttons.forEach(btn => btn.classList.remove('selected'));
+                currentTargetId = null;
+                sendHeight();
+                return;
+            }
+
+            boxes.forEach(box => box.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('selected'));
+
+            event.currentTarget.classList.add('selected');
+            targetBox.classList.add('active');
+            currentTargetId = targetId;
+
+            sendHeight();
+        }
+
+        // 부모 창(메인 index.html)의 스크롤을 감지해서 이스터에그 등장시킴
+        function checkScrollPosition() {
+            if (window.parent) {
+                const parentScrollBottom = window.parent.innerHeight + window.parent.scrollY;
+                const bodyHeight = document.body.offsetHeight;
+                
+                if (parentScrollBottom >= bodyHeight - 50) {
+                    const bottomEgg = document.getElementById('bottomEggCard');
+                    if (bottomEgg) bottomEgg.classList.add('reveal');
+                }
+            }
+        }
+
+        try {
+            window.parent.addEventListener('scroll', checkScrollPosition);
+        } catch(e) {}
+        window.addEventListener('scroll', checkScrollPosition);
+
         function sendHeight() {
             const currentHeight = document.body.scrollHeight;
             window.parent.postMessage({ type: 'resizeHeight', id: 'otherFrame', height: currentHeight }, '*');
@@ -239,6 +568,16 @@
         const observer = new ResizeObserver(() => { sendHeight(); });
         observer.observe(document.body);
         window.addEventListener('load', sendHeight);
+
+        function triggerEasterEgg2(cardElement) {
+            cardElement.classList.add('flash-effect');
+            setTimeout(() => {
+                if (window.parent && window.parent.openGlobalEeModal) {
+                    window.parent.openGlobalEeModal('scroll', "두루마리 휴지는 벽 쪽이 아니라 바깥쪽으로 풀리게 걸어둬야 쓸 때 훨씬 편합니다.");
+                }
+                cardElement.classList.remove('flash-effect');
+            }, 400);
+        }
     </script>
 </body>
 </html>
