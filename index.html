@@ -243,7 +243,7 @@
     <!-- 상단 네비게이션 바 (5개 카테고리 순서) -->
     <div class="main-tab-container">
         <button class="main-tab-btn active" onclick="switchMainTab('tier-section', this)">
-            <img src="사진" alt="티어리스트">
+            <img src="사딘" alt="티어리스트">
             <span>티어리스트</span>
         </button>
         <button class="main-tab-btn" onclick="switchMainTab('growth-section', this)">
@@ -322,11 +322,10 @@
         </div>
     </div>
 
-    <!-- [섹션 2] 육성가이드 -->
+    <!-- [섹션 2] 육성가이드 (growth.html 하나만 호출) -->
     <div id="growth-section" class="main-section">
-        <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; display: flex; flex-direction: column; gap: 15px;">
-            <iframe src="growth.html" id="growthFrame" class="tab-frame" style="height: 500px;" scrolling="no"></iframe>
-            <iframe src="combo.html" id="comboFrame" class="tab-frame" style="height: 1300px;" scrolling="no"></iframe>
+        <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto;">
+            <iframe src="growth.html" id="growthFrame" class="tab-frame" style="height: 1500px;" scrolling="no"></iframe>
         </div>
     </div>
 
@@ -337,11 +336,10 @@
         </div>
     </div>
 
-    <!-- [섹션 4] 기타순위표 -->
+    <!-- [섹션 4] 기타순위표 (other.html 하나만 호출) -->
     <div id="other-section" class="main-section">
-        <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto; display: flex; flex-direction: column; gap: 15px;">
-            <iframe src="attribute.html" id="attrFrame" class="tab-frame" style="height: 600px;" scrolling="no"></iframe>
-            <iframe src="rush.html" id="rushFrame" class="tab-frame" style="height: 1200px;" scrolling="no"></iframe>
+        <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto;">
+            <iframe src="other.html" id="otherFrame" class="tab-frame" style="height: 1800px;" scrolling="no"></iframe>
         </div>
     </div>
 
