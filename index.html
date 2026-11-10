@@ -100,26 +100,11 @@
             transition: width 0.2s ease;
         }
 
-        .main-tab-btn:hover {
-            color: #ccc;
-        }
-
-        .main-tab-btn:hover img {
-            opacity: 0.8;
-        }
-
-        .main-tab-btn.active {
-            color: var(--accent-color);
-        }
-
-        .main-tab-btn.active img {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        .main-tab-btn.active span::after {
-            width: 100%;
-        }
+        .main-tab-btn:hover { color: #ccc; }
+        .main-tab-btn:hover img { opacity: 0.8; }
+        .main-tab-btn.active { color: var(--accent-color); }
+        .main-tab-btn.active img { opacity: 1; transform: scale(1.1); }
+        .main-tab-btn.active span::after { width: 100%; }
 
         .main-section { display: none; }
         .main-section.active {
@@ -140,6 +125,96 @@
             transition: height 0.25s ease;
         }
 
+        /* --- 시리즈 일람표 (토글 & 그리드) --- */
+        .series-nav-wrapper {
+            background-color: var(--box-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 14px 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.4);
+        }
+
+        .series-toggle-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .series-toggle-btn {
+            flex: 1;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: #aaa;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .series-toggle-btn:hover { background-color: #2a2a2a; color: #fff; }
+        .series-toggle-btn.active {
+            background-color: #2a2a24;
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(255, 204, 0, 0.2);
+        }
+
+        .series-grid {
+            display: none;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        .series-grid.active {
+            display: grid;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .series-card-btn {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 6px 2px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.12s ease, border-color 0.15s ease, background-color 0.15s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .series-card-btn:hover {
+            border-color: var(--accent-color);
+            background-color: #25231c;
+            transform: translateY(-2px);
+        }
+
+        .series-card-btn:active { transform: scale(0.95); }
+
+        .series-card-img {
+            width: 100%;
+            max-width: 104px;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: 4px;
+            background-color: #000;
+        }
+
+        .series-card-name {
+            font-size: 10px;
+            margin-top: 5px;
+            font-weight: 600;
+            word-break: break-all;
+            color: #ddd;
+            line-height: 1.2;
+            width: 100%;
+            overflow: hidden;
+        }
+
         /* --- 검색창 (Sticky) --- */
         .tier-search-container {
             position: sticky;
@@ -152,10 +227,7 @@
             padding: 5px 0;
         }
 
-        .search-box-wrapper {
-            display: flex;
-            gap: 6px;
-        }
+        .search-box-wrapper { display: flex; gap: 6px; }
 
         .search-input {
             flex: 1;
@@ -169,9 +241,7 @@
             transition: border-color 0.2s ease;
         }
 
-        .search-input:focus {
-            border-color: var(--accent-color);
-        }
+        .search-input:focus { border-color: var(--accent-color); }
 
         .search-btn {
             background-color: var(--accent-color);
@@ -185,9 +255,7 @@
             transition: background 0.2s ease;
         }
 
-        .search-btn:hover {
-            background-color: #e6b800;
-        }
+        .search-btn:hover { background-color: #e6b800; }
 
         .autocomplete-list {
             position: absolute;
@@ -218,14 +286,8 @@
             border-bottom: 1px solid #333;
         }
 
-        .autocomplete-item:last-child {
-            border-bottom: none;
-        }
-
-        .autocomplete-item:hover {
-            background-color: #333333;
-            color: var(--accent-color);
-        }
+        .autocomplete-item:last-child { border-bottom: none; }
+        .autocomplete-item:hover { background-color: #333333; color: var(--accent-color); }
 
         .matched-chars {
             font-size: 11px;
@@ -272,6 +334,171 @@
             
             <iframe src="update.html" id="updateFrame" class="tab-frame" style="height: 140px; margin-bottom: 10px;" scrolling="no"></iframe>
 
+            <!-- 시리즈 일람표 (정규 / 콜라보 토글 및 풀네임 적용) -->
+            <div class="series-nav-wrapper">
+                <div class="series-toggle-buttons">
+                    <button class="series-toggle-btn active" onclick="switchSeriesTab('regular-grid', this)">정규 시리즈 일람표</button>
+                    <button class="series-toggle-btn" onclick="switchSeriesTab('collab-grid', this)">콜라보 시리즈 일람표</button>
+                </div>
+
+                <!-- 1. 정규 시리즈 그리드 -->
+                <div id="regular-grid" class="series-grid active">
+                    <div class="series-card-btn" onclick="scrollToSeriesById('dagunFrame')">
+                        <img src="dagun/IMG_1533.png" class="series-card-img">
+                        <div class="series-card-name">다이너마이트 군단</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('basarFrame')">
+                        <img src="basar/IMG_1519.png" class="series-card-img">
+                        <div class="series-card-name">초환수 바사라즈</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('galaxyFrame')">
+                        <img src="galaxy/IMG_1532.png" class="series-card-img">
+                        <div class="series-card-name">사이버 학원 갤럭시 걸즈</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('dragonFrame')">
+                        <img src="dragon/IMG_1638.png" class="series-card-img">
+                        <div class="series-card-name">초파괴 대제 드래곤 엠퍼러스</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('soulsFrame')">
+                        <img src="souls/IMG_1677.png" class="series-card-img">
+                        <div class="series-card-name">초고대 전설의 용사 울트라 소울즈</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('heroesFrame')">
+                        <img src="heroes/IMG_1678.png" class="series-card-img">
+                        <div class="series-card-name">진격의 영웅 다크 히어로즈</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('zeusFrame')">
+                        <img src="zeus/IMG_1691.png" class="series-card-img">
+                        <div class="series-card-name">궁극강림 기간트 제우스</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('ironFrame')">
+                        <img src="iron/IMG_1556.png" class="series-card-img">
+                        <div class="series-card-name">강철군대 아이언워즈</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('pixiesFrame')">
+                        <img src="pixies/IMG_1708.png" class="series-card-img">
+                        <div class="series-card-name">대정령 엘리멘탈 픽시즈</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('monstersFrame')">
+                        <img src="monsters/IMG_1717.png" class="series-card-img">
+                        <div class="series-card-name">절명 미소녀 걸즈 몬스터즈</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('lugaFrame')">
+                        <img src="luga/IMG_1722.png" class="series-card-img">
+                        <div class="series-card-name">전설의 고양이 루가족</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('festivalFrame')">
+                        <img src="festival/IMG_1741.png" class="series-card-img">
+                        <div class="series-card-name">인기 축제</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('bustersFrame')">
+                        <img src="busters/IMG_1536.png" class="series-card-img">
+                        <div class="series-card-name">바스터즈</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('ultraFrame')">
+                        <img src="ultra/IMG_1749.png" class="series-card-img">
+                        <div class="series-card-name">울트라 고양이 축제</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('hyperFrame')">
+                        <img src="hyper/IMG_1588.png" class="series-card-img">
+                        <div class="series-card-name">하이퍼 고양이 축제</div>
+                    </div>
+                </div>
+
+                <!-- 2. 콜라보 시리즈 그리드 -->
+                <div id="collab-grid" class="series-grid">
+                    <div class="series-card-btn" onclick="scrollToSeriesById('sweetFrame')">
+                        <img src="sweet/IMG_1533.png" class="series-card-img">
+                        <div class="series-card-name">발차기공주 돌격대</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('mercFrame')">
+                        <img src="merc/IMG_1533.png" class="series-card-img">
+                        <div class="series-card-name">메르크 스토리아</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('mamboFrame')">
+                        <img src="mambo/IMG_1533.png" class="series-card-img">
+                        <div class="series-card-name">살아남아라! 개복치</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('shoumetsuFrame')">
+                        <img src="shoumetsu/IMG_1533.png" class="series-card-img">
+                        <div class="series-card-name">소멸도시</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('metalFrame')">
+                        <img src="metal/IMG_1533.png" class="series-card-img">
+                        <div class="series-card-name">메탈슬러그</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('yuruFrame')">
+                        <img src="yuru/IMG_1533.png" class="series-card-img">
+                        <div class="series-card-name">유루드라실</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('madokaFrame')">
+                        <img src="madoka/IMG_1493.png" class="series-card-img">
+                        <div class="series-card-name">마법소녀 마도카☆마기카</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('crashFrame')">
+                        <img src="crash/IMG_1533.png" class="series-card-img">
+                        <div class="series-card-name">크래시 피버</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('gudeFrame')">
+                        <img src="gude/IMG_1533.png" class="series-card-img">
+                        <div class="series-card-name">구데타마</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('fateFrame')">
+                        <img src="fate/IMG_1530.png" class="series-card-img">
+                        <div class="series-card-name">Fate/stay night</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('powerproFrame')">
+                        <img src="powerpro/IMG_1533.png" class="series-card-img">
+                        <div class="series-card-name">실황 파워풀 프로야구</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('evanFrame')">
+                        <img src="evan/IMG_1535.png" class="series-card-img">
+                        <div class="series-card-name">에반게리온</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('bikkuriFrame')">
+                        <img src="bikkuri/IMG_1563.png" class="series-card-img">
+                        <div class="series-card-name">빅쿠리맨</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('strfigFrame')">
+                        <img src="strfig/IMG_1521.png" class="series-card-img">
+                        <div class="series-card-name">스트리트 파이터</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('mikuFrame')">
+                        <img src="miku/IMG_1533.png" class="series-card-img">
+                        <div class="series-card-name">하츠네 미쿠</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('ranmaFrame')">
+                        <img src="ranma/IMG_1533.png" class="series-card-img">
+                        <div class="series-card-name">란마 1/2</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('kunioFrame')">
+                        <img src="kunio/IMG_1498.png" class="series-card-img">
+                        <div class="series-card-name">열혈 시리즈</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('towerFrame')">
+                        <img src="tower/IMG_1533.png" class="series-card-img">
+                        <div class="series-card-name">Tower of Saviors</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('kenshinFrame')">
+                        <img src="kenshin/IMG_1497.png" class="series-card-img">
+                        <div class="series-card-name">바람의 검심</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('bakiFrame')">
+                        <img src="baki/IMG_1533.png" class="series-card-img">
+                        <div class="series-card-name">한마 바키</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('sonicFrame')">
+                        <img src="sonic/IMG_1557.png" class="series-card-img">
+                        <div class="series-card-name">소닉 더 헤지혹</div>
+                    </div>
+                    <div class="series-card-btn" onclick="scrollToSeriesById('dslayerFrame')">
+                        <img src="dslayer/IMG_1494.png" class="series-card-img">
+                        <div class="series-card-name">귀멸의 칼날</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 검색창 영역 -->
             <div class="tier-search-container">
                 <div class="search-box-wrapper">
                     <input type="text" id="searchInput" class="search-input" placeholder="시리즈명 또는 캐릭터 검색 (예: 다군, 야옹마)" autocomplete="off">
@@ -280,6 +507,7 @@
                 <ul id="autocompleteList" class="autocomplete-list"></ul>
             </div>
 
+            <!-- 시리즈 iframe 목록 -->
             <div style="display: flex; flex-direction: column; gap: 15px;">
                 <iframe src="dagun/dagun.html" id="dagunFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
                 <iframe src="basar/basar.html" id="basarFrame" class="tab-frame" style="height: 200px;" scrolling="no"></iframe>
@@ -324,7 +552,7 @@
         </div>
     </div>
 
-    <!-- [섹션 2] 육성가이드 (growth.html 하나만 호출) -->
+    <!-- [섹션 2] 육성가이드 -->
     <div id="growth-section" class="main-section">
         <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto;">
             <iframe src="growth.html" id="growthFrame" class="tab-frame" style="height: 1500px;" scrolling="no"></iframe>
@@ -338,7 +566,7 @@
         </div>
     </div>
 
-    <!-- [섹션 4] 기타순위표 (other.html 하나만 호출) -->
+    <!-- [섹션 4] 기타순위표 -->
     <div id="other-section" class="main-section">
         <div style="max-width: 650px; width: 100%; margin: 0 auto 30px auto;">
             <iframe src="other.html" id="otherFrame" class="tab-frame" style="height: 1800px;" scrolling="no"></iframe>
@@ -394,6 +622,22 @@
             { id: "ultraFrame", title: "울트라 고양이 축제", alias: ["울고축"], characters: [] },
             { id: "hyperFrame", title: "하이퍼 고양이 축제", alias: ["하고축"], characters: [] }
         ];
+
+        /* 일람표 토글 스위치 함수 */
+        function switchSeriesTab(gridId, btnEl) {
+            document.querySelectorAll('.series-grid').forEach(g => g.classList.remove('active'));
+            document.querySelectorAll('.series-toggle-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(gridId).classList.add('active');
+            btnEl.classList.add('active');
+        }
+
+        /* 일람표 카드를 누르면 해당 위치로 이동 & 자동으로 티어표 펼침 */
+        function scrollToSeriesById(frameId) {
+            const seriesObj = tierSeriesData.find(item => item.id === frameId);
+            if (seriesObj) {
+                selectAndNavigateSeries(seriesObj);
+            }
+        }
 
         function collectCharactersFromIframes() {
             tierSeriesData.forEach(item => {
