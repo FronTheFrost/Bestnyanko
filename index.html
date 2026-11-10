@@ -41,25 +41,27 @@
             width: 100%;
         }
 
-        /* 냥코DB 스타일 상단 네비게이션 바 */
+        /* 냥코DB 스타일 상단 네비게이션 바 (균등 간격 적용) */
         .main-tab-container {
             display: flex;
-            justify-content: center;
-            gap: 12px;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
             max-width: 650px;
             margin: 0 auto 24px auto;
             background-color: #1a1a1a;
             border: 2px solid var(--border-color);
             border-radius: 14px;
-            padding: 10px 8px;
+            padding: 10px 6px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
             overflow-x: auto;
         }
 
         .main-tab-btn {
+            flex: 1;
             background: transparent;
             border: none;
-            padding: 6px 10px;
+            padding: 6px 2px;
             cursor: pointer;
             text-align: center;
             display: flex;
