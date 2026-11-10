@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>육성가이드</title>
+    <title>육성 가이드</title>
     <style>
         :root {
             --bg-color: #121212;
@@ -24,6 +24,23 @@
             user-select: none;
             -webkit-user-select: none;
             overflow: visible !important;
+        }
+
+        /* 탭 대제목 스타일 */
+        .tab-main-header {
+            max-width: 650px;
+            margin: 0 auto 20px auto;
+            padding: 4px 2px;
+        }
+        .tab-main-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent-color);
+            margin-bottom: 4px;
+        }
+        .tab-main-desc {
+            font-size: 12px;
+            color: #aaa;
         }
 
         .box-container {
@@ -136,7 +153,7 @@
         }
 
         .combo-rank-title {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 800;
             color: var(--accent-color);
         }
@@ -144,6 +161,16 @@
         .combo-desc {
             font-size: 11px;
             color: #aaa;
+        }
+
+        .category-divider {
+            max-width: 650px;
+            margin: 30px auto 16px auto;
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 6px;
         }
 
         .link-btn-container {
@@ -184,6 +211,11 @@
 </head>
 <body>
 
+    <div class="tab-main-header">
+        <div class="tab-main-title">캐릭터 육성 및 조합 가이드</div>
+        <div class="tab-main-desc">필수 4단 진화, 초본능 추천 캐릭터 및 유용한 냥콤보 모음입니다.</div>
+    </div>
+
     <!-- 추천 4진 및 초본 섹션 -->
     <div class="box-container">
         <div class="section-title" style="margin-top: 0;">추천 4단 진화 Top 5</div>
@@ -205,11 +237,14 @@
         </div>
     </div>
 
-    <!-- 냥콤보 Best 9 섹션 -->
+    <!-- 냥콤보 섹션 구분선 -->
+    <div class="category-divider">필수 냥콤보 Best 9</div>
+
+    <!-- 냥콤보 Best 9 목록 -->
     <div class="combo-rank-box">
         <div class="combo-header">
             <span class="combo-rank-title">우습게 보지 말라냥!</span>
-            <span class="combo-desc">일 고양이의 초기 레벨 UP 【중】</span>
+            <span class="combo-desc">일 고양이의 초기 레벨 UP [중]</span>
         </div>
         <div class="character-row">
             <div class="character-card"><img src="IMG_1498.png" class="char-img"><div class="char-name">열혈경파 쿠니오군</div></div>
@@ -223,7 +258,7 @@
     <div class="combo-rank-box">
         <div class="combo-header">
             <span class="combo-rank-title">骨まで愛して</span>
-            <span class="combo-desc">캐릭터의 공격력 UP 【소】</span>
+            <span class="combo-desc">캐릭터의 공격력 UP [소]</span>
         </div>
         <div class="character-row">
             <div class="character-card"><img src="IMG_1566.png" class="char-img"><div class="char-name">행복한 신부 버베나</div></div>
@@ -236,8 +271,8 @@
 
     <div class="combo-rank-box">
         <div class="combo-header">
-            <span class="combo-rank-title">고양이 도련님&도련님 도련님</span>
-            <span class="combo-desc">일 고양이의 초기 레벨 UP 【소】& 초기 소지금 UP 【중】</span>
+            <span class="combo-rank-title">고양이 도련님 & 도련님 도련님</span>
+            <span class="combo-desc">일 고양이 초기 레벨 UP [소] & 초기 소지금 UP [중]</span>
         </div>
         <div class="character-row">
             <div class="character-card"><img src="IMG_1499.png" class="char-img"><div class="char-name">고양이 도령의 파파의 파파</div></div>
@@ -250,8 +285,8 @@
 
     <div class="combo-rank-box">
         <div class="combo-header">
-            <span class="combo-rank-title">잘 왔다냥!&살려 보내지 않겠다냥!</span>
-            <span class="combo-desc">캐릭터의 이동 속도 UP 【소】& 초기 소지금 UP 【소】</span>
+            <span class="combo-rank-title">잘 왔다냥! & 살려 보내지 않겠다냥!</span>
+            <span class="combo-desc">캐릭터 이동 속도 UP [소] & 초기 소지금 UP [소]</span>
         </div>
         <div class="character-row">
             <div class="character-card"><img src="IMG_1501.png" class="char-img"><div class="char-name">류이치 & 류지</div></div>
@@ -265,7 +300,7 @@
     <div class="combo-rank-box">
         <div class="combo-header">
             <span class="combo-rank-title">육공군 합동작전</span>
-            <span class="combo-desc">캐릭터의 공격력 UP 【중】</span>
+            <span class="combo-desc">캐릭터의 공격력 UP [중]</span>
         </div>
         <div class="character-row">
             <div class="character-card"><img src="IMG_1502.png" class="char-img"><div class="char-name">초전자전기 디아 볼로스</div></div>
@@ -279,7 +314,7 @@
     <div class="combo-rank-box">
         <div class="combo-header">
             <span class="combo-rank-title">바람을 의심</span>
-            <span class="combo-desc">연구력 UP 【중】</span>
+            <span class="combo-desc">연구력 UP [중]</span>
         </div>
         <div class="character-row">
             <div class="character-card"><img src="IMG_1504.png" class="char-img"><div class="char-name">망자탐정 비그라</div></div>
@@ -293,7 +328,7 @@
     <div class="combo-rank-box">
         <div class="combo-header">
             <span class="combo-rank-title">악에 물든 자들</span>
-            <span class="combo-desc">연구력 UP 【대】</span>
+            <span class="combo-desc">연구력 UP [대]</span>
         </div>
         <div class="character-row">
             <div class="character-card"><img src="IMG_1508.png" class="char-img"><div class="char-name">라스트 보스</div></div>
@@ -307,7 +342,7 @@
     <div class="combo-rank-box">
         <div class="combo-header">
             <span class="combo-rank-title">한숨</span>
-            <span class="combo-desc">연구력 UP 【중】</span>
+            <span class="combo-desc">연구력 UP [중]</span>
         </div>
         <div class="character-row">
             <div class="character-card"><img src="IMG_1509.png" class="char-img"><div class="char-name">카오란파사란</div></div>
@@ -321,7 +356,7 @@
     <div class="combo-rank-box">
         <div class="combo-header">
             <span class="combo-rank-title">긴 소매 선수권</span>
-            <span class="combo-desc">연구력 UP 【대】</span>
+            <span class="combo-desc">연구력 UP [대]</span>
         </div>
         <div class="character-row">
             <div class="character-card"><img src="IMG_1511.png" class="char-img"><div class="char-name">여우아가씨 하늘나리</div></div>
@@ -333,8 +368,8 @@
     </div>
 
     <div class="link-btn-container">
-        <a href="https://www.youtube.com/@미사카미코토" target="_blank" class="link-btn youtube-btn">▶ 디디잇 유튜브 구독</a>
-        <a href="https://open.kakao.com/o/pHG8yJOi" target="_blank" class="link-btn kakao-btn">💬 냥코 연구소 오픈채팅방</a>
+        <a href="https://www.youtube.com/@미사카미코토" target="_blank" class="link-btn youtube-btn">유튜브 구독</a>
+        <a href="https://open.kakao.com/o/pHG8yJOi" target="_blank" class="link-btn kakao-btn">오픈채팅방</a>
     </div>
 
     <script>
