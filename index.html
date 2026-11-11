@@ -298,6 +298,48 @@
             text-overflow: ellipsis;
             max-width: 180px;
         }
+
+        /* --- 우측 하단 플로팅 TOP 버튼 스타일 --- */
+        .top-scroll-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            background-color: var(--card-bg);
+            color: var(--accent-color);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .top-scroll-btn.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .top-scroll-btn:hover {
+            background-color: #2a231c;
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .top-scroll-btn:active {
+            transform: scale(0.92);
+        }
     </style>
 </head>
 <body>
@@ -580,6 +622,9 @@
         </div>
     </div>
 
+    <!-- 우측 하단 플로팅 TOP 버튼 추가 -->
+    <button id="topScrollBtn" class="top-scroll-btn" onclick="scrollToTop()">TOP</button>
+
     <script>
         const tierSeriesData = [
             { id: "dagunFrame", title: "다이너마이트 군단", alias: ["다군"], characters: [] },
@@ -805,6 +850,21 @@
                 }
             }
         });
+
+        /* 스크롤 감지하여 TOP 버튼 표시/숨김 처리 */
+        const topScrollBtn = document.getElementById('topScrollBtn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                topScrollBtn.classList.add('show');
+            } else {
+                topScrollBtn.classList.remove('show');
+            }
+        });
+
+        /* 맨 위로 부드럽게 이동하는 함수 */
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
         window.addEventListener('DOMContentLoaded', () => {
             const firstTabBtn = document.querySelector('.main-tab-btn');
