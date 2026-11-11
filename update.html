@@ -37,11 +37,24 @@
             margin-bottom: 8px;
             border-bottom: 1px solid #333;
             padding-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .patch-content {
             display: flex;
             flex-direction: column;
             gap: 6px;
+        }
+
+        /* 더보기 숨김/펼침 처리 클래스 */
+        .extra-patches {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .extra-patches.active {
+            display: flex;
         }
 
         /* 직관적인 카드형 변경 내역 스타일 */
@@ -141,14 +154,33 @@
             padding: 2px 5px;
             border-radius: 4px;
         }
+
+        /* 더보기 버튼 스타일 */
+        .toggle-more-btn {
+            background: transparent;
+            border: none;
+            color: var(--accent-color);
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 4px 0 0 0;
+            text-align: center;
+            width: 100%;
+            transition: opacity 0.2s ease;
+        }
+        .toggle-more-btn:hover {
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
 
     <div class="patch-notes-box">
-        <div class="patch-header">최근 변경 사항</div>
+        <div class="patch-header">
+            <span>최근 변경 사항</span>
+        </div>
         <div class="patch-content">
-            <!-- 인기 축제 신규 캐릭터 에타니스 추가 내역 -->
+            <!-- 1. 항상 보이는 최신 변경 내역 (인기 축제 에타니스) -->
             <div class="patch-row">
                 <div class="patch-char-info">
                     <div class="p-card">
@@ -160,53 +192,59 @@
                 <div class="patch-badge t-s">S</div>
             </div>
 
-            <!-- 걸즈 몬스터즈 버베나 티어 변경 내역 -->
-            <div class="patch-row">
-                <div class="patch-char-info">
-                    <div class="p-card">
-                        <img src="IMG_1566.png" alt="행복한 신부 버베나" onclick="goToMonstersTier()">
-                        <div class="p-name">행복한 신부 버베나</div>
+            <!-- 2. 더보기로 숨겨지는 나머지 변경 내역들 -->
+            <div id="extraPatches" class="extra-patches">
+                <!-- 걸즈 몬스터즈 버베나 티어 변경 내역 -->
+                <div class="patch-row">
+                    <div class="patch-char-info">
+                        <div class="p-card">
+                            <img src="IMG_1566.png" alt="행복한 신부 버베나" onclick="goToMonstersTier()">
+                            <div class="p-name">행복한 신부 버베나</div>
+                        </div>
+                        <span class="patch-desc">행복한 신부 버베나 티어 변경</span>
                     </div>
-                    <span class="patch-desc">행복한 신부 버베나 티어 변경</span>
+                    <div class="patch-badge change">
+                        <span class="tier-tag t-b">B</span>
+                        <span>➔</span>
+                        <span class="tier-tag t-sss">SSS</span>
+                    </div>
                 </div>
-                <div class="patch-badge change">
-                    <span class="tier-tag t-b">B</span>
-                    <span>➔</span>
-                    <span class="tier-tag t-sss">SSS</span>
+
+                <!-- 갤럭시 걸즈 칼리파 티어 변경 내역 -->
+                <div class="patch-row">
+                    <div class="patch-char-info">
+                        <div class="p-card">
+                            <img src="galaxy/IMG_1967.png" alt="アルティメットＸＸカリファ" onclick="goToGalaxyTier()">
+                            <div class="p-name">アルティメットＸＸカリファ</div>
+                        </div>
+                        <span class="patch-desc">アルティメットＸＸカリファ 티어 변경</span>
+                    </div>
+                    <div class="patch-badge change">
+                        <span class="tier-tag t-s">S</span>
+                        <span>➔</span>
+                        <span class="tier-tag t-ss">SS</span>
+                    </div>
+                </div>
+
+                <!-- 갤럭시 걸즈 카이 티어 변경 내역 -->
+                <div class="patch-row">
+                    <div class="patch-char-info">
+                        <div class="p-card">
+                            <img src="IMG_1514.png" alt="슈퍼 카이μ" onclick="goToGalaxyTier()">
+                            <div class="p-name">슈퍼 카이μ</div>
+                        </div>
+                        <span class="patch-desc">슈퍼 카이μ 티어 변경</span>
+                    </div>
+                    <div class="patch-badge change">
+                        <span class="tier-tag t-ss">SS</span>
+                        <span>➔</span>
+                        <span class="tier-tag t-s">S</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- 갤럭시 걸즈 칼리파 티어 변경 내역 -->
-            <div class="patch-row">
-                <div class="patch-char-info">
-                    <div class="p-card">
-                        <img src="galaxy/IMG_1967.png" alt="アルティメットＸＸカリファ" onclick="goToGalaxyTier()">
-                        <div class="p-name">アルティメットＸＸカリファ</div>
-                    </div>
-                    <span class="patch-desc">アルティメットＸＸカリファ 티어 변경</span>
-                </div>
-                <div class="patch-badge change">
-                    <span class="tier-tag t-s">S</span>
-                    <span>➔</span>
-                    <span class="tier-tag t-ss">SS</span>
-                </div>
-            </div>
-
-            <!-- 갤럭시 걸즈 카이 티어 변경 내역 -->
-            <div class="patch-row">
-                <div class="patch-char-info">
-                    <div class="p-card">
-                        <img src="IMG_1514.png" alt="슈퍼 카이μ" onclick="goToGalaxyTier()">
-                        <div class="p-name">슈퍼 카이μ</div>
-                    </div>
-                    <span class="patch-desc">슈퍼 카이μ 티어 변경</span>
-                </div>
-                <div class="patch-badge change">
-                    <span class="tier-tag t-ss">SS</span>
-                    <span>➔</span>
-                    <span class="tier-tag t-s">S</span>
-                </div>
-            </div>
+            <!-- 더보기 / 접기 토글 버튼 -->
+            <button id="toggleBtn" class="toggle-more-btn" onclick="togglePatchNotes()">변경 내역 더보기 ▾</button>
         </div>
     </div>
 
@@ -214,6 +252,20 @@
         function sendHeight() {
             const currentHeight = document.body.scrollHeight;
             window.parent.postMessage({ type: 'resizeHeight', id: 'updateFrame', height: currentHeight }, '*');
+        }
+
+        function togglePatchNotes() {
+            const extra = document.getElementById('extraPatches');
+            const btn = document.getElementById('toggleBtn');
+            extra.classList.toggle('active');
+            
+            if (extra.classList.contains('active')) {
+                btn.innerText = '변경 내역 접기 ▴';
+            } else {
+                btn.innerText = '변경 내역 더보기 ▾';
+            }
+            // 높이가 변하므로 부모 프레임에 크기 재전송
+            setTimeout(sendHeight, 50);
         }
 
         function goToFestivalTier() {
