@@ -138,7 +138,6 @@
         .series-toggle-buttons {
             display: flex;
             gap: 10px;
-            margin-bottom: 14px;
         }
 
         .series-toggle-btn {
@@ -166,6 +165,7 @@
             display: none;
             grid-template-columns: repeat(5, 1fr);
             gap: 8px;
+            margin-top: 14px;
         }
 
         .series-grid.active {
@@ -334,15 +334,15 @@
             
             <iframe src="update.html" id="updateFrame" class="tab-frame" style="height: 140px; margin-bottom: 10px;" scrolling="no"></iframe>
 
-            <!-- 시리즈 일람표 (정규 / 콜라보 토글 및 풀네임 적용) -->
+            <!-- 시리즈 일람표 (처음엔 숨김, 버튼 누를 때만 토글) -->
             <div class="series-nav-wrapper">
                 <div class="series-toggle-buttons">
-                    <button class="series-toggle-btn active" onclick="switchSeriesTab('regular-grid', this)">정규 시리즈 일람표</button>
-                    <button class="series-toggle-btn" onclick="switchSeriesTab('collab-grid', this)">콜라보 시리즈 일람표</button>
+                    <button id="regularToggleBtn" class="series-toggle-btn" onclick="toggleSeriesGrid('regular-grid', this)">정규 시리즈 일람표 ▾</button>
+                    <button id="collabToggleBtn" class="series-toggle-btn" onclick="toggleSeriesGrid('collab-grid', this)">콜라보 시리즈 일람표 ▾</button>
                 </div>
 
-                <!-- 1. 정규 시리즈 그리드 -->
-                <div id="regular-grid" class="series-grid active">
+                <!-- 1. 정규 시리즈 그리드 (기본 숨김) -->
+                <div id="regular-grid" class="series-grid">
                     <div class="series-card-btn" onclick="scrollToSeriesById('dagunFrame')">
                         <img src="dagun/IMG_1533.png" class="series-card-img">
                         <div class="series-card-name">다이너마이트 군단</div>
@@ -405,7 +405,7 @@
                     </div>
                 </div>
 
-                <!-- 2. 콜라보 시리즈 그리드 -->
+                <!-- 2. 콜라보 시리즈 그리드 (기본 숨김) -->
                 <div id="collab-grid" class="series-grid">
                     <div class="series-card-btn" onclick="scrollToSeriesById('sweetFrame')">
                         <img src="sweet/IMG_1533.png" class="series-card-img">
@@ -623,12 +623,26 @@
             { id: "hyperFrame", title: "하이퍼 고양이 축제", alias: ["하고축"], characters: [] }
         ];
 
-        /* 일람표 토글 스위치 함수 */
-        function switchSeriesTab(gridId, btnEl) {
+        /* 일람표 토글 스위치 함수 (클릭 시 열리고 닫힘) */
+        function toggleSeriesGrid(gridId, btnEl) {
+            const targetGrid = document.getElementById(gridId);
+            const isActive = targetGrid.classList.contains('active');
+
+            // 모든 그리드 닫고 버튼 초기화
             document.querySelectorAll('.series-grid').forEach(g => g.classList.remove('active'));
-            document.querySelectorAll('.series-toggle-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(gridId).classList.add('active');
-            btnEl.classList.add('active');
+            document.querySelectorAll('.series-toggle-btn').forEach(b => {
+                b.classList.remove('active');
+                if (b.id === 'regularToggleBtn') b.innerText = '정규 시리즈 일람표 ▾';
+                if (b.id === 'collabToggleBtn') b.innerText = '콜라보 시리즈 일람표 ▾';
+            });
+
+            // 안 열려있던 경우에만 열기
+            if (!isActive) {
+                targetGrid.classList.add('active');
+                btnEl.classList.add('active');
+                if (btnEl.id === 'regularToggleBtn') btnEl.innerText = '정규 시리즈 일람표 ▴';
+                if (btnEl.id === 'collabToggleBtn') btnEl.innerText = '콜라보 시리즈 일람표 ▴';
+            }
         }
 
         /* 일람표 카드를 누르면 해당 위치로 이동 & 자동으로 티어표 펼침 */
